@@ -6,6 +6,17 @@
     <title>X-Care Hospital</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 </head>
+<style>
+    .btn-blink {
+      animation: blink 1s infinite;
+    }
+
+    @keyframes blink {
+      0%   { opacity: 1; }
+      50%  { opacity: 0.4; }
+      100% { opacity: 1; }
+    }
+</style>
 <main>
     <!-- As a link -->
     <nav class="navbar bg-body-tertiary">
@@ -14,10 +25,10 @@
                 <img src="img/Hospital logo2.png" alt="Hospital Logo" width="70" height="60">
             </a>
             <div class="" role="group" aria-label="Hospital Actions">
-                <button type="button" class="btn btn-outline-success   m-2">Access Lab Reports</button>
-                <button type="button" class="btn btn-outline-primary  m-2">Appointment</button>
-                <button type="button" class="btn  btn-outline-danger  m-2">Emergency Ambulance</button>
-                <button type="button" class="btn btn-outline-dark m-4">Admin Login</button>
+                <button type="button" class="btn btn-outline-success btn-blink shadow  m-2">Access Lab Reports</button>
+                <button type="button" class="btn btn-outline-primary shadow-sm  m-2">Appointment</button>
+                <button type="button" class="btn  btn-outline-danger btn-blink m-2 shadow-sm ">Emergency Ambulance</button>
+                <button type="button" class="btn btn-outline-dark m-4 shadow" >Admin Login</button>
             </div>
         </div>
     </nav>
