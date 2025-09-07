@@ -8,12 +8,12 @@
 </head>
 <style>
     .btn-blink {
-      animation: blink 1s infinite;
+      animation: blink 2s infinite;
     }
 
     @keyframes blink {
       0%   { opacity: 1; }
-      50%  { opacity: 0.4; }
+      50%  { opacity: 0.6; }
       100% { opacity: 1; }
     }
 </style>
@@ -25,9 +25,9 @@
                 <img src="img/Hospital logo2.png" alt="Hospital Logo" width="70" height="60">
             </a>
             <div class="" role="group" aria-label="Hospital Actions">
-                <button type="button" class="btn btn-outline-success btn-blink shadow  m-2">Access Lab Reports</button>
-                <button type="button" class="btn btn-outline-primary shadow-sm  m-2">Appointment</button>
-                <button type="button" class="btn  btn-outline-danger btn-blink m-2 shadow-sm ">Emergency Ambulance</button>
+                <button type="button" class="btn btn-success btn-blink shadow-sm  m-2">Access Lab Reports</button>
+                <button type="button" class="btn btn-primary btn-blink shadow-sm  m-2">Appointment</button>
+                <button type="button" class="btn  btn-danger btn-blink m-2 shadow-sm ">Emergency Ambulance</button>
                 <button type="button" class="btn btn-outline-dark m-4 shadow" >Admin Login</button>
             </div>
         </div>
