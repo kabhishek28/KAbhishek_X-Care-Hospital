@@ -87,8 +87,23 @@
 
 
 </main>
-<body>
+<body >
+<div class="d-flex justify-content-center mt-5">
+<div class="card shadow-lg p-4 rounded-4  " style="width: 22rem;">
+    <h5 class="text-center mb-3">Admin Login</h5>
+    <form action="getotp" method="post">
+        <div class="mb-3">
+            <label for="gmailID" class="form-label">Email address</label>
+            <input type="email" class="form-control" id="gmailID" name="gmailName" placeholder="name@example.com" oninput="validationGmail()" required>
+            <div  id="emailError" class="input-text text-danger" style="min-height:25px;"></div>
+        </div>
+    <button type="submit" class="btn btn-primary w-100">Get OTP</button>
+    </form>
+</div>
+</div>
 
+
+<script src="resources/js/index.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 </body>
 <footer>
