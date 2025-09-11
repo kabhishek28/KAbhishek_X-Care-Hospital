@@ -1,4 +1,4 @@
-<!doctype html>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -96,7 +96,10 @@
             <label for="gmailID" class="form-label">Email address</label>
             <input type="email" class="form-control" id="gmailID" name="gmailName" placeholder="name@example.com" oninput="validationGmail()" required>
             <div  id="emailError" class="input-text text-danger" style="min-height:25px;"></div>
+            <c:out value="${message}" />
         </div>
+
+
     <button type="submit" class="btn btn-primary w-100">Get OTP</button>
     </form>
 </div>

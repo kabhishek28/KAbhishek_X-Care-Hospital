@@ -16,7 +16,7 @@ import javax.sql.DataSource;
 import java.sql.DriverManager;
 
 @Configuration
-@ComponentScan(basePackages = "com.xworkz.kabhishek_xcare_hospital.controller")
+@ComponentScan(basePackages = "com.xworkz.kabhishek_xcare_hospital")
 @EnableWebMvc
 public class HospitalConfiguration implements WebMvcConfigurer {
     public HospitalConfiguration(){
