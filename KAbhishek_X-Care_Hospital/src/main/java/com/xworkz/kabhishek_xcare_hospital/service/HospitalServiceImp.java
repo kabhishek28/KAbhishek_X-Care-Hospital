@@ -14,7 +14,8 @@ public class HospitalServiceImp implements HospitalService {
     @Override
     public String checkAdmin(String gmail) {
         AdminEntity adminEntity = hospitalRepository.checkAdmin(gmail);
-        if(adminEntity.getEmail().equals(gmail)){
+
+        if(adminEntity.getEmail() != null ){
             return "gmail exist";
         }
         return "gmail not exist";

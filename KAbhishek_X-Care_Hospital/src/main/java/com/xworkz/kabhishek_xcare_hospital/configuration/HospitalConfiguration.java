@@ -1,5 +1,6 @@
 package com.xworkz.kabhishek_xcare_hospital.configuration;
 
+import org.hibernate.mapping.Property;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -14,6 +15,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import javax.sql.DataSource;
 import java.sql.DriverManager;
+import java.util.Properties;
 
 @Configuration
 @ComponentScan(basePackages = "com.xworkz.kabhishek_xcare_hospital")
@@ -44,7 +46,23 @@ public class HospitalConfiguration implements WebMvcConfigurer {
         factoryBean.setDataSource(dataSource());
         factoryBean.setPackagesToScan("com.xworkz.kabhishek_xcare_hospital.entity");
         factoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
+        factoryBean.setJpaProperties(properties());
         return factoryBean;
+    }
+
+
+
+    @Bean
+    public Properties properties(){
+        Properties properties = new Properties();
+        properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL8Dialect");
+        properties.setProperty("hibernate.hbm2ddl.auto", "update");
+//        properties.setProperty("hibernate.show_sql", "true");
+//        properties.setProperty("hibernate.format_sql", "true");
+//        properties.setProperty("hibernate.cache.use_second_level_cache", "false");
+//        properties.setProperty("hibernate.cache.use_query_cache", "false");
+//        properties.setProperty("hibernate.jdbc.batch_size", "50");
+        return properties;
     }
 
     @Bean

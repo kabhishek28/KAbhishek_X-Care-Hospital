@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 @Data
 @Entity
 @Table(name = "admin_Table")
-@NamedQuery(name = "findAdminByGmail" , query = "select e from AdminEntity e where e.email =: emailBy")
+@NamedQuery(name = "findAdminByGmail" , query = "select e from AdminEntity e where  e.email =:emailBy")
 public class AdminEntity {
 
     @Id

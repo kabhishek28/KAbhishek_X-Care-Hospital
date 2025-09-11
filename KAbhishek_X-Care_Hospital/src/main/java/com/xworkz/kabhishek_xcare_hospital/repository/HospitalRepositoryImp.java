@@ -20,16 +20,12 @@ public class HospitalRepositoryImp implements HospitalRepository{
         try{
             entityManager = entityManagerFactory.createEntityManager();
             entityTransaction = entityManager.getTransaction();
-
             entityTransaction.begin();
-           Query query = entityManager.createNamedQuery("findAdminByGmail");
-           query.setParameter("emailBy" , gmail);
-           adminEntity = (AdminEntity) query.getSingleResult();
+            Query query = entityManager.createNamedQuery("findAdminByGmail");
+            query.setParameter("emailBy", gmail);
+            adminEntity = (AdminEntity) query.getSingleResult();
+            System.out.println(adminEntity);
             entityTransaction.commit();
-
-
-        }catch (NoResultException e) {
-            return null;
         }catch (Exception e){
             if(entityTransaction.isActive()){
                 entityTransaction.rollback();
