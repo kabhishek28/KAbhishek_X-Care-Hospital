@@ -7,7 +7,8 @@ import java.time.LocalDateTime;
 @Data
 @Entity
 @Table(name = "admin_Table")
-@NamedQuery(name = "findAdminByGmail" , query = "select e from AdminEntity e where  e.email =:emailBy")
+@NamedQuery(name = "findAdminByGmail" , query = "from AdminEntity e where e.email=:em")
+@NamedQuery(name = "countOfEmail",query = "select count(e.email) from AdminEntity e where e.email=:emailBy")
 public class AdminEntity {
 
     @Id
@@ -19,7 +20,7 @@ public class AdminEntity {
     private String email;
 
     @Column(name = "admin_otp")
-    private int otp;
+    private Integer otp;
 
     @Column(name = "admin_login_Date_Time")
     private LocalDateTime localDateTime;

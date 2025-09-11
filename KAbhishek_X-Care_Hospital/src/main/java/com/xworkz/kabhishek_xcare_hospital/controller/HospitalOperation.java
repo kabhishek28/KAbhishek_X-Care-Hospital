@@ -26,7 +26,7 @@ public class HospitalOperation {
         @RequestMapping("getotp")
         public ModelAndView adminLogIn(String gmailName , ModelAndView model){
             String value = hospitalService.checkAdmin(gmailName);
-            model.addObject("message" , value);
+            model.addObject("message",value);
             model.setViewName("admin");
             return model;
         }

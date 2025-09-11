@@ -96,7 +96,7 @@
     <form action="getotp" method="post">
         <div class="mb-3">
             <label for="gmailID" class="form-label">Email address</label>
-            <input type="email" class="form-control" id="gmailID" name="gmailName" placeholder="name@example.com" oninput="validationGmail()" required>
+            <input type="email" class="form-control" id="gmailID" name="gmailName" placeholder="name@example.com" oninput="validationGmail()" onchange="checkEmail()" required>
             <div  id="emailError" class="input-text text-danger" style="min-height:25px;"></div>
             <c:out value="${message}" />
         </div>
