@@ -91,20 +91,26 @@
 </main>
 <body >
 <div class="d-flex justify-content-center mt-5">
-<div class="card shadow-lg p-4 rounded-4  " style="width: 22rem;">
-    <h5 class="text-center mb-3">Admin Login</h5>
-    <form action="sendotp" method="post">
-        <div class="mb-3">
-            <label for="gmailID" class="form-label">Email address</label>
-            <input type="email" class="form-control" id="gmailID" name="gmailName" placeholder="name@example.com" oninput="validationGmail()" onchange="checkEmail()" required>
-            <div  id="emailError" class="input-text text-danger" style="min-height:25px;"></div>
-            <c:out value="${message}" />
-        </div>
+    <div class="card shadow-lg p-4 rounded-4  " style="width: 22rem;">
+        <h5 class="text-center mb-3">Admin Login</h5>
+        <form action="getotp" method="post">
+            <div class="mb-3">
+                <label for="gmailID" class="form-label">Email address</label>
+                <input type="email" class="form-control" id="gmailID" name="gmailName" placeholder="name@example.com" oninput="validationGmail()" onchange="checkEmail()" value="${gmail}" required>
+<!--                <div  id="emailError" class="input-text text-danger" style="min-height:25px;"></div>-->
+
+            </div>
+            <div class="mb-3">
+                <label for="OtplID" class="form-label">Enter Otp</label>
+                <input type="text" class="form-control" id="OtplID" name="otp" placeholder="Enter the OTP"   required>
+                <div  id="otpError" class="input-text text-danger" style="min-height:25px;"></div>
+<!--                <c:out value="${message}" />-->
+            </div>
 
 
-    <button type="submit" class="btn btn-primary w-100">Get OTP</button>
-    </form>
-</div>
+            <button type="submit" class="btn btn-primary w-100">Get OTP</button>
+        </form>
+    </div>
 </div>
 
 

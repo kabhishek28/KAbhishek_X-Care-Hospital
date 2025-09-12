@@ -14,8 +14,6 @@ public class RestController {
     @GetMapping("/checkEmail/{email}")
     public String checkmail(@PathVariable String email){
             int count=service.countEmail(email);
-        System.out.println(email);
-        System.out.println(count);
             if(count==0){
                 return "Email not exists";
             }else{

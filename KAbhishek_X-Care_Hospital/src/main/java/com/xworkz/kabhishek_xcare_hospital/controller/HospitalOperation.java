@@ -9,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 @RequestMapping("/")
 @Slf4j
@@ -23,12 +25,28 @@ public class HospitalOperation {
         return "admin";
     }
 
-        @RequestMapping("getotp")
-        public ModelAndView adminLogIn(String gmailName , ModelAndView model){
-            String value = hospitalService.checkAdmin(gmailName);
-            model.addObject("message",value);
-            model.setViewName("admin");
-            return model;
-        }
+//        @RequestMapping("getotp")
+//        public ModelAndView adminLogIn(String gmailName , ModelAndView model){
+//            String value = hospitalService.checkAdmin(gmailName);
+//            model.addObject("message",value);
+//            model.setViewName("admin");
+//            return model;
+//        }
 
+    @RequestMapping("sendotp")
+    public String adminLogIn(String gmailName , Model model , HttpSession session){
+
+        session.setAttribute("email" , gmailName);
+        String value = hospitalService.checkAdmin(gmailName ,session);
+
+
+       if(value.equals("gmail exist")){
+           model.addAttribute("gmail",session.getAttribute("email"));
+           return "otp";
+       }else {
+           session.invalidate();
+           model.addAttribute("message",value);
+           return "admin";
+       }
+    }
 }
