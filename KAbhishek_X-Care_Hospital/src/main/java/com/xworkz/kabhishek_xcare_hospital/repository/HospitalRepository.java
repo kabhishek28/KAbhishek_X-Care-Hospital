@@ -11,4 +11,6 @@ public interface HospitalRepository {
     int countEmail(String email);
 
     void saveOTP(String OTP , LocalDateTime localDateTime, HttpSession session);
+
+    AdminEntity getAdminEntity(String gmail);
 }

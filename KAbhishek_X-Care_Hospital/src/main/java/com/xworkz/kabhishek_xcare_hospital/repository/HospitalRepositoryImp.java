@@ -81,4 +81,29 @@ public class HospitalRepositoryImp implements HospitalRepository{
             entityManager.close();
         }
     }
+
+    @Override
+    public AdminEntity getAdminEntity(String gmail) {
+        EntityManager eM = null ;
+        EntityTransaction eT = null;
+        AdminEntity adminEntity = new AdminEntity();
+        try{
+            eM = entityManagerFactory.createEntityManager();
+            eT = eM.getTransaction();
+            eT.begin();
+            Query query= eM.createNamedQuery("getEntityByName");
+            query.setParameter("emailBy",gmail);
+            adminEntity = (AdminEntity) query.getSingleResult();
+            eT.commit();
+        }catch (Exception e){
+            e.printStackTrace();
+            if(eT.isActive()){
+                eT.rollback();
+            }
+        }finally {
+            eM.close();
+        }
+
+        return adminEntity;
+    }
 }

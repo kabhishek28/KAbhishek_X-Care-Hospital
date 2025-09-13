@@ -9,4 +9,6 @@ public interface HospitalService {
     int countEmail(String email);
 
     void saveOTP(String otp, LocalDateTime localDateTime ,HttpSession session);
+
+    boolean matchOtp(String gmail,String inputOTP);
 }

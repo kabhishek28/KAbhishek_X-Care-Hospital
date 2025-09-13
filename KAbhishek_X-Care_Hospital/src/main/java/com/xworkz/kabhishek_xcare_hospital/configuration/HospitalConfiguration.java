@@ -1,5 +1,6 @@
 package com.xworkz.kabhishek_xcare_hospital.configuration;
 
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.mapping.Property;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -20,9 +21,10 @@ import java.util.Properties;
 @Configuration
 @ComponentScan(basePackages = "com.xworkz.kabhishek_xcare_hospital")
 @EnableWebMvc
+@Slf4j
 public class HospitalConfiguration implements WebMvcConfigurer {
     public HospitalConfiguration(){
-        System.out.println("HospitalConfiguration................");
+        log.info("HospitalConfiguration................");
     }
 
 //    @Bean

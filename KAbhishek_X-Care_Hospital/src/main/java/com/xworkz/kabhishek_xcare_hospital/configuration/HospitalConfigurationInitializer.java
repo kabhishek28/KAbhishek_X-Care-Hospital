@@ -1,11 +1,13 @@
 package com.xworkz.kabhishek_xcare_hospital.configuration;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
+@Slf4j
 public class HospitalConfigurationInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
     public HospitalConfigurationInitializer(){
-        System.out.println("HospitalConfigurationInitializer.....................");
+        log.info("HospitalConfigurationInitializer.....................");
     }
 
     @Override

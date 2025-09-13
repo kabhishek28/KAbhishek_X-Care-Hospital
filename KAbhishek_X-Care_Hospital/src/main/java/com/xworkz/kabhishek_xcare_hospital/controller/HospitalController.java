@@ -1,7 +1,6 @@
 package com.xworkz.kabhishek_xcare_hospital.controller;
 
 import com.xworkz.kabhishek_xcare_hospital.service.HospitalService;
-import com.xworkz.kabhishek_xcare_hospital.service.HospitalServiceImp;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,7 +13,7 @@ import javax.servlet.http.HttpSession;
 @Controller
 @RequestMapping("/")
 @Slf4j
-public class HospitalOperation {
+public class HospitalController {
 
 
     @Autowired
@@ -49,4 +48,19 @@ public class HospitalOperation {
            return "admin";
        }
     }
+
+
+    @RequestMapping("login")
+    public ModelAndView loginPage(String gmailName , String otp ,ModelAndView modelAndView ){
+        boolean value = hospitalService.matchOtp(gmailName,otp);
+        if(value == true){
+            modelAndView.addObject("otpError","OTP MATCH");
+        }else {
+            modelAndView.addObject("otpError", "OTP NOT MATCH");
+        }
+        modelAndView.addObject("gmail",gmailName);
+        modelAndView.setViewName("otp");
+        return modelAndView;
+    }
+
 }

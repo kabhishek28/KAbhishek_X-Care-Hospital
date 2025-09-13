@@ -25,7 +25,6 @@ public  class HospitalServiceImp implements HospitalService {
         if(adminEntity.getEmail() == null){
             return "gmail not exist";
         }
-        System.out.println("==================================="+session.getAttribute("email"));
         String genOTP = sendEmail(adminEntity.getEmail(),generateOTP());
         LocalDateTime localDateTime = LocalDateTime.now();
         saveOTP(genOTP,localDateTime,session);
@@ -97,5 +96,14 @@ public  class HospitalServiceImp implements HospitalService {
     @Override
     public void saveOTP(String otp,LocalDateTime localDateTime,HttpSession session) {
         hospitalRepository.saveOTP(otp,localDateTime,session);
+    }
+
+    @Override
+    public boolean matchOtp(String gmail, String inputOTP) {
+        AdminEntity adminEntity = hospitalRepository.getAdminEntity(gmail);
+        if(!adminEntity.getOtp().equals(inputOTP)){
+            return false;
+        }
+        return true;
     }
 }

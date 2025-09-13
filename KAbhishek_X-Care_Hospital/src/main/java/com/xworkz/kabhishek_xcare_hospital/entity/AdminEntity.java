@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 @NamedQuery(name = "findAdminByGmail" , query = "from AdminEntity e where e.email=:em")
 @NamedQuery(name = "countOfEmail",query = "select count(e.email) from AdminEntity e where e.email=:emailBy")
 @NamedQuery(name = "updateOTPByGmail" , query = "UPDATE AdminEntity e SET e.otp=:otpby , e.localDateTime=:dateTime where e.email=:emailby")
+@NamedQuery(name = "getEntityByName" , query = "Select e from AdminEntity e where e.email =: emailBy")
 public class AdminEntity {
 
     @Id
