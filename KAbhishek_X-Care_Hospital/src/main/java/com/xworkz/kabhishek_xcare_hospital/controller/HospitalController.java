@@ -54,6 +54,7 @@ public class HospitalController {
     public ModelAndView loginPage(String gmailName , String otp ,ModelAndView modelAndView ){
         boolean value = hospitalService.matchOtp(gmailName,otp);
         if(value == true){
+
             modelAndView.addObject("otpError","OTP MATCH");
         }else {
             modelAndView.addObject("otpError", "OTP NOT MATCH");
