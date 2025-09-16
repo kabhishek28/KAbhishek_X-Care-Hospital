@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/")
@@ -32,32 +33,58 @@ public class HospitalController {
 //            return model;
 //        }
 
+//    @RequestMapping("sendotp")
+//    public String adminLogIn(String gmailName , Model model , HttpSession session){
+//
+//        session.setAttribute("email" , gmailName);
+//        String value = hospitalService.checkAdmin(gmailName ,session);
+//
+//
+//       if(value.equals("gmail exist")){
+//           model.addAttribute("gmail",session.getAttribute("email"));
+//
+//           return "otp";
+//       }else {
+//           session.invalidate();
+//           model.addAttribute("message",value);
+//           return "admin";
+//       }
+//    }
+
+
     @RequestMapping("sendotp")
-    public String adminLogIn(String gmailName , Model model , HttpSession session){
+    public String adminLogIn(String gmailName,Model model,HttpSession session){
+        session.setAttribute("email",gmailName);
+        Map<String,Object> response = hospitalService.checkAdmin(gmailName,session);
 
-        session.setAttribute("email" , gmailName);
-        String value = hospitalService.checkAdmin(gmailName ,session);
-
-
-       if(value.equals("gmail exist")){
-           model.addAttribute("gmail",session.getAttribute("email"));
-           return "otp";
-       }else {
-           session.invalidate();
-           model.addAttribute("message",value);
+        if(!(boolean) response.get("otpSent")){
+            model.addAttribute("error",response.get("message"));
+            model.addAttribute("gmail",session.getAttribute("email"));
            return "admin";
-       }
+        }
+        model.addAttribute("gmail", gmailName);
+        model.addAttribute("remainingTime", response.get("remainingTime"));
+        return "otp"; // JSP page where timer will be shown
     }
-
 
     @RequestMapping("login")
     public ModelAndView loginPage(String gmailName , String otp ,ModelAndView modelAndView ){
-        boolean value = hospitalService.matchOtp(gmailName,otp);
-        if(value == true){
-
+        String value = hospitalService.matchOtp(gmailName,otp);
+        if(value.equals("OTP Done")){
             modelAndView.addObject("otpError","OTP MATCH");
-        }else {
+            modelAndView.setViewName("home");
+            return modelAndView;
+        }else if(value.equals("OTP Wrong")) {
             modelAndView.addObject("otpError", "OTP NOT MATCH");
+            modelAndView.addObject("gmail",gmailName);
+            modelAndView.addObject("remainingTime", 150);
+            modelAndView.setViewName("otp");
+            return modelAndView;
+        }else if(value.equals("Time expired")){
+            modelAndView.addObject("gmail",gmailName);
+            modelAndView.addObject("time","Time Expired");
+            modelAndView.setViewName("otp");
+            return modelAndView;
         }
         modelAndView.addObject("gmail",gmailName);
         modelAndView.setViewName("otp");

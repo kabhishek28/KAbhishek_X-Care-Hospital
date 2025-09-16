@@ -1,6 +1,4 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page isELIgnored="false" %>
-
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -89,51 +87,8 @@
 
 
 </main>
-<script>
-    function startTimer(seconds) {
-            let timer = seconds;
-            const display = document.getElementById("timer");
-
-            const interval = setInterval(() => {
-                let minutes = Math.floor(timer / 60);
-                let secs = timer % 60;
-                display.innerHTML = minutes + ":" + (secs < 10 ? "0" : "") + secs;
-
-                if (--timer < 0) {
-                    clearInterval(interval);
-                    display.innerHTML = "OTP expired!";
-                }
-            }, 1000);
-        }
-</script>
-<body onload="startTimer(${remainingTime})" >
-<div class="d-flex justify-content-center mt-5">
-    <div class="card shadow-lg p-4 rounded-4  " style="width: 22rem;">
-        <h5 class="text-center mb-3">Admin Login</h5>
-        <form action="login" method="post">
-            <div class="mb-3">
-                <label for="gmailID" class="form-label">Email address</label>
-                <input type="email" class="form-control" id="gmailID" name="gmailName" placeholder="name@example.com" oninput="validationGmail()" onchange="checkEmail()" value="${gmail}" required>
-<!--                <div  id="emailError" class="input-text text-danger" style="min-height:25px;"></div>-->
-
-            </div>
-            <p id="timer"></p>
-            <div class="mb-3">
-
-                <label for="OtplID" class="form-label">Enter Otp</label>
-                <input type="text" class="form-control" id="OtplID" name="otp" placeholder="Enter the OTP"   required>
-                <div  id="otpError" class="input-text text-danger" style="min-height:25px;"></div>
-                <c:out value="${otpError}" />
-                <c:out value="${time}"/>
-            </div>
-
-            <button type="submit" class="btn btn-primary w-100">Log in</button>
-        </form>
-    </div>
-</div>
-
-
-<script src="resources/js/index.js"></script>
+<body>
+<h1>HOME PAGE</h1>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 </body>
 <footer>

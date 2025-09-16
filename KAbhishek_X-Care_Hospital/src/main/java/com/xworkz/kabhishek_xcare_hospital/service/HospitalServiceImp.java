@@ -12,6 +12,8 @@ import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpSession;
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 @Service
@@ -19,16 +21,34 @@ public  class HospitalServiceImp implements HospitalService {
     @Autowired
     HospitalRepository hospitalRepository;
 
+//    @Override
+//    public String checkAdmin(String gmail,HttpSession session) {
+//        AdminEntity adminEntity = hospitalRepository.checkAdmin(gmail);
+//        if(adminEntity.getEmail() == null){
+//            return "gmail not exist";
+//        }
+//        String genOTP = sendEmail(adminEntity.getEmail(),generateOTP());
+//        LocalDateTime localDateTime = LocalDateTime.now();
+//        LocalDateTime saveTime = saveOTP(genOTP,localDateTime,session);
+//        LocalDateTime expiryTime = saveTime.plusSeconds(150);
+//        return "gmail exist";
+//    }
+
     @Override
-    public String checkAdmin(String gmail,HttpSession session) {
+    public Map<String,Object> checkAdmin(String gmail, HttpSession session){
         AdminEntity adminEntity = hospitalRepository.checkAdmin(gmail);
+        Map<String,Object> response = new HashMap<>();
         if(adminEntity.getEmail() == null){
-            return "gmail not exist";
+            response.put("otpSent" , false);
+            response.put("message","Gmail Not exits");
+            return response;
         }
-        String genOTP = sendEmail(adminEntity.getEmail(),generateOTP());
-        LocalDateTime localDateTime = LocalDateTime.now();
-        saveOTP(genOTP,localDateTime,session);
-        return "gmail exist";
+        String  genOTP  = sendEmail(gmail,generateOTP());
+        LocalDateTime localDateTime = saveOTP(genOTP,LocalDateTime.now(),session);
+
+        response.put("otpSent", true);
+        response.put("remainingTime", 150);
+        return response;
     }
 
     public String generateOTP(){
@@ -94,16 +114,23 @@ public  class HospitalServiceImp implements HospitalService {
     }
 
     @Override
-    public void saveOTP(String otp,LocalDateTime localDateTime,HttpSession session) {
+    public LocalDateTime saveOTP(String otp,LocalDateTime localDateTime,HttpSession session) {
         hospitalRepository.saveOTP(otp,localDateTime,session);
+        return  localDateTime;
     }
 
     @Override
-    public boolean matchOtp(String gmail, String inputOTP) {
+    public String matchOtp(String gmail, String inputOTP) {
         AdminEntity adminEntity = hospitalRepository.getAdminEntity(gmail);
+        LocalDateTime generatedTime = adminEntity.getLocalDateTime();
+        LocalDateTime expiryTime = generatedTime.plusSeconds(150);
+
         if(!adminEntity.getOtp().equals(inputOTP)){
-            return false;
+            return "OTP Wrong";
         }
-        return true;
+        if(LocalDateTime.now().isAfter(expiryTime)){
+            return "Time expired";
+        }
+        return "OTP Done";
     }
 }
