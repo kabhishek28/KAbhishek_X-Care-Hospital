@@ -91,4 +91,14 @@ public class HospitalController {
         return modelAndView;
     }
 
+    @RequestMapping("getDoctor")
+    public String getDoctorForm(){
+        return "doctor";
+    }
+
+    @RequestMapping("doctorForm")
+    public String saveDoctorFrom(){
+
+    }
+
 }

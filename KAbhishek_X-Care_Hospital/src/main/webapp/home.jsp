@@ -47,7 +47,7 @@
                 <a class="nav-link text-white toggle" aria-current="page" href="#">About Us</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white toggle" aria-current="page" href="#">Doctors</a>
+                <a class="nav-link text-white toggle" aria-current="page" href="getDoctor">Doctors</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link text-white toggle" aria-current="page" href="#">Health Package</a>
@@ -88,7 +88,7 @@
 
 </main>
 <body>
-<h1>HOME PAGE</h1>
+<h1>HOME </h1>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 </body>
 <footer>
