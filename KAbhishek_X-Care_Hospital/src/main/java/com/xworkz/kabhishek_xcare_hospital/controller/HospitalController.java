@@ -1,5 +1,6 @@
 package com.xworkz.kabhishek_xcare_hospital.controller;
 
+import com.xworkz.kabhishek_xcare_hospital.dto.DoctorDTO;
 import com.xworkz.kabhishek_xcare_hospital.service.HospitalService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -97,8 +98,9 @@ public class HospitalController {
     }
 
     @RequestMapping("doctorForm")
-    public String saveDoctorFrom(){
-
+    public String saveDoctorFrom(DoctorDTO dto){
+        System.out.println(dto);
+return "doctor";
     }
 
 }

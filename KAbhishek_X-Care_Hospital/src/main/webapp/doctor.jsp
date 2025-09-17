@@ -1,13 +1,12 @@
-<!doctype html>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page isELIgnored="false" %>
+
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>X-Care Hospital</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-    <%@ page isELIgnored="false" %>
-<%@ page import="com.xworkz.kabhishek_xcare_hospital.constants.Specialty %>
 </head>
 <style>
     .btn-blink {
@@ -20,7 +19,6 @@
     }
  .dropdown-menu .dropdown-item:hover {
     background-color: #0055aa;
-<!--    color: #FFD700 !important;-->
     }
 </style>
 <main>
@@ -79,9 +77,6 @@
                     <li><a class="dropdown-item text-white" href="#">Dermatology</a></li>
                     <li><a class="dropdown-item text-white" href="#">Emergency Medicine</a></li>
                     <li><a class="dropdown-item text-white" href="#">Endocrinology and Diabetology</a></li>
-
-
-
                 </ul>
             </li>
         </ul>
@@ -101,12 +96,11 @@
                 <label for="inputName" class="form-label">Full Name</label>
                 <input type="text" class="form-control" id="inputName" name="doctorName" oninput="validationName()" placeholder="Dr. John Doe" required>
                 <div  id="nameError" class="input-text text-danger" style="min-height:25px;"></div>
-
             </div>
 
             <div class="col-md-6">
-                <label for="inputEmail" class="form-label">Email</label>
-                <input type="email" class="form-control" id="inputEmail" name="doctorEmail" oninput="validationGmail()" placeholder="doctor@example.com" required>
+                <label for="gmailID" class="form-label">Email</label>
+                <input type="email" class="form-control" id="gmailID" name="doctorEmail" oninput="validationGmail()" onchange="checkEmail()" placeholder="doctor@example.com" required>
                 <div id="emailError" class="input-text text-danger" style="min-height:25px;"></div>
             </div>
 
@@ -128,18 +122,18 @@
                 <label for="specialty" class="form-label" >Specialty</label>
                 <select id="specialty" name="specialty" class="form-select" required>
                     <option selected disabled>Choose specialty...</option>
-                    <option value="cardiology">Cardiology</option>
-                    <option value="dermatology">Dermatology</option>
-                    <option value="neurology">Neurology</option>
-                    <option value="orthopedics">Orthopedics</option>
-                    <option value="pediatrics">Pediatrics</option>
-                    <option value="psychiatry">Psychiatry</option>
-                    <option value="radiology">Radiology</option>
-                    <option value="general_medicine">General Medicine</option>
-                    <option value="surgery">Surgery</option>
-                    <option value="gynecology">Gynecology</option>
-                    <option value="ent">ENT</option>
-                    <option value="ophthalmology">Ophthalmology</option>
+                    <option value="CARDIOLOGY">Cardiology</option>
+                    <option value="DERMATOLOGY">Dermatology</option>
+                    <option value="NEUROLOGY">Neurology</option>
+                    <option value="ORTHOPEDICS">Orthopedics</option>
+                    <option value="PEDIATRICS">Pediatrics</option>
+                    <option value="PSYCHIATRY">Psychiatry</option>
+                    <option value="RADIOLOGY">Radiology</option>
+                    <option value="GENERAL_MEDICINE">General medicine</option>
+                    <option value="SURGERY">Surgery</option>
+                    <option value="GYNECOLOGY">Gynecology</option>
+                    <option value="ENT">Ent</option>   <!-- (problem: ENT becomes Ent) -->
+                    <option value="OPHTHALMOLOGY">Ophthalmology</option>
                 </select>
             </div>
 
@@ -157,12 +151,14 @@
 
             <div class="col-md-6">
                 <label for="qualification" class="form-label">Qualification</label>
-                <input type="text" class="form-control" id="qualification" name="qualification" placeholder="e.g., MBBS, MD" required>
+                <input type="text" class="form-control" id="qualification" name="qualification" placeholder="e.g., MBBS, MD" oninput="validateQualification()" required>
+                <div id="qualificationError" class="input-text text-danger" style="min-height:25px;"></div>
             </div>
 
             <div class="col-md-6">
                 <label for="experience" class="form-label">Experience (Years)</label>
                 <input type="number" class="form-control" id="experience" name="experience" placeholder="e.g., 10" min="0" max="60" required>
+
             </div>
 
             <div class="col-12">
@@ -170,14 +166,17 @@
                 <input type="file" class="form-control" id="photo" name="photo" accept="image/*" required>
             </div>
 
-            <!-- Submit -->
+
             <div class="col-12 text-center">
                 <button type="submit" class="btn btn-primary w-100">Register Doctor</button>
             </div>
         </form>
     </div>
 </div>
+<script src="resources/js/index.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
+
 </body>
 <footer>
 
