@@ -8,7 +8,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+
 public class DoctorDTO {
+
     private String doctorName;
     private String doctorEmail;
     private long doctorPhoneNo;
@@ -17,6 +19,7 @@ public class DoctorDTO {
     private String doctorGender;
     private String qualification;
     private int experience;
+    private String imagePath;
 
 
 }

@@ -1,8 +1,11 @@
 package com.xworkz.kabhishek_xcare_hospital.service;
 
+import com.xworkz.kabhishek_xcare_hospital.dto.DoctorDTO;
 import com.xworkz.kabhishek_xcare_hospital.entity.AdminEntity;
+import com.xworkz.kabhishek_xcare_hospital.entity.DoctorEntity;
 import com.xworkz.kabhishek_xcare_hospital.repository.HospitalRepository;
 import com.xworkz.kabhishek_xcare_hospital.repository.HospitalRepositoryImp;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -132,5 +135,12 @@ public  class HospitalServiceImp implements HospitalService {
             return "Time expired";
         }
         return "OTP Done";
+    }
+
+    @Override
+    public void saveDoctor(DoctorDTO dto) {
+        DoctorEntity doctorEntity = new DoctorEntity();
+        BeanUtils.copyProperties(dto,doctorEntity);
+        System.out.println(doctorEntity.getDoctorName());
     }
 }

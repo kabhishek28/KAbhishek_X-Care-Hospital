@@ -90,7 +90,10 @@
     <div class="card shadow-lg p-4 rounded-4" style="width: 40rem;">
         <h3 class="text-center mb-4">Doctor Registration</h3>
 
-        <form class="row g-3" action="doctorForm" method="post">
+        <form class="row g-3" action="doctorForm" method="post" enctype="multipart/form-data">
+
+
+            <img src="download?imagePath=${dto.imagePath}"></img>
 
             <div class="col-md-6">
                 <label for="inputName" class="form-label">Full Name</label>
@@ -162,8 +165,8 @@
             </div>
 
             <div class="col-12">
-                <label for="photo" class="form-label">Upload Profile Photo</label>
-                <input type="file" class="form-control" id="photo" name="photo" accept="image/*" required>
+                <label for="photo" class="form-label">Upload Profile Photo(png only)</label>
+                <input type="file" class="form-control" id="photo" name="photo" accept="image/png" required>
             </div>
 
 
