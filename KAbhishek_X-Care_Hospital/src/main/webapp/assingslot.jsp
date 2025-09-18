@@ -83,35 +83,43 @@
                     <li><a class="dropdown-item text-white" href="#">Dermatology</a></li>
                     <li><a class="dropdown-item text-white" href="#">Emergency Medicine</a></li>
                     <li><a class="dropdown-item text-white" href="#">Endocrinology and Diabetology</a></li>
-
-
-
                 </ul>
             </li>
         </ul>
     </nav>
 
-
-
 </main>
 <body>
 <h1>Define Slot timing </h1>
 <div class="d-flex justify-content-center mt-5">
-<div class="card shadow-lg p-4 rounded-4  " style="width: 22rem;">
-    <h5 class="text-center mb-3">Admin Login</h5>
-    <form action="saveSlotTiming" method="post">
-        <div class="mb-3">
-            <label for="startTimeID" class="form-label">Start time</label>
-            <input type="time" class="form-control" id="startTimeID" name="startTime" placeholder="__/__/____"   required>
-        </div>
-        <p>to</p>
-        <div class="mb-3">
-            <label for="endTimeID" class="form-label">End time</label>
-            <input type="time" class="form-control" id="endTimeID" name="endTime" placeholder="__/__/____"   required>
-        </div>
-        <button type="submit" class="btn btn-primary w-100">Set</button>
-    </form>
-</div>
+    <div class="card shadow-lg p-4 rounded-4" style="width: 24rem;">
+        <h5 class="text-center mb-4 fw-bold">Check Doctors</h5>
+        <form action="findDoctor" method="post">
+            <div class="mb-4">
+                <label for="specialty" class="form-label fw-semibold">Specialty</label>
+                <select id="specialty" name="specialty" class="form-select" required>
+                    <option selected disabled>Choose specialty...</option>
+                    <option value="CARDIOLOGY">Cardiology</option>
+                    <option value="DERMATOLOGY">Dermatology</option>
+                    <option value="NEUROLOGY">Neurology</option>
+                    <option value="ORTHOPEDICS">Orthopedics</option>
+                    <option value="PEDIATRICS">Pediatrics</option>
+                    <option value="PSYCHIATRY">Psychiatry</option>
+                    <option value="RADIOLOGY">Radiology</option>
+                    <option value="GENERAL_MEDICINE">General Medicine</option>
+                    <option value="SURGERY">Surgery</option>
+                    <option value="GYNECOLOGY">Gynecology</option>
+                    <option value="ENT">ENT</option>
+                    <option value="OPHTHALMOLOGY">Ophthalmology</option>
+                </select>
+            </div>
+
+
+            <div class="d-grid">
+                <button type="submit" class="btn btn-primary">Check Doctors</button>
+            </div>
+        </form>
+    </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>

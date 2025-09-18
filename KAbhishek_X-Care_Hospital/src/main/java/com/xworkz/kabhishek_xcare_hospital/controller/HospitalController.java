@@ -1,5 +1,6 @@
 package com.xworkz.kabhishek_xcare_hospital.controller;
 
+import com.xworkz.kabhishek_xcare_hospital.constants.Specialty;
 import com.xworkz.kabhishek_xcare_hospital.dto.DoctorDTO;
 import com.xworkz.kabhishek_xcare_hospital.dto.TimingSlotDTO;
 import com.xworkz.kabhishek_xcare_hospital.service.HospitalService;
@@ -156,5 +157,14 @@ public class HospitalController {
     }
 
     @RequestMapping("assingSlot")
+    public String assingSlotPage(){
+        return "assingslot";
+    }
+
+    @RequestMapping("findDoctor")
+    public String getDoctor(Specialty specialty){
+        System.out.println(specialty);
+        return "assingslot";
+    }
 
 }

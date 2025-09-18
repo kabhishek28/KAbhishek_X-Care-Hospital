@@ -20,4 +20,6 @@ public interface HospitalService {
     void saveDoctor(DoctorDTO dto);
 
     void saveTimeSlots(TimingSlotDTO timingSlotDTO);
+
+
 }
