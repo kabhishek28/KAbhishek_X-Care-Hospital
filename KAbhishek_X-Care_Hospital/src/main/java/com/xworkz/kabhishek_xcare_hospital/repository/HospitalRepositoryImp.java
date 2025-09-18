@@ -1,6 +1,8 @@
 package com.xworkz.kabhishek_xcare_hospital.repository;
 
 import com.xworkz.kabhishek_xcare_hospital.entity.AdminEntity;
+import com.xworkz.kabhishek_xcare_hospital.entity.DoctorEntity;
+import com.xworkz.kabhishek_xcare_hospital.entity.TimingSlotEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -105,5 +107,43 @@ public class HospitalRepositoryImp implements HospitalRepository{
         }
 
         return adminEntity;
+    }
+
+    @Override
+    public void saveDoctor(DoctorEntity doctorEntity) {
+        EntityManager eM = null ;
+        EntityTransaction eT = null;
+        try {
+            eM = entityManagerFactory.createEntityManager();
+            eT = eM.getTransaction();
+            eT.begin();
+            eM.persist(doctorEntity);
+            eT.commit();
+        }catch (Exception e){
+            if(eT.isActive()){
+                eT.rollback();
+            }
+        }finally {
+            eM.close();
+        }
+    }
+
+    @Override
+    public void saveTimingSlots(TimingSlotEntity timingSlotEntity) {
+        EntityManager eM = null;
+        EntityTransaction eT = null;
+        try {
+            eM = entityManagerFactory.createEntityManager();
+            eT = eM.getTransaction();
+            eT.begin();
+            eM.persist(timingSlotEntity);
+            eT.commit();
+        }catch (Exception e){
+            if(eT.isActive()){
+                eT.rollback();
+            }
+        }finally {
+            eM.close();
+        }
     }
 }

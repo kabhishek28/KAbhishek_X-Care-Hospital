@@ -1,6 +1,7 @@
 package com.xworkz.kabhishek_xcare_hospital.service;
 
 import com.xworkz.kabhishek_xcare_hospital.dto.DoctorDTO;
+import com.xworkz.kabhishek_xcare_hospital.dto.TimingSlotDTO;
 
 import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
@@ -17,4 +18,6 @@ public interface HospitalService {
     String matchOtp(String gmail,String inputOTP);
 
     void saveDoctor(DoctorDTO dto);
+
+    void saveTimeSlots(TimingSlotDTO timingSlotDTO);
 }

@@ -50,6 +50,13 @@
             <li class="nav-item">
                 <a class="nav-link text-white toggle" aria-current="page" href="#">Doctors</a>
             </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link text-white dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Slot</a>
+                <ul class="dropdown-menu  shadow" style="background-color: #003366;">
+                    <li><a class="dropdown-item text-white" href="setSlot">Define Slot Timing</a></li>
+                    <li><a class="dropdown-item text-white" href="assingSlot">Assign Slot to Doctor</a></li>
+                </ul>
+            </li>
             <li class="nav-item">
                 <a class="nav-link text-white toggle" aria-current="page" href="#">Health Package</a>
             </li>
@@ -92,8 +99,7 @@
 
         <form class="row g-3" action="doctorForm" method="post" enctype="multipart/form-data">
 
-
-            <img src="download?imagePath=${dto.imagePath}"></img>
+<!--            <img src="download?imagePath=${dto.imagePath}"></img>-->
 
             <div class="col-md-6">
                 <label for="inputName" class="form-label">Full Name</label>
@@ -178,7 +184,6 @@
 </div>
 <script src="resources/js/index.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-
 
 </body>
 <footer>

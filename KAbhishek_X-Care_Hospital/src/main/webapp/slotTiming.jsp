@@ -27,6 +27,7 @@
             <a class="navbar-brand" href="#">
                 <span><img src="img/Hospital logo3.png" alt="Hospital Logo" width="70" height="60"></span>
                 <span><img src="img/Hospital logo4.png" alt="Hospital Name" width="150" height="60"></span>
+
             </a>
             <div class="" role="group" aria-label="Hospital Actions">
                 <a type="button" class="btn btn-success btn-blink shadow-sm  me-2" href="#">Access Lab Reports</a>
@@ -52,7 +53,7 @@
                 <a class="nav-link text-white dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Slot</a>
                 <ul class="dropdown-menu  shadow" style="background-color: #003366;">
                     <li><a class="dropdown-item text-white" href="setSlot">Define Slot Timing</a></li>
-                    <li><a class="dropdown-item text-white" href="assingSlot">Assign Slot to Doctor</a></li>
+                    <li><a class="dropdown-item text-white" href="#">Assign Slot to Doctor</a></li>
                 </ul>
             </li>
             <li class="nav-item">
@@ -94,7 +95,26 @@
 
 </main>
 <body>
-<h1>HOME </h1>
+<h1>Define Slot timing </h1>
+<div class="d-flex justify-content-center mt-5">
+<div class="card shadow-lg p-4 rounded-4  " style="width: 22rem;">
+    <h5 class="text-center mb-3">Admin Login</h5>
+    <form action="saveSlotTiming" method="post">
+        <div class="mb-3">
+            <label for="startTimeID" class="form-label">Start time</label>
+            <input type="time" class="form-control" id="startTimeID" name="startTime" placeholder="__/__/____"   required>
+        </div>
+        <p>to</p>
+        <div class="mb-3">
+            <label for="endTimeID" class="form-label">End time</label>
+            <input type="time" class="form-control" id="endTimeID" name="endTime" placeholder="__/__/____"   required>
+
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Set</button>
+    </form>
+</div>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 </body>
 <footer>

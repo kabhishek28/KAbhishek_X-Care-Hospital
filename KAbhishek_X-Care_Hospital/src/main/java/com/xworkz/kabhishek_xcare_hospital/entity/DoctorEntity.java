@@ -8,6 +8,7 @@ import javax.persistence.*;
 @Data
 @Entity
 @Table(name = "doctor_table")
+
 public class DoctorEntity {
 
     @Id
@@ -39,5 +40,6 @@ public class DoctorEntity {
     @Column(name = "experience")
     private int experience;
 
+    @Column(name = "image_path")
     private String imagePath;
 }
