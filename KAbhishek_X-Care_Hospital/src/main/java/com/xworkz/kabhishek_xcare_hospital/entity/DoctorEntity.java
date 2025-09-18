@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Data
 @Entity
 @Table(name = "doctor_table")
-
+@NamedQuery(name = "findDoctorListBySpecialty", query = "select e from DoctorEntity e where e.specialty=:specialtyBy AND e.slotAssign is NULL")
 public class DoctorEntity {
 
     @Id
@@ -29,7 +29,7 @@ public class DoctorEntity {
     private String license_number;
 
     @Column(name = "specialty")
-    private Specialty specialty;
+    private String specialty;
 
     @Column(name = "doctor_Gender")
     private String doctorGender;
@@ -42,4 +42,7 @@ public class DoctorEntity {
 
     @Column(name = "image_path")
     private String imagePath;
+
+    @Column(name = "slot_assing")
+    private int slotAssign;
 }

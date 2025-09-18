@@ -1,5 +1,6 @@
 package com.xworkz.kabhishek_xcare_hospital.service;
 
+import com.xworkz.kabhishek_xcare_hospital.constants.Specialty;
 import com.xworkz.kabhishek_xcare_hospital.dto.DoctorDTO;
 import com.xworkz.kabhishek_xcare_hospital.dto.TimingSlotDTO;
 import com.xworkz.kabhishek_xcare_hospital.entity.AdminEntity;
@@ -14,10 +15,12 @@ import org.springframework.stereotype.Service;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.print.Doc;
 import javax.servlet.http.HttpSession;
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
@@ -153,5 +156,12 @@ public  class HospitalServiceImp implements HospitalService {
         BeanUtils.copyProperties(timingSlotDTO,timingSlotEntity);
         System.out.println(timingSlotEntity);
         hospitalRepository.saveTimingSlots(timingSlotEntity);
+    }
+
+    @Override
+    public void findDoctorList(String specialty) {
+List<DoctorEntity> list = hospitalRepository.findDoctorList(specialty);
+        System.out.println(list);
+//        list.stream().forEach(s-> System.out.println(s));
     }
 }

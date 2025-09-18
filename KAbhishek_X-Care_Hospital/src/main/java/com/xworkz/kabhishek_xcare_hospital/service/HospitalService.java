@@ -1,5 +1,6 @@
 package com.xworkz.kabhishek_xcare_hospital.service;
 
+import com.xworkz.kabhishek_xcare_hospital.constants.Specialty;
 import com.xworkz.kabhishek_xcare_hospital.dto.DoctorDTO;
 import com.xworkz.kabhishek_xcare_hospital.dto.TimingSlotDTO;
 
@@ -20,6 +21,8 @@ public interface HospitalService {
     void saveDoctor(DoctorDTO dto);
 
     void saveTimeSlots(TimingSlotDTO timingSlotDTO);
+
+    void findDoctorList(String specialty);
 
 
 }

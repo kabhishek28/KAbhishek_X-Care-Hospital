@@ -113,6 +113,7 @@ public class HospitalController {
 
     @RequestMapping("doctorForm")
     public String saveDoctorFrom(DoctorDTO dto , @RequestParam("photo") MultipartFile file,Model model) throws IOException {
+        System.out.println(dto.getSpecialty());
         byte[] photoSize=file.getBytes();
         Path imagePath=Paths.get("D:\\doctorfolder\\"+dto.getDoctorName()+System.currentTimeMillis()+".jpg");
         Files.write(imagePath,photoSize);
@@ -162,8 +163,9 @@ public class HospitalController {
     }
 
     @RequestMapping("findDoctor")
-    public String getDoctor(Specialty specialty){
+    public String getDoctor(String specialty){
         System.out.println(specialty);
+        hospitalService.findDoctorList(specialty);
         return "assingslot";
     }
 

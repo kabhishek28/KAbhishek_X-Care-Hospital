@@ -53,7 +53,7 @@
                 <a class="nav-link text-white dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Slot</a>
                 <ul class="dropdown-menu  shadow" style="background-color: #003366;">
                     <li><a class="dropdown-item text-white" href="setSlot">Define Slot Timing</a></li>
-                    <li><a class="dropdown-item text-white" href="#">Assign Slot to Doctor</a></li>
+                    <li><a class="dropdown-item text-white" href="assingSlot">Assign Slot to Doctor</a></li>
                 </ul>
             </li>
             <li class="nav-item">

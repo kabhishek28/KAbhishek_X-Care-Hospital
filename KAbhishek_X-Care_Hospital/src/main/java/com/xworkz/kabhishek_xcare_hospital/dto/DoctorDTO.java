@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.NamedQuery;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -15,7 +17,7 @@ public class DoctorDTO {
     private String doctorEmail;
     private long doctorPhoneNo;
     private String license_number;
-    private Specialty specialty;
+    private String specialty;
     private String doctorGender;
     private String qualification;
     private int experience;

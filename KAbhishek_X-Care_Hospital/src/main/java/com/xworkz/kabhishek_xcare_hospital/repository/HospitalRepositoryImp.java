@@ -1,5 +1,6 @@
 package com.xworkz.kabhishek_xcare_hospital.repository;
 
+import com.xworkz.kabhishek_xcare_hospital.constants.Specialty;
 import com.xworkz.kabhishek_xcare_hospital.entity.AdminEntity;
 import com.xworkz.kabhishek_xcare_hospital.entity.DoctorEntity;
 import com.xworkz.kabhishek_xcare_hospital.entity.TimingSlotEntity;
@@ -8,8 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.*;
+import javax.print.Doc;
 import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Repository
 @Slf4j
@@ -114,12 +118,14 @@ public class HospitalRepositoryImp implements HospitalRepository{
         EntityManager eM = null ;
         EntityTransaction eT = null;
         try {
+            System.out.println(doctorEntity);
             eM = entityManagerFactory.createEntityManager();
             eT = eM.getTransaction();
             eT.begin();
             eM.persist(doctorEntity);
             eT.commit();
         }catch (Exception e){
+            System.out.println(e.getMessage());
             if(eT.isActive()){
                 eT.rollback();
             }
@@ -145,5 +151,30 @@ public class HospitalRepositoryImp implements HospitalRepository{
         }finally {
             eM.close();
         }
+    }
+
+    @Override
+    public List<DoctorEntity> findDoctorList(String specialty) {
+        EntityManager eM = null;
+        EntityTransaction eT = null;
+        List<DoctorEntity> list = null;
+        try{
+            System.out.println("=========="+specialty);
+            eM = entityManagerFactory.createEntityManager();
+            eT = eM.getTransaction();
+            eT.begin();
+            Query query = eM.createNamedQuery("findDoctorListBySpecialty", DoctorEntity.class);
+            query.setParameter("specialtyBy",specialty);
+            list = query.getResultList();
+            eT.commit();
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            if(eT.isActive()){
+                eT.rollback();
+            }
+        }finally {
+            eM.close();
+        }
+        return list;
     }
 }
