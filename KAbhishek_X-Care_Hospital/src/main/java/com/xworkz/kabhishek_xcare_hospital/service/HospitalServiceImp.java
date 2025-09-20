@@ -1,13 +1,11 @@
 package com.xworkz.kabhishek_xcare_hospital.service;
 
-import com.xworkz.kabhishek_xcare_hospital.constants.Specialty;
 import com.xworkz.kabhishek_xcare_hospital.dto.DoctorDTO;
 import com.xworkz.kabhishek_xcare_hospital.dto.TimingSlotDTO;
 import com.xworkz.kabhishek_xcare_hospital.entity.AdminEntity;
 import com.xworkz.kabhishek_xcare_hospital.entity.DoctorEntity;
 import com.xworkz.kabhishek_xcare_hospital.entity.TimingSlotEntity;
 import com.xworkz.kabhishek_xcare_hospital.repository.HospitalRepository;
-import com.xworkz.kabhishek_xcare_hospital.repository.HospitalRepositoryImp;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +13,6 @@ import org.springframework.stereotype.Service;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import javax.print.Doc;
 import javax.servlet.http.HttpSession;
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
