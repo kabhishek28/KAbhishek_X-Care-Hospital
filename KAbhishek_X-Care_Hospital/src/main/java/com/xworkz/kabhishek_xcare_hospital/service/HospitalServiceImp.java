@@ -9,7 +9,6 @@ import com.xworkz.kabhishek_xcare_hospital.repository.HospitalRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
@@ -100,11 +99,7 @@ public  class HospitalServiceImp implements HospitalService {
                     + "Do not share this OTP with anyone for security reasons.\n\n"
                     + "Thank you,\n"
                     + "Support Team");
-
             Transport.send(message);
-
-
-
         } catch (MessagingException e) {
             e.printStackTrace();
         }
@@ -117,7 +112,6 @@ public  class HospitalServiceImp implements HospitalService {
     public int countEmail(String email) {
         return hospitalRepository.countEmail(email);
     }
-
     @Override
     public LocalDateTime saveOTP(String otp,LocalDateTime localDateTime,HttpSession session) {
         hospitalRepository.saveOTP(otp,localDateTime,session);
@@ -129,7 +123,6 @@ public  class HospitalServiceImp implements HospitalService {
         AdminEntity adminEntity = hospitalRepository.getAdminEntity(gmail);
         LocalDateTime generatedTime = adminEntity.getLocalDateTime();
         LocalDateTime expiryTime = generatedTime.plusSeconds(150);
-
         if(!adminEntity.getOtp().equals(inputOTP)){
             return "OTP Wrong";
         }
@@ -158,7 +151,9 @@ public  class HospitalServiceImp implements HospitalService {
     @Override
     public void findDoctorList(String specialty) {
 List<DoctorEntity> list = hospitalRepository.findDoctorList(specialty);
-        System.out.println(list);
+for(DoctorEntity doctorEntity : list) {
+    System.out.println("====" + doctorEntity.getDoctorName());
+}
 //        list.stream().forEach(s-> System.out.println(s));
     }
 }

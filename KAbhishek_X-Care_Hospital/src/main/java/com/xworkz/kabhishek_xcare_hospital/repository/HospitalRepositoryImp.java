@@ -156,25 +156,21 @@ public class HospitalRepositoryImp implements HospitalRepository{
     @Override
     public List<DoctorEntity> findDoctorList(String specialty) {
         EntityManager eM = null;
-        EntityTransaction eT = null;
-        List<DoctorEntity> list = null;
-        try{
-            System.out.println("=========="+specialty);
+        List<DoctorEntity> list = new ArrayList<>();
+        try {
             eM = entityManagerFactory.createEntityManager();
-            eT = eM.getTransaction();
-            eT.begin();
-            Query query = eM.createNamedQuery("findDoctorListBySpecialty", DoctorEntity.class);
-            query.setParameter("specialtyBy",specialty);
+            Query query = eM.createNamedQuery("findDoctorListBySpecialty");
+            query.setParameter("specialtyBy", specialty);
             list = query.getResultList();
-            eT.commit();
-        }catch (Exception e){
-            System.out.println(e.getMessage());
-            if(eT.isActive()){
-                eT.rollback();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (eM != null) {
+                eM.close();
             }
-        }finally {
-            eM.close();
         }
         return list;
     }
+
+
 }
