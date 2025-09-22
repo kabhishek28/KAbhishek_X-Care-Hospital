@@ -15,10 +15,7 @@ import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpSession;
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
+import java.util.*;
 
 @Service
 public  class HospitalServiceImp implements HospitalService {
@@ -141,16 +138,35 @@ public  class HospitalServiceImp implements HospitalService {
 
     @Override
     public void saveTimeSlots(TimingSlotDTO timingSlotDTO) {
-        System.out.println(timingSlotDTO);
         TimingSlotEntity timingSlotEntity = new TimingSlotEntity();
         BeanUtils.copyProperties(timingSlotDTO,timingSlotEntity);
-        System.out.println(timingSlotEntity);
         hospitalRepository.saveTimingSlots(timingSlotEntity);
     }
 
     @Override
-    public List<DoctorEntity> findDoctorList(String specialty) {
-        return hospitalRepository.findDoctorList(specialty);
+    public List<DoctorDTO> findDoctorList(String specialty) {
+
+        List<DoctorEntity> list =  hospitalRepository.findDoctorList(specialty);
+        List<DoctorDTO> doctors = new ArrayList<>();
+
+        for (DoctorEntity doctorEntity : list){
+            DoctorDTO doctorDTO = new DoctorDTO();
+            BeanUtils.copyProperties(doctorEntity,doctorDTO);
+            doctors.add(doctorDTO);
+        }
+
+        return doctors;
     }
 
+    @Override
+    public List<TimingSlotDTO> findTimingList(String specialty) {
+        List<TimingSlotEntity> list = hospitalRepository.findTimingList(specialty);
+        List<TimingSlotDTO> listDTO = new ArrayList<>();
+        for(TimingSlotEntity timingSlotEntity:list){
+            TimingSlotDTO timingSlotDTO = new TimingSlotDTO();
+            BeanUtils.copyProperties(timingSlotEntity,timingSlotDTO);
+            listDTO.add(timingSlotDTO);
+        }
+        return listDTO;
+    }
 }

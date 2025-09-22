@@ -23,4 +23,6 @@ public interface HospitalRepository {
     void saveTimingSlots(TimingSlotEntity timingSlotEntity);
 
     List<DoctorEntity> findDoctorList(String specialty);
+
+    List<TimingSlotEntity> findTimingList(String specialty);
 }

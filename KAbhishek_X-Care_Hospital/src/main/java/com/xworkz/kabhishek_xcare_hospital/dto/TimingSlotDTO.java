@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TimingSlotDTO {
+    private String specialty;
     private String startTime;
     private String endTime;
 }

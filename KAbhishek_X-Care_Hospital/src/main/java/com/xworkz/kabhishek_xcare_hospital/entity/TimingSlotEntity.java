@@ -7,12 +7,16 @@ import javax.persistence.*;
 @Data
 @Entity
 @Table(name = "timing_slot_table")
+@NamedQuery(name = "getTimeSlotBySpecialty",query = "select e from TimingSlotEntity e where e.specialty=:specialtyBy")
 public class TimingSlotEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
+
+    @Column(name = "specialty")
+    private String specialty;
 
     @Column(name = "start_time")
     private String startTime;

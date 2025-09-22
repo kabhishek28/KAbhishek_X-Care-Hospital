@@ -101,6 +101,24 @@
     <h5 class="text-center mb-3">Admin Login</h5>
     <form action="saveSlotTiming" method="post">
         <div class="mb-3">
+            <label for="specialty" class="form-label" >Specialty</label>
+            <select id="specialty" name="specialty" class="form-select" required>
+                <option selected disabled>Choose specialty...</option>
+                <option value="CARDIOLOGY">Cardiology</option>
+                <option value="DERMATOLOGY">Dermatology</option>
+                <option value="NEUROLOGY">Neurology</option>
+                <option value="ORTHOPEDICS">Orthopedics</option>
+                <option value="PEDIATRICS">Pediatrics</option>
+                <option value="PSYCHIATRY">Psychiatry</option>
+                <option value="RADIOLOGY">Radiology</option>
+                <option value="GENERAL_MEDICINE">General medicine</option>
+                <option value="SURGERY">Surgery</option>
+                <option value="GYNECOLOGY">Gynecology</option>
+                <option value="ENT">Ent</option>
+                <option value="OPHTHALMOLOGY">Ophthalmology</option>
+            </select>
+        </div>
+        <div class="mb-3">
             <label for="startTimeID" class="form-label">Start time</label>
             <input type="time" class="form-control" id="startTimeID" name="startTime" placeholder="__/__/____"   required>
         </div>

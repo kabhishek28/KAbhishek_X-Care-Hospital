@@ -154,14 +154,17 @@ public class HospitalRepositoryImp implements HospitalRepository{
     }
 
     @Override
-    public List<DoctorEntity    > findDoctorList(String specialty) {
+    public List<DoctorEntity> findDoctorList(String specialty) {
         EntityManager eM = null;
-        List<DoctorEntity> list = new ArrayList<>();
+        List<DoctorEntity> doctorList = new ArrayList<>();
+
         try {
             eM = entityManagerFactory.createEntityManager();
             Query query = eM.createNamedQuery("findDoctorListBySpecialty");
             query.setParameter("specialtyBy", specialty);
-            list = query.getResultList();
+            doctorList = query.getResultList();
+
+
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -169,8 +172,26 @@ public class HospitalRepositoryImp implements HospitalRepository{
                 eM.close();
             }
         }
-        return list;
+        return doctorList;
     }
 
+    @Override
+    public List<TimingSlotEntity> findTimingList(String specialty) {
+        EntityManager eM = null;
+        List<TimingSlotEntity> TimeList = new ArrayList<>();
+        try {
+            eM = entityManagerFactory.createEntityManager();
+            Query query = eM.createNamedQuery("getTimeSlotBySpecialty");
+            query.setParameter("specialtyBy", specialty);
+            TimeList = query.getResultList();
 
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (eM != null) {
+                eM.close();
+            }
+        }
+        return TimeList;
+    }
 }

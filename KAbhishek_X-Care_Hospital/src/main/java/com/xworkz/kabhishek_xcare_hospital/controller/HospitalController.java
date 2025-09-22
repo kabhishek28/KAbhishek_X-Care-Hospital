@@ -149,6 +149,7 @@ public class HospitalController {
 
     @RequestMapping("saveSlotTiming")
     public String saveSlotTiming(TimingSlotDTO timingSlot ){
+
         LocalTime start = LocalTime.parse(timingSlot.getStartTime(),DateTimeFormatter.ofPattern("HH:mm"));
         LocalTime end = LocalTime.parse(timingSlot.getEndTime(),DateTimeFormatter.ofPattern("HH:mm"));
 
@@ -170,20 +171,16 @@ public class HospitalController {
 
     @RequestMapping("findDoctor")
     public String getDoctor(String specialty,Model model) {
-        List<DoctorEntity> doctorsEntity = hospitalService.findDoctorList(specialty);
-        List<DoctorDTO> doctors = new ArrayList<>();
-
-        for (DoctorEntity doctorEntity : doctorsEntity){
-            DoctorDTO doctorDTO = new DoctorDTO();
-            BeanUtils.copyProperties(doctorEntity,doctorDTO);
-            doctors.add(doctorDTO);
-        }
+        List<DoctorDTO> doctors = hospitalService.findDoctorList(specialty);
+        List<TimingSlotDTO> timingSlot = hospitalService.findTimingList(specialty);
+        System.out.println(timingSlot);
 
 
         if (doctors.size()==0) {
             model.addAttribute("message", "Doctor not exists");
         } else {
             model.addAttribute("doctors", doctors);
+            model.addAttribute("slots",timingSlot);
         }
         return "assingslot";
     }

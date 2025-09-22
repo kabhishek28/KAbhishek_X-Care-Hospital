@@ -24,7 +24,11 @@ public interface HospitalService {
 
     void saveTimeSlots(TimingSlotDTO timingSlotDTO);
 
-    List<DoctorEntity> findDoctorList(String specialty);
+    List<DoctorDTO> findDoctorList(String specialty);
+
+    List<TimingSlotDTO> findTimingList(String specialty);
+
+
 
 
 }
