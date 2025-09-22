@@ -3,9 +3,11 @@ package com.xworkz.kabhishek_xcare_hospital.service;
 import com.xworkz.kabhishek_xcare_hospital.constants.Specialty;
 import com.xworkz.kabhishek_xcare_hospital.dto.DoctorDTO;
 import com.xworkz.kabhishek_xcare_hospital.dto.TimingSlotDTO;
+import com.xworkz.kabhishek_xcare_hospital.entity.DoctorEntity;
 
 import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Map;
 
 public interface HospitalService {
@@ -22,7 +24,7 @@ public interface HospitalService {
 
     void saveTimeSlots(TimingSlotDTO timingSlotDTO);
 
-    void findDoctorList(String specialty);
+    List<DoctorEntity> findDoctorList(String specialty);
 
 
 }

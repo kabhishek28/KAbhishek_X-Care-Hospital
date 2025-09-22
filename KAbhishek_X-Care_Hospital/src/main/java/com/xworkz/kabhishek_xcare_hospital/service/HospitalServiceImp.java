@@ -149,11 +149,8 @@ public  class HospitalServiceImp implements HospitalService {
     }
 
     @Override
-    public void findDoctorList(String specialty) {
-List<DoctorEntity> list = hospitalRepository.findDoctorList(specialty);
-for(DoctorEntity doctorEntity : list) {
-    System.out.println("====" + doctorEntity.getDoctorName());
-}
-//        list.stream().forEach(s-> System.out.println(s));
+    public List<DoctorEntity> findDoctorList(String specialty) {
+        return hospitalRepository.findDoctorList(specialty);
     }
+
 }

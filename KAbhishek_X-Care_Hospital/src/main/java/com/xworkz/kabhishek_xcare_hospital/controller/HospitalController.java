@@ -3,9 +3,11 @@ package com.xworkz.kabhishek_xcare_hospital.controller;
 import com.xworkz.kabhishek_xcare_hospital.constants.Specialty;
 import com.xworkz.kabhishek_xcare_hospital.dto.DoctorDTO;
 import com.xworkz.kabhishek_xcare_hospital.dto.TimingSlotDTO;
+import com.xworkz.kabhishek_xcare_hospital.entity.DoctorEntity;
 import com.xworkz.kabhishek_xcare_hospital.service.HospitalService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.print.Doc;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -24,7 +27,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.LongStream;
 
 @Controller
 @RequestMapping("/")
@@ -163,10 +169,22 @@ public class HospitalController {
     }
 
     @RequestMapping("findDoctor")
-    public String getDoctor(String specialty){
-        System.out.println(specialty);
-        hospitalService.findDoctorList(specialty);
+    public String getDoctor(String specialty,Model model) {
+        List<DoctorEntity> doctorsEntity = hospitalService.findDoctorList(specialty);
+        List<DoctorDTO> doctors = new ArrayList<>();
+
+        for (DoctorEntity doctorEntity : doctorsEntity){
+            DoctorDTO doctorDTO = new DoctorDTO();
+            BeanUtils.copyProperties(doctorEntity,doctorDTO);
+            doctors.add(doctorDTO);
+        }
+
+
+        if (doctors.size()==0) {
+            model.addAttribute("message", "Doctor not exists");
+        } else {
+            model.addAttribute("doctors", doctors);
+        }
         return "assingslot";
     }
-
 }

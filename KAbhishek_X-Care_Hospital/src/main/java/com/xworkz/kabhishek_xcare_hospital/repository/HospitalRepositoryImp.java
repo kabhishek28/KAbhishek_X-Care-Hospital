@@ -154,7 +154,7 @@ public class HospitalRepositoryImp implements HospitalRepository{
     }
 
     @Override
-    public List<DoctorEntity> findDoctorList(String specialty) {
+    public List<DoctorEntity    > findDoctorList(String specialty) {
         EntityManager eM = null;
         List<DoctorEntity> list = new ArrayList<>();
         try {
