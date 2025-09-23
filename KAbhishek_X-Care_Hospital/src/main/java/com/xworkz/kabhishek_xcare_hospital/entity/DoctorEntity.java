@@ -8,8 +8,9 @@ import javax.persistence.*;
 @Data
 @Entity
 @Table(name = "doctor_table")
-@NamedQuery(name = "findDoctorListBySpecialty", query = "select e from DoctorEntity e where e.specialty=:specialtyBy AND e.slotAssign is 0")
-@NamedQuery(name = "SetDoctorSlots",query = "update DoctorEntity d SET d.slotAssign = 1 where d.doctorEmail=:doctorEmailBy And d.specialty=:specialtyBy")
+@NamedQuery(name = "findDoctorListBySpecialty", query = "select e from DoctorEntity e where e.specialty=:specialtyBy ")
+@NamedQuery(name = "SetDoctorSlots",query = "update DoctorEntity d SET d.slotAssign = 1 , d.slotTiming=:slotTimingBy where d.doctorEmail=:doctorEmailBy And d.specialty=:specialtyBy")
+@NamedQuery(name = "checkDoctorListBySpecialty",query = "select e from DoctorEntity e where e.specialty=:specialtyBy" )
 public class DoctorEntity {
 
     @Id
@@ -44,6 +45,9 @@ public class DoctorEntity {
     @Column(name = "image_path")
     private String imagePath;
 
-    @Column(name = "slot_assing")
+    @Column(name = "slot_timing")
+    private String slotTiming;
+
+    @Column(name = "slot_assign")
     private int slotAssign;
 }

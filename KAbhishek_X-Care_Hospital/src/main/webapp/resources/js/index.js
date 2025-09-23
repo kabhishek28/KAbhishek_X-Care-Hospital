@@ -20,6 +20,16 @@ nameError.textContent="";
 }
 }
 
+function validationAge(){
+const inputAge = document.getElementById("ageID").value;
+const inputAgeError = document.getElementById("ageError");
+if(inputAge < 15){
+inputAgeError.textContent = "Age Should be more than 15."
+}else{
+inputAgeError.textContent="";
+}
+}
+
 function validationPhoneNo(){
 const inputPhoneNo = document.getElementById("inputPhone").value;
 const inputPhoneNoError = document.getElementById("phoneNoError");
@@ -55,6 +65,16 @@ function validateQualification() {
     }
 }
 
+
+function getDoctorEmail() {
+    const doctorSelect = document.getElementById("doctorID");
+    const emailInput = document.getElementById("gmailID");
+    const selectedOption = doctorSelect.options[doctorSelect.selectedIndex];
+    const email = selectedOption.getAttribute("data-email");
+    emailInput.value = email || "";
+}
+
+
 function checkEmail(){
 const emailInput = document.getElementById("gmailID").value;
 const emailError = document.getElementById("emailError");
@@ -64,32 +84,53 @@ xhttp.send();
 xhttp.onload=function(){
 emailError.innerHTML=this.responseText;
 }
-
 }
 
-function getDoctorMail(){
-const doctorName = document.getElementById("doctorID").value;
-const doctorNameError = document.getElementById("optionDoctorNameError");
+//function getDoctorMail(){
+//const doctorName = document.getElementById("doctorID").value;
+//const doctorNameError = document.getElementById("optionDoctorNameError");
+//const xhttp = new XMLHttpRequest();
+//xhttp.open("GET","http://localhost:8080/KAbhishek_X-Care_Hospital/getDoctorName/"+doctorName);
+//xhttp.send();
+//xhttp.onload=function(){
+//doctorNameError.innerHTML=this.responseText;
+//}
+//}
+
+
+
+function checkSpecialty(){
+const inputSpecialty = document.getElementById("specialty").value;
+const patientsError = document.getElementById("specialtyError");
 const xhttp = new XMLHttpRequest();
-xhttp.open("GET","http://localhost:8080/KAbhishek_X-Care_Hospital/getDoctorName/"+doctorName);
+xhttp.open("GET","http://localhost:8080/KAbhishek_X-Care_Hospital/getDoctorName/"+inputSpecialty);
 xhttp.send();
 xhttp.onload=function(){
-doctorNameError.innerHTML=this.responseText;
+patientsError.innerHTML = this.responseText;
 }
 }
 
-function getDoctorEmail() {
-    const doctorSelect = document.getElementById("doctorID");
-    const emailInput = document.getElementById("gmailID");
-
-
-    const selectedOption = doctorSelect.options[doctorSelect.selectedIndex];
-    const email = selectedOption.getAttribute("data-email");
-
-
-    emailInput.value = email || "";
+function checkSlotsAssigned(){
+const inputSlot = document.getElementById("timeID").value;
+const inputGmail = document.getElementById("gmailID").value;
+const existSlot = document.getElementById("existSlotsError");
+const xhttp = new XMLHttpRequest()
+xhttp.open("GET","http://localhost:8080/KAbhishek_X-Care_Hospital/getDoctorSlots/"+inputSlot+"/"+inputGmail);
+xhttp.send();
+xhttp.onload=function(){
+existSlot.innerHTML = this.responseText;
+}
 }
 
 
+function validateSlotForm() {
+    const existSlot = document.getElementById("existSlotsError").innerText.trim();
+
+    if (existSlot !== "") {
+        alert("Cannot submit: " + existSlot);
+        return false;
+    }
+    return true;
+}
 
 

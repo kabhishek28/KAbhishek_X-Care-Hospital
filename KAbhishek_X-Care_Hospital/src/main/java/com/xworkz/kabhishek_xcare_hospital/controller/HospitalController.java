@@ -1,13 +1,11 @@
 package com.xworkz.kabhishek_xcare_hospital.controller;
 
-import com.xworkz.kabhishek_xcare_hospital.constants.Specialty;
 import com.xworkz.kabhishek_xcare_hospital.dto.DoctorDTO;
+import com.xworkz.kabhishek_xcare_hospital.dto.DoctorWithSlotsDTO;
 import com.xworkz.kabhishek_xcare_hospital.dto.TimingSlotDTO;
-import com.xworkz.kabhishek_xcare_hospital.entity.DoctorEntity;
 import com.xworkz.kabhishek_xcare_hospital.service.HospitalService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.print.Doc;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -27,10 +24,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.LongStream;
 
 @Controller
 @RequestMapping("/")
@@ -46,6 +41,10 @@ public class HospitalController {
         return "admin";
     }
 
+    @RequestMapping("getHome")
+    public String getHomePage(){
+        return "home";
+    }
 //        @RequestMapping("getotp")
 //        public ModelAndView adminLogIn(String gmailName , ModelAndView model){
 //            String value = hospitalService.checkAdmin(gmailName);
@@ -164,9 +163,9 @@ public class HospitalController {
         return "slotTiming";
     }
 
-    @RequestMapping("assingSlot")
-    public String assingSlotPage(){
-        return "assingslot";
+    @RequestMapping("assignSlot")
+    public String assignSlotPage(){
+        return "assignslot";
     }
 
     @RequestMapping("findDoctor")
@@ -182,10 +181,10 @@ public class HospitalController {
             model.addAttribute("specialtyy",specialty);
             model.addAttribute("selectedSpecialty", specialty);
         }
-        return "assingslot";
+        return "assignslot";
     }
 
-//    @RequestMapping("/doctorSlotAssing")
+//    @RequestMapping("/doctorSlotAssign")
 //    public String assignDoctorSlot(@RequestParam(required=false) String doctorName,@RequestParam String specialty, Model model) {
 //        List<DoctorDTO> doctors = hospitalService.findDoctorList(specialty);
 //        model.addAttribute("doctors", doctors);
@@ -202,18 +201,42 @@ public class HospitalController {
 //            model.addAttribute("doctorEmail", email);
 //        }
 //
-//        return "assingslot"; // JSP page
+//        return "assignslot"; // JSP page
 //    }
 
 
-    @RequestMapping("doctorSlotAssing")
-    public String assingSlotWithDoctor( String optionDoctorName,String timings,String doctorEmail,String specialty){
-        String[] times = timings.split("\\|");
-        String startTime = times[0];
-        String endTime = times[1];
+    @RequestMapping("doctorSlotAssign")
+    public String assignSlotWithDoctor(DoctorWithSlotsDTO doctorWithSlots, Model model){
+        System.out.println(doctorWithSlots);
+        String value = hospitalService.saveDoctorWithSlots(doctorWithSlots);
 
-        String value = hospitalService.upDateDoctorAndSlots(doctorEmail,specialty,startTime,endTime);
 
-        return "";
+
+//        String[] times = timings.split("\\|");
+//        String startTime = times[0];
+//        String endTime = times[1];
+//
+//        String value = hospitalService.upDateDoctorAndSlots(doctorEmail,specialty, timings,startTime,endTime);
+//        System.out.println(value);
+//        if(!value.equals("Doctor updated: 1, Slot updated: 1")){
+//            model.addAttribute("messageAssign","Slot not Saved");
+//            return "assignslot";
+//        }else {
+//            model.addAttribute("messageAssignSaved","slot saved");
+//
+//        }
+        if(!value.equals("Data has been Saved")){
+            model.addAttribute("saveMessageError","Slot could not be assigned to the doctor.");
+            return "assignslot";
+        }else {
+            model.addAttribute("saveMessage","Slot has been successfully assigned to the doctor.");
+            return "assignslot";
+        }
+
+    }
+
+    @RequestMapping("getPatients")
+    public String getPatientsPage(){
+        return "patients";
     }
 }

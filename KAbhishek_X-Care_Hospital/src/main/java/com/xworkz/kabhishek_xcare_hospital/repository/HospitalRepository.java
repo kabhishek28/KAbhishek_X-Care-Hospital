@@ -1,8 +1,9 @@
 package com.xworkz.kabhishek_xcare_hospital.repository;
 
-import com.xworkz.kabhishek_xcare_hospital.constants.Specialty;
+import com.xworkz.kabhishek_xcare_hospital.dto.DoctorWithSlotsDTO;
 import com.xworkz.kabhishek_xcare_hospital.entity.AdminEntity;
 import com.xworkz.kabhishek_xcare_hospital.entity.DoctorEntity;
+import com.xworkz.kabhishek_xcare_hospital.entity.DoctorWithSlotsEntity;
 import com.xworkz.kabhishek_xcare_hospital.entity.TimingSlotEntity;
 
 import javax.servlet.http.HttpSession;
@@ -26,6 +27,13 @@ public interface HospitalRepository {
 
     List<TimingSlotEntity> findTimingList(String specialty);
 
-    String upDateDoctorAndSlots(String doctorEmail,String specialty,String startTime,String endTime);
+    String upDateDoctorAndSlots(String doctorEmail,String specialty,String timings,String startTime,String endTime);
 
+     int checkDoctorSlotsAssign(String doctorEmail, String slotTime);
+
+    List<DoctorEntity> checkDoctorList(String specialty);
+
+    List<TimingSlotEntity> checkTimingList(String specialty);
+
+    String saveDoctorWithSlots(DoctorWithSlotsEntity doctorWithSlotsEntity);
 }

@@ -40,7 +40,7 @@
     <nav class="navbar justify-content-center  " style="background-color: #003366;">
         <ul class="nav nav-underline d-flex align-items-center gap-5">
             <li class="nav-item">
-                <a class="nav-link text-white toggle" aria-current="page" href="#">Home</a>
+                <a class="nav-link text-white toggle" aria-current="page" href="getHome">Home</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link text-white toggle" aria-current="page" href="#">About Us</a>
@@ -48,11 +48,14 @@
             <li class="nav-item">
                 <a class="nav-link text-white toggle" aria-current="page" href="getDoctor">Doctors</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link text-white toggle" aria-current="page" href="getPatients">Patients Registration</a>
+            </li>
             <li class="nav-item dropdown">
                 <a class="nav-link text-white dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Slot</a>
                 <ul class="dropdown-menu  shadow" style="background-color: #003366;">
                     <li><a class="dropdown-item text-white" href="setSlot">Define Slot Timing</a></li>
-                    <li><a class="dropdown-item text-white" href="assingSlot">Assign Slot to Doctor</a></li>
+                    <li><a class="dropdown-item text-white" href="assignSlot">Assign Slot to Doctor</a></li>
                 </ul>
             </li>
             <li class="nav-item">
@@ -82,9 +85,6 @@
                     <li><a class="dropdown-item text-white" href="#">Dermatology</a></li>
                     <li><a class="dropdown-item text-white" href="#">Emergency Medicine</a></li>
                     <li><a class="dropdown-item text-white" href="#">Endocrinology and Diabetology</a></li>
-
-
-
                 </ul>
             </li>
         </ul>

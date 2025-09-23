@@ -1,9 +1,8 @@
 package com.xworkz.kabhishek_xcare_hospital.service;
 
-import com.xworkz.kabhishek_xcare_hospital.constants.Specialty;
 import com.xworkz.kabhishek_xcare_hospital.dto.DoctorDTO;
+import com.xworkz.kabhishek_xcare_hospital.dto.DoctorWithSlotsDTO;
 import com.xworkz.kabhishek_xcare_hospital.dto.TimingSlotDTO;
-import com.xworkz.kabhishek_xcare_hospital.entity.DoctorEntity;
 
 import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
@@ -28,9 +27,15 @@ public interface HospitalService {
 
     List<TimingSlotDTO> findTimingList(String specialty);
 
-    String upDateDoctorAndSlots(String doctorEmail,String specialty,String startTime,String endTime);
+    String upDateDoctorAndSlots(String doctorEmail,String specialty,String timings,String startTime,String endTime);
 
+    int checkDoctorSlotsAssign(String doctorEmail,String slotTime);
 
+    List<DoctorDTO> checkDoctorList(String specialty);
+
+    List<TimingSlotDTO> checkTimingList(String specialty);
+
+    String saveDoctorWithSlots(DoctorWithSlotsDTO doctorWithSlots);
 
 
 }

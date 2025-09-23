@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.NamedQuery;
@@ -26,4 +27,5 @@ public class DoctorDTO {
     private String qualification;
     private int experience;
     private String imagePath;
+    private String slotTiming;
 }

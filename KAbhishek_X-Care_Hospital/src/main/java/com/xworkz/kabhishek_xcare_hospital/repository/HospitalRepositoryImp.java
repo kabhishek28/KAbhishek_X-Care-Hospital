@@ -1,15 +1,15 @@
 package com.xworkz.kabhishek_xcare_hospital.repository;
 
-import com.xworkz.kabhishek_xcare_hospital.constants.Specialty;
+import com.xworkz.kabhishek_xcare_hospital.dto.DoctorWithSlotsDTO;
 import com.xworkz.kabhishek_xcare_hospital.entity.AdminEntity;
 import com.xworkz.kabhishek_xcare_hospital.entity.DoctorEntity;
+import com.xworkz.kabhishek_xcare_hospital.entity.DoctorWithSlotsEntity;
 import com.xworkz.kabhishek_xcare_hospital.entity.TimingSlotEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.*;
-import javax.print.Doc;
 import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -118,14 +118,14 @@ public class HospitalRepositoryImp implements HospitalRepository{
         EntityManager eM = null ;
         EntityTransaction eT = null;
         try {
-            System.out.println(doctorEntity);
+
             eM = entityManagerFactory.createEntityManager();
             eT = eM.getTransaction();
             eT.begin();
             eM.persist(doctorEntity);
             eT.commit();
         }catch (Exception e){
-            System.out.println(e.getMessage());
+            log.info(e.getMessage());
             if(eT.isActive()){
                 eT.rollback();
             }
@@ -196,7 +196,7 @@ public class HospitalRepositoryImp implements HospitalRepository{
     }
 
     @Override
-    public String upDateDoctorAndSlots(String doctorEmail, String specialty, String startTime, String endTime) {
+    public String upDateDoctorAndSlots(String doctorEmail, String specialty,String timings, String startTime, String endTime) {
         EntityManager eM = null;
         EntityTransaction eT = null;
         String message = "Update failed";
@@ -207,9 +207,10 @@ public class HospitalRepositoryImp implements HospitalRepository{
             Query query = eM.createNamedQuery("SetDoctorSlots");
             query.setParameter("doctorEmailBy",doctorEmail);
             query.setParameter("specialtyBy",specialty);
+            query.setParameter("slotTimingBy",timings);
             int doctorUpDate = query.executeUpdate();
 
-            Query query1 = eM.createNamedQuery("updateSlotAssing");
+            Query query1 = eM.createNamedQuery("updateSlotAssign");
             query1.setParameter("startTimeBy",startTime);
             query1.setParameter("endTimeBy",endTime);
             int slotUpDate = query1.executeUpdate();
@@ -226,5 +227,92 @@ public class HospitalRepositoryImp implements HospitalRepository{
             eM.close();
         }
         return message;
+    }
+
+    @Override
+    public int checkDoctorSlotsAssign(String doctorEmail, String slotTime) {
+        EntityManager eM = null;
+        EntityTransaction eT = null;
+        long count= 0L;
+        int converted_count = 0;
+        try {
+            eM = entityManagerFactory.createEntityManager();
+            eT = eM.getTransaction();
+            eT.begin();
+           Query query = eM.createNamedQuery("TimingSlotEntityCheckDoctorSlotExists");
+           query.setParameter("doctorEmailBy",doctorEmail);
+           query.setParameter("slotTimeBy",slotTime);
+            count = (long) query.getSingleResult();
+            converted_count=Math.toIntExact(count);
+        }catch (Exception e){
+            if(eT.isActive()){
+                eT.rollback();
+            }
+        }finally {
+            eM.close();
+        }
+        return converted_count;
+    }
+
+    @Override
+    public List<DoctorEntity> checkDoctorList(String specialty) {
+        EntityManager eM = null;
+        List<DoctorEntity> doctorList = new ArrayList<>();
+
+        try {
+            eM = entityManagerFactory.createEntityManager();
+            Query query = eM.createNamedQuery("checkDoctorListBySpecialty");
+            query.setParameter("specialtyBy", specialty);
+            doctorList = query.getResultList();
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (eM != null) {
+                eM.close();
+            }
+        }
+        return doctorList;
+    }
+
+    @Override
+    public List<TimingSlotEntity> checkTimingList(String specialty) {
+        EntityManager eM = null;
+        List<TimingSlotEntity> TimeList = new ArrayList<>();
+        try {
+            eM = entityManagerFactory.createEntityManager();
+            Query query = eM.createNamedQuery("checkTimeSlotBySpecialty");
+            query.setParameter("specialtyBy", specialty);
+            TimeList = query.getResultList();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (eM != null) {
+                eM.close();
+            }
+        }
+        return TimeList;
+    }
+
+    @Override
+    public String saveDoctorWithSlots(DoctorWithSlotsEntity doctorWithSlotsEntity) {
+        EntityManager eM = null;
+        EntityTransaction eT = null;
+        try {
+            eM = entityManagerFactory.createEntityManager();
+            eT = eM.getTransaction();
+            eT.begin();
+            eM.persist(doctorWithSlotsEntity);
+            eT.commit();
+        }catch (Exception e){
+            if(eT.isActive()){
+                eT.rollback();
+            }
+        }finally {
+            eM.close();
+        }
+        return "Data has been Saved";
     }
 }

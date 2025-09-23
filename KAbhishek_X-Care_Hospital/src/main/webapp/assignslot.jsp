@@ -43,7 +43,7 @@
     <nav class="navbar justify-content-center  " style="background-color: #003366;">
         <ul class="nav nav-underline d-flex align-items-center gap-5">
             <li class="nav-item">
-                <a class="nav-link text-white toggle" aria-current="page" href="#">Home</a>
+                <a class="nav-link text-white toggle" aria-current="page" href="getHome">Home</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link text-white toggle" aria-current="page" href="#">About Us</a>
@@ -51,11 +51,14 @@
             <li class="nav-item">
                 <a class="nav-link text-white toggle" aria-current="page" href="getDoctor">Doctors</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link text-white toggle" aria-current="page" href="getPatients">Patients Registration</a>
+            </li>
             <li class="nav-item dropdown">
                 <a class="nav-link text-white dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Slot</a>
                 <ul class="dropdown-menu  shadow" style="background-color: #003366;">
                     <li><a class="dropdown-item text-white" href="setSlot">Define Slot Timing</a></li>
-                    <li><a class="dropdown-item text-white" href="assingSlot">Assign Slot to Doctor</a></li>
+                    <li><a class="dropdown-item text-white" href="assignSlot">Assign Slot to Doctor</a></li>
                 </ul>
             </li>
             <li class="nav-item">
@@ -115,8 +118,6 @@
                     <option value="OPHTHALMOLOGY" ${selectedSpecialty == 'OPHTHALMOLOGY' ? "selected" : ""}>Ophthalmology</option>
                 </select>
             </div>
-
-
             <div class="d-grid">
                 <button type="submit" class="btn btn-primary">Check Doctors</button>
             </div>
@@ -129,14 +130,18 @@
         <p class="text-danger fw-bold text-center">${message}</p>
     </c:if>
 </div>
-
+<div>
+    <p class="text-danger fw-bold text-center">${saveMessageError}</p>
+    <p class="text-success  fw-bold text-center">${saveMessage}</p>
+</div>
 
 <div>
     <c:if test="${not empty doctors}">
         <div class="d-flex justify-content-center mt-5">
             <div class="card shadow-lg p-4 rounded-4" style="width: 24rem;">
                 <h5 class="text-center mb-4 fw-bold">Check Doctors</h5>
-                <form action="doctorSlotAssing" method="post">
+
+                <form action="doctorSlotAssign" method="post" onsubmit="return validateSlotForm()">
                     <div class="mb-4">
                         <label for="doctorID" class="form-label fw-semibold">Doctors</label>
                         <select id="doctorID" typeof="text" name="optionDoctorName" class="form-select" onchange="getDoctorEmail()" required>
@@ -146,39 +151,43 @@
                                     ${doc.doctorName}
                                 </option>
                             </c:forEach>
-
                         </select>
                     </div>
+
                     <div class="mb-4">
                         <label for="timeID" class="form-label fw-semibold">Timings Slot</label>
-                        <select id="timeID" name="timings" class="form-select" required>
+                        <select id="timeID" name="timings" class="form-select" onchange="checkSlotsAssigned()" required>
                             <option selected disabled>Choose Timings...</option>
                             <c:forEach var = "tim" items="${slots}">
-                                <option value="${tim.startTime}|${tim.endTime}">${tim.startTime} to ${tim.endTime}</option>
+                                <option value="${tim.startTime} to ${tim.endTime}">${tim.startTime} to ${tim.endTime}</option>
                             </c:forEach>
                         </select>
+                        <div  id="existSlotsError" class="input-text text-danger" style="min-height:25px;"></div>
                     </div>
+
                     <div class="col-md-6">
                         <label for="gmailID" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="gmailID" name="doctorEmail"
-                               value="${doctorEmail}" readonly>
+                        <input type="email" class="form-control" id="gmailID" name="doctorEmail" value="${doctorEmail}" readonly>
                         <div  id="optionDoctorNameError" class="input-text text-danger" style="min-height:25px;"></div>
-
                     </div>
 
                     <div class="mb-4">
                         <label class="form-label fw-semibold" for="specialtyID">Specialty</label>
                         <input type="text" class="form-control " id="specialtyID" name="specialty" value="${specialtyy}"  readonly>
                     </div>
+
                     <div class="d-grid">
-                        <button type="submit" class="btn btn-primary">Assing Slot</button>
+                        <button type="submit" class="btn btn-primary">Assign Slot</button>
                     </div>
                 </form>
             </div>
         </div>
     </c:if>
 </div>
-
+<div>
+    <p class="text-danger fw-bold text-center">${messageAssign}</p>
+    <p class="text-success  fw-bold text-center">${messageAssignSaved}</p>
+</div>
 
 
 

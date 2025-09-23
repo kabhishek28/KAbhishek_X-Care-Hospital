@@ -98,41 +98,68 @@
 <body>
 <div class="d-flex justify-content-center mt-5">
     <div class="card shadow-lg p-4 rounded-4" style="width: 40rem;">
-        <h3 class="text-center mb-4">Doctor Registration</h3>
+        <h3 class="text-center mb-4">Patient Registration</h3>
 
-        <form class="row g-3" action="doctorForm" method="post" enctype="multipart/form-data">
+        <form class="row g-3" action="patientsForm" method="post">
 
-<!--            <img src="download?imagePath=${dto.imagePath}"></img>-->
 
             <div class="col-md-6">
-                <label for="inputName" class="form-label">Doctor Name</label>
-                <input type="text" class="form-control" id="inputName" name="doctorName" oninput="validationName()" placeholder="Dr. John Doe" required>
+                <label for="inputName" class="form-label">Full Name</label>
+                <input type="text" class="form-control" id="inputName" name="patientName" oninput="validationName()" placeholder="John Doe" required>
                 <div  id="nameError" class="input-text text-danger" style="min-height:25px;"></div>
             </div>
 
-            <div class="col-md-6">
-                <label for="gmailID" class="form-label">Email</label>
-                <input type="email" class="form-control" id="gmailID" name="doctorEmail" oninput="validationGmail()" onchange="checkEmail()" placeholder="doctor@example.com" required>
-                <div id="emailError" class="input-text text-danger" style="min-height:25px;"></div>
-            </div>
 
             <div class="col-md-6">
-                <label for="inputPhone" class="form-label">Phone Number</label>
-                <input type="number" class="form-control" id="inputPhone" name="doctorPhoneNo" oninput="validationPhoneNo()" placeholder="+91 9876543210" required>
+                <label for="ageID" class="form-label">Age</label>
+                <input type="number" class="form-control" id="ageID" name="age" placeholder="30" oninput="validationAge()" min="0" max="120" required>
+                <div  id="ageError" class="input-text text-danger" style="min-height:25px;"></div>
+            </div>
+
+
+            <div class="col-md-6">
+                <label for="gender" class="form-label">Gender</label>
+                <select id="gender" name="gender" class="form-select" required>
+                    <option selected disabled>Choose...</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                    <option value="prefer_not_say">Prefer not to say</option>
+                </select>
+            </div>
+
+
+            <div class="col-md-6">
+                <label for="inputPhone" class="form-label">Contact Number</label>
+                <input type="tel" class="form-control" id="inputPhone" name="contact" oninput="validationPhoneNo()" placeholder="+91 9876543210" required>
                 <div id="phoneNoError" class="input-text text-danger" style="min-height:25px;"></div>
             </div>
 
 
+            <div class="col-12">
+                <label for="disease" class="form-label">Disease / Symptoms</label>
+                <input type="text" class="form-control" id="disease" name="disease" placeholder="Fever, Chest Pain..." required>
+            </div>
+
             <div class="col-md-6">
-                <label for="licenseNumber" class="form-label">License / Reg. No.</label>
-                <input type="text" class="form-control" id="licenseNumber" name="license_number" oninput="validateLicenseNo()" placeholder="e.g., MC-123456" required>
-                <div id="licenseError" class="input-text text-danger" style="min-height:25px;"></div>
+                <label for="bloodGroup" class="form-label">Blood Group</label>
+                <select id="bloodGroup" name="bloodGroup" class="form-select" required>
+                    <option selected disabled>Select blood group</option>
+                    <option value="A+">A+</option>
+                    <option value="A-">A-</option>
+                    <option value="B+">B+</option>
+                    <option value="B-">B-</option>
+                    <option value="O+">O+</option>
+                    <option value="O-">O-</option>
+                    <option value="AB+">AB+</option>
+                    <option value="AB-">AB-</option>
+                </select>
             </div>
 
 
             <div class="col-md-6">
                 <label for="specialty" class="form-label" >Specialty</label>
-                <select id="specialty" name="specialty" class="form-select" required>
+                <select id="specialty" name="specialty" class="form-select" onchange="checkSpecialty()" required>
                     <option selected disabled>Choose specialty...</option>
                     <option value="CARDIOLOGY">Cardiology</option>
                     <option value="DERMATOLOGY">Dermatology</option>
@@ -150,45 +177,58 @@
             </div>
 
 
+
             <div class="col-md-6">
-                <label for="gender" class="form-label">Gender</label>
-                <select id="gender" class="form-select" name="doctorGender" required>
-                    <option selected disabled>Choose...</option>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                    <option value="other">Other</option>
-                    <option value="prefer_not_say">Prefer not to say</option>
+                <label for="doctor" class="form-label">Doctor</label>
+                <select id="doctor" name="doctor" class="form-select" required>
+                    <option selected disabled>Select doctor</option>
+                    <!-- Populate dynamically from DB -->
+                    <option value="DR_KUMAR">Dr. A. Kumar</option>
+                    <option value="DR_MEHTA">Dr. S. Mehta</option>
+                    <option value="DR_SINGH">Dr. R. Singh</option>
                 </select>
             </div>
 
-            <div class="col-md-6">
-                <label for="qualification" class="form-label">Qualification</label>
-                <input type="text" class="form-control" id="qualification" name="qualification" placeholder="e.g., MBBS, MD" oninput="validateQualification()" required>
-                <div id="qualificationError" class="input-text text-danger" style="min-height:25px;"></div>
-            </div>
 
             <div class="col-md-6">
-                <label for="experience" class="form-label">Experience (Years)</label>
-                <input type="number" class="form-control" id="experience" name="experience" placeholder="e.g., 10" min="0" max="60" required>
-
+                <label for="appointmentTime" class="form-label">Appointment Time</label>
+                <select id="appointmentTime" name="appointmentTime" class="form-select" required>
+                    <option selected disabled>Select time</option>
+                    <!-- Populate dynamically -->
+                    <option value="MORNING">09:00 AM - 11:00 AM</option>
+                    <option value="NOON">11:00 AM - 01:00 PM</option>
+                    <option value="AFTERNOON">02:00 PM - 04:00 PM</option>
+                    <option value="EVENING">04:00 PM - 06:00 PM</option>
+                </select>
             </div>
 
             <div class="col-12">
-                <label for="photo" class="form-label">Upload Profile Photo(png only)</label>
-                <input type="file" class="form-control" id="photo" name="photo" accept="image/png" required>
+                <label for="address" class="form-label">Address</label>
+                <textarea id="address" name="address" class="form-control" rows="2" placeholder="Enter full address"></textarea>
+            </div>
+
+            <div class="col-md-6">
+                <label for="fees" class="form-label">Consultation Fees</label>
+                <input type="number" class="form-control" id="fees" name="fees" placeholder="doctor fees"  min="0" required>
             </div>
 
 
+
+
+
             <div class="col-12 text-center">
-                <button type="submit" class="btn btn-primary w-100">Register Doctor</button>
+                <button type="submit" class="btn btn-primary w-100">Book Appointment</button>
             </div>
         </form>
     </div>
 </div>
-<script src="resources/js/index.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 
+<script src="resources/js/index.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
 </body>
+
 <footer>
 
 </footer>
