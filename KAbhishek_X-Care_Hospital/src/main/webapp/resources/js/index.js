@@ -67,6 +67,29 @@ emailError.innerHTML=this.responseText;
 
 }
 
+function getDoctorMail(){
+const doctorName = document.getElementById("doctorID").value;
+const doctorNameError = document.getElementById("optionDoctorNameError");
+const xhttp = new XMLHttpRequest();
+xhttp.open("GET","http://localhost:8080/KAbhishek_X-Care_Hospital/getDoctorName/"+doctorName);
+xhttp.send();
+xhttp.onload=function(){
+doctorNameError.innerHTML=this.responseText;
+}
+}
+
+function getDoctorEmail() {
+    const doctorSelect = document.getElementById("doctorID");
+    const emailInput = document.getElementById("gmailID");
+
+
+    const selectedOption = doctorSelect.options[doctorSelect.selectedIndex];
+    const email = selectedOption.getAttribute("data-email");
+
+
+    emailInput.value = email || "";
+}
+
 
 
 

@@ -119,13 +119,13 @@ public class HospitalController {
 
     @RequestMapping("doctorForm")
     public String saveDoctorFrom(DoctorDTO dto , @RequestParam("photo") MultipartFile file,Model model) throws IOException {
-        System.out.println(dto.getSpecialty());
+
         byte[] photoSize=file.getBytes();
         Path imagePath=Paths.get("D:\\doctorfolder\\"+dto.getDoctorName()+System.currentTimeMillis()+".jpg");
         Files.write(imagePath,photoSize);
         dto.setImagePath(imagePath.getFileName().toString());
 
-        System.out.println(dto);
+
         model.addAttribute("dto",dto);
         hospitalService.saveDoctor(dto);
         return "doctor";
@@ -173,8 +173,6 @@ public class HospitalController {
     public String getDoctor(String specialty,Model model) {
         List<DoctorDTO> doctors = hospitalService.findDoctorList(specialty);
         List<TimingSlotDTO> timingSlot = hospitalService.findTimingList(specialty);
-        System.out.println(timingSlot);
-
 
         if (doctors.size()==0) {
             model.addAttribute("message", "Doctor not exists");
@@ -185,5 +183,37 @@ public class HospitalController {
             model.addAttribute("selectedSpecialty", specialty);
         }
         return "assingslot";
+    }
+
+//    @RequestMapping("/doctorSlotAssing")
+//    public String assignDoctorSlot(@RequestParam(required=false) String doctorName,@RequestParam String specialty, Model model) {
+//        List<DoctorDTO> doctors = hospitalService.findDoctorList(specialty);
+//        model.addAttribute("doctors", doctors);
+//
+//        if (doctorName != null) {
+//            model.addAttribute("selectedDoctor", doctorName);
+//
+//            // find email for selected doctor
+//            String email = doctors.stream()
+//                    .filter(d -> d.getDoctorName().equals(doctorName))
+//                    .map(DoctorDTO::getDoctorEmail)
+//                    .findFirst()
+//                    .orElse("");
+//            model.addAttribute("doctorEmail", email);
+//        }
+//
+//        return "assingslot"; // JSP page
+//    }
+
+
+    @RequestMapping("doctorSlotAssing")
+    public String assingSlotWithDoctor( String optionDoctorName,String timings,String doctorEmail,String specialty){
+        String[] times = timings.split("\\|");
+        String startTime = times[0];
+        String endTime = times[1];
+
+        String value = hospitalService.upDateDoctorAndSlots(doctorEmail,specialty,startTime,endTime);
+
+        return "";
     }
 }

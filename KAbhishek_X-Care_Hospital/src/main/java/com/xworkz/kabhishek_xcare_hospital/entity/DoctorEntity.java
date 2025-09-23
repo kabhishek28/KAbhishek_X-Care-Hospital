@@ -9,6 +9,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "doctor_table")
 @NamedQuery(name = "findDoctorListBySpecialty", query = "select e from DoctorEntity e where e.specialty=:specialtyBy AND e.slotAssign is 0")
+@NamedQuery(name = "SetDoctorSlots",query = "update DoctorEntity d SET d.slotAssign = 1 where d.doctorEmail=:doctorEmailBy And d.specialty=:specialtyBy")
 public class DoctorEntity {
 
     @Id

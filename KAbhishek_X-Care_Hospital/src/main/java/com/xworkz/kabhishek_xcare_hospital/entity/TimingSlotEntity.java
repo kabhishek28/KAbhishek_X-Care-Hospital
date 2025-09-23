@@ -7,7 +7,8 @@ import javax.persistence.*;
 @Data
 @Entity
 @Table(name = "timing_slot_table")
-@NamedQuery(name = "getTimeSlotBySpecialty",query = "select e from TimingSlotEntity e where e.specialty=:specialtyBy")
+@NamedQuery(name = "getTimeSlotBySpecialty",query = "select e from TimingSlotEntity e where e.specialty=:specialtyBy AND e.slotBooked is 0")
+@NamedQuery(name = "updateSlotAssing",query = "update TimingSlotEntity t set t.slotBooked = 1 where t.startTime=:startTimeBy and t.endTime=:endTimeBy")
 public class TimingSlotEntity {
 
     @Id
@@ -23,4 +24,7 @@ public class TimingSlotEntity {
 
     @Column(name = "end_time")
     private String endTime;
+
+    @Column(name = "slot_booked")
+    private int slotBooked;
 }

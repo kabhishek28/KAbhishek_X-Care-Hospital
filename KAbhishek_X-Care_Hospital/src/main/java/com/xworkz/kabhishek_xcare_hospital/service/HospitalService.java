@@ -28,6 +28,8 @@ public interface HospitalService {
 
     List<TimingSlotDTO> findTimingList(String specialty);
 
+    String upDateDoctorAndSlots(String doctorEmail,String specialty,String startTime,String endTime);
+
 
 
 

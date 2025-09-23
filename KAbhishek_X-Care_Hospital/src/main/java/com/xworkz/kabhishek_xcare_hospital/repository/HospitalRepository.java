@@ -25,4 +25,7 @@ public interface HospitalRepository {
     List<DoctorEntity> findDoctorList(String specialty);
 
     List<TimingSlotEntity> findTimingList(String specialty);
+
+    String upDateDoctorAndSlots(String doctorEmail,String specialty,String startTime,String endTime);
+
 }

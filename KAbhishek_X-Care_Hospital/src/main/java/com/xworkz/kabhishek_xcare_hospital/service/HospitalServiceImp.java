@@ -169,4 +169,9 @@ public  class HospitalServiceImp implements HospitalService {
         }
         return listDTO;
     }
+
+    @Override
+    public String upDateDoctorAndSlots(String doctorEmail, String specialty, String startTime, String endTime) {
+        return hospitalRepository.upDateDoctorAndSlots(doctorEmail,specialty,startTime,endTime);
+    }
 }

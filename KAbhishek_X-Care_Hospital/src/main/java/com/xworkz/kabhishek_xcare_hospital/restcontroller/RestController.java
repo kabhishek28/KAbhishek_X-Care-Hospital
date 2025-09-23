@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class RestController {
     @Autowired
     HospitalService service;
+
     @GetMapping("/checkEmail/{email}")
     public String checkmail(@PathVariable String email){
             int count=service.countEmail(email);
@@ -20,5 +21,12 @@ public class RestController {
                 return "Email exists";
             }
     }
+
+    @GetMapping("/getDoctorName/{doctorName}")
+    public String getName(@PathVariable String doctorName){
+        System.out.println(doctorName);
+        return "";
+    }
+
 
 }

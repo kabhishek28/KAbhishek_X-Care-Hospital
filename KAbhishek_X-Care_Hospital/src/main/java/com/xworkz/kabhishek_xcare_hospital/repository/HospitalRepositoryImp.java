@@ -194,4 +194,37 @@ public class HospitalRepositoryImp implements HospitalRepository{
         }
         return TimeList;
     }
+
+    @Override
+    public String upDateDoctorAndSlots(String doctorEmail, String specialty, String startTime, String endTime) {
+        EntityManager eM = null;
+        EntityTransaction eT = null;
+        String message = "Update failed";
+        try{
+            eM = entityManagerFactory.createEntityManager();
+            eT = eM.getTransaction();
+            eT.begin();
+            Query query = eM.createNamedQuery("SetDoctorSlots");
+            query.setParameter("doctorEmailBy",doctorEmail);
+            query.setParameter("specialtyBy",specialty);
+            int doctorUpDate = query.executeUpdate();
+
+            Query query1 = eM.createNamedQuery("updateSlotAssing");
+            query1.setParameter("startTimeBy",startTime);
+            query1.setParameter("endTimeBy",endTime);
+            int slotUpDate = query1.executeUpdate();
+
+            eT.commit();
+            message="Doctor updated: " + doctorUpDate + ", Slot updated: " + slotUpDate;
+
+        }catch (Exception e){
+            if(eT.isActive()){
+                eT.rollback();
+
+            }
+        }finally {
+            eM.close();
+        }
+        return message;
+    }
 }
