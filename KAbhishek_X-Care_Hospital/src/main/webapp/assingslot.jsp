@@ -99,20 +99,20 @@
         <form action="findDoctor" method="post">
             <div class="mb-4">
                 <label for="specialty" class="form-label fw-semibold">Specialty</label>
-                <select id="specialty" name="specialty" class="form-select" required>
-                    <option selected disabled>Choose specialty...</option>
-                    <option value="CARDIOLOGY">Cardiology</option>
-                    <option value="DERMATOLOGY">Dermatology</option>
-                    <option value="NEUROLOGY">Neurology</option>
-                    <option value="ORTHOPEDICS">Orthopedics</option>
-                    <option value="PEDIATRICS">Pediatrics</option>
-                    <option value="PSYCHIATRY">Psychiatry</option>
-                    <option value="RADIOLOGY">Radiology</option>
-                    <option value="GENERAL_MEDICINE">General Medicine</option>
-                    <option value="SURGERY">Surgery</option>
-                    <option value="GYNECOLOGY">Gynecology</option>
-                    <option value="ENT">ENT</option>
-                    <option value="OPHTHALMOLOGY">Ophthalmology</option>
+                <select id="specialty" name="specialty" class="form-select" required aria-readonly="">
+                    <option disabled ${selectedSpecialty == null ? "selected" : ""}>Choose specialty...</option>
+                    <option value="CARDIOLOGY" ${selectedSpecialty == 'CARDIOLOGY' ? "selected" : ""}>Cardiology</option>
+                    <option value="DERMATOLOGY" ${selectedSpecialty == 'DERMATOLOGY' ? "selected" : ""}>Dermatology</option>
+                    <option value="NEUROLOGY" ${selectedSpecialty == 'NEUROLOGY' ? "selected" : ""}>Neurology</option>
+                    <option value="ORTHOPEDICS" ${selectedSpecialty == 'ORTHOPEDICS' ? "selected" : ""}>Orthopedics</option>
+                    <option value="PEDIATRICS" ${selectedSpecialty == 'PEDIATRICS' ? "selected" : ""}>Pediatrics</option>
+                    <option value="PSYCHIATRY" ${selectedSpecialty == 'PSYCHIATRY' ? "selected" : ""}>Psychiatry</option>
+                    <option value="RADIOLOGY" ${selectedSpecialty == 'RADIOLOGY' ? "selected" : ""}>Radiology</option>
+                    <option value="GENERAL_MEDICINE" ${selectedSpecialty == 'GENERAL_MEDICINE' ? "selected" : ""}>General Medicine</option>
+                    <option value="SURGERY" ${selectedSpecialty == 'SURGERY' ? "selected" : ""}>Surgery</option>
+                    <option value="GYNECOLOGY" ${selectedSpecialty == 'GYNECOLOGY' ? "selected" : ""}>Gynecology</option>
+                    <option value="ENT" ${selectedSpecialty == 'ENT' ? "selected" : ""}>ENT</option>
+                    <option value="OPHTHALMOLOGY" ${selectedSpecialty == 'OPHTHALMOLOGY' ? "selected" : ""}>Ophthalmology</option>
                 </select>
             </div>
 
@@ -162,6 +162,12 @@
                         <input type="email" class="form-control" id="gmailID" name="doctorEmail" oninput="validationGmail()" onchange="checkEmail()" placeholder="doctor@example.com" required>
                         <div id="emailError" class="input-text text-danger" style="min-height:25px;"></div>
                     </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-semibold" for="specialtyID">Specialty</label>
+                        <input type="text" class="form-control " id="specialtyID" name="specialty" value="${specialtyy}" readonly>
+                    </div>
+
 
 
                     <div class="d-grid">

@@ -181,6 +181,8 @@ public class HospitalController {
         } else {
             model.addAttribute("doctors", doctors);
             model.addAttribute("slots",timingSlot);
+            model.addAttribute("specialtyy",specialty);
+            model.addAttribute("selectedSpecialty", specialty);
         }
         return "assingslot";
     }
