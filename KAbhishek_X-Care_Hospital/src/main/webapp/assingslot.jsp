@@ -139,10 +139,12 @@
                 <form action="doctorSlotAssing" method="post">
                     <div class="mb-4">
                         <label for="doctorID" class="form-label fw-semibold">Doctors</label>
-                        <select id="doctorID" name="doctorName" class="form-select" required>
+                        <select id="doctorID" typeof="text" name="optionDoctorName" class="form-select" onchange="getDoctorEmail()" required>
                             <option selected disabled>Choose Doctor...</option>
                             <c:forEach var = "doc" items="${doctors}">
-                                <option>${doc.doctorName}</option>
+                                <option value="${doc.doctorName}" data-email="${doc.doctorEmail}">
+                                    ${doc.doctorName}
+                                </option>
                             </c:forEach>
 
                         </select>
@@ -152,24 +154,22 @@
                         <select id="timeID" name="timings" class="form-select" required>
                             <option selected disabled>Choose Timings...</option>
                             <c:forEach var = "tim" items="${slots}">
-                                <option>${tim.startTime} to ${tim.endTime}</option>
+                                <option value="${tim.startTime}|${tim.endTime}">${tim.startTime} to ${tim.endTime}</option>
                             </c:forEach>
-
                         </select>
                     </div>
                     <div class="col-md-6">
                         <label for="gmailID" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="gmailID" name="doctorEmail" oninput="validationGmail()" onchange="checkEmail()" placeholder="doctor@example.com" required>
-                        <div id="emailError" class="input-text text-danger" style="min-height:25px;"></div>
+                        <input type="email" class="form-control" id="gmailID" name="doctorEmail"
+                               value="${doctorEmail}" readonly>
+                        <div  id="optionDoctorNameError" class="input-text text-danger" style="min-height:25px;"></div>
+
                     </div>
 
                     <div class="mb-4">
                         <label class="form-label fw-semibold" for="specialtyID">Specialty</label>
-                        <input type="text" class="form-control " id="specialtyID" name="specialty" value="${specialtyy}" readonly>
+                        <input type="text" class="form-control " id="specialtyID" name="specialty" value="${specialtyy}"  readonly>
                     </div>
-
-
-
                     <div class="d-grid">
                         <button type="submit" class="btn btn-primary">Assing Slot</button>
                     </div>
@@ -186,7 +186,7 @@
 
 
 
-
+<script src="resources/js/index.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 </body>
 <footer>
