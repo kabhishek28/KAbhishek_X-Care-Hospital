@@ -24,6 +24,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -84,7 +85,7 @@ public class HospitalController {
         }
         model.addAttribute("gmail", gmailName);
         model.addAttribute("remainingTime", response.get("remainingTime"));
-        return "otp"; // JSP page where timer will be shown
+        return "otp";
     }
 
     @RequestMapping("login")
@@ -238,5 +239,14 @@ public class HospitalController {
     @RequestMapping("getPatients")
     public String getPatientsPage(){
         return "patients";
+    }
+
+    @RequestMapping("getUpDatePage")
+    public String getUpDate(Model model){
+        List<DoctorDTO> list = hospitalService.getAllDoctorsList();
+        log.info(list.toString());
+        model.addAttribute("doctorsList",list);
+
+        return "doctorUpDate";
     }
 }

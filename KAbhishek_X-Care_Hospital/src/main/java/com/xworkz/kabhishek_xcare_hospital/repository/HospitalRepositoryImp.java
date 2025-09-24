@@ -255,6 +255,24 @@ public class HospitalRepositoryImp implements HospitalRepository{
     }
 
     @Override
+    public List<DoctorEntity> getAllDoctorsList() {
+        EntityManager eM = null;
+        List<DoctorEntity> doctorList = new ArrayList<>();
+        try {
+            eM = entityManagerFactory.createEntityManager();
+            Query query = eM.createNamedQuery("getAllDoctorsList");
+            doctorList = query.getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (eM != null) {
+                eM.close();
+            }
+        }
+        return doctorList;
+    }
+
+    @Override
     public List<DoctorEntity> checkDoctorList(String specialty) {
         EntityManager eM = null;
         List<DoctorEntity> doctorList = new ArrayList<>();

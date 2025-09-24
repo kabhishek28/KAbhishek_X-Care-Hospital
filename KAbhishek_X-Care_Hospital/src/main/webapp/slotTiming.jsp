@@ -46,8 +46,12 @@
             <li class="nav-item">
                 <a class="nav-link text-white toggle" aria-current="page" href="getHome">About Us</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link text-white toggle" aria-current="page" href="getDoctor">Doctors</a>
+            <li class="nav-item dropdown">
+                <a class="nav-link text-white dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Doctors</a>
+                <ul class="dropdown-menu  shadow" style="background-color: #003366;">
+                    <li><a class="dropdown-item text-white" href="getDoctor">Doctor Registration</a></li>
+                    <li><a class="dropdown-item text-white" href="#">UpDate Doctors</a></li>
+                </ul>
             </li>
             <li class="nav-item">
                 <a class="nav-link text-white toggle" aria-current="page" href="getPatients">Patients Registration</a>
@@ -86,9 +90,6 @@
                     <li><a class="dropdown-item text-white" href="#">Dermatology</a></li>
                     <li><a class="dropdown-item text-white" href="#">Emergency Medicine</a></li>
                     <li><a class="dropdown-item text-white" href="#">Endocrinology and Diabetology</a></li>
-
-
-
                 </ul>
             </li>
         </ul>

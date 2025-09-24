@@ -9,6 +9,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "doctor_table")
 @NamedQuery(name = "findDoctorListBySpecialty", query = "select e from DoctorEntity e where e.specialty=:specialtyBy ")
+@NamedQuery(name = "getAllDoctorsList",query = "select e from DoctorEntity e")
 @NamedQuery(name = "SetDoctorSlots",query = "update DoctorEntity d SET d.slotAssign = 1 , d.slotTiming=:slotTimingBy where d.doctorEmail=:doctorEmailBy And d.specialty=:specialtyBy")
 @NamedQuery(name = "checkDoctorListBySpecialty",query = "select e from DoctorEntity e where e.specialty=:specialtyBy" )
 public class DoctorEntity {

@@ -183,6 +183,18 @@ public  class HospitalServiceImp implements HospitalService {
 
     }
 
+    @Override
+    public List<DoctorDTO> getAllDoctorsList() {
+        List<DoctorEntity> doctorsList = hospitalRepository.getAllDoctorsList();
+        List<DoctorDTO> doctorsDTOList = new ArrayList<>();
+        for(DoctorEntity doctor:doctorsList){
+            DoctorDTO doctorDTO = new DoctorDTO();
+            BeanUtils.copyProperties(doctor,doctorDTO);
+            doctorsDTOList.add(doctorDTO);
+        }
+        return doctorsDTOList;
+    }
+
 
     @Override
     public List<DoctorDTO> checkDoctorList(String specialty) {

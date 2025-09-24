@@ -31,11 +31,14 @@ public interface HospitalService {
 
     int checkDoctorSlotsAssign(String doctorEmail,String slotTime);
 
+    List<DoctorDTO> getAllDoctorsList();
+
     List<DoctorDTO> checkDoctorList(String specialty);
 
     List<TimingSlotDTO> checkTimingList(String specialty);
 
     String saveDoctorWithSlots(DoctorWithSlotsDTO doctorWithSlots);
+
 
 
 }
