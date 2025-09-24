@@ -300,12 +300,15 @@ public class HospitalRepositoryImp implements HospitalRepository{
     public String saveUpdatedDoctorData(DoctorEntity doctorEntity) {
         EntityManager eM = null;
         EntityTransaction eT =null;
+        String value = "Data not Saved";
+
         try{
             eM = entityManagerFactory.createEntityManager();
             eT = eM.getTransaction();
             eT.begin();
             eM.merge(doctorEntity);
             eT.commit();
+            value = "Data Saved";
         }catch (Exception e){
 
             if(eT.isActive()){
@@ -315,7 +318,7 @@ public class HospitalRepositoryImp implements HospitalRepository{
         }finally {
             eM.close();
         }
-        return "";
+        return value;
     }
 
     @Override

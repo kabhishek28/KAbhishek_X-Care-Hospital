@@ -111,13 +111,16 @@
                 <img src="download?imagePath=${dto.imagePath}" alt="doctor image" class="rounded-circle shadow-lg p-1 bg-light" style="border: 4px solid #003366;" width="160" height="160">
             </div>
         </div>
+        <div>
+            <p class="text-danger fw-bold text-center">${updatedDataNotSaved}</p>
+            <p class="text-success  fw-bold text-center">${updatedDataSaved}</p>
+        </div>
         <form class="row g-3" action="updateDoctorForm" method="post" enctype="multipart/form-data">
             <!--            <img src="download?imagePath=${dto.imagePath}"></img>-->
-            <div class="col-md-6">
+
 
                 <input type="hidden" class="form-control" id="inputId" name="id" value="${dto.id}" oninput="validationId()" placeholder="Enter Doctor ID" required>
                 <div id="idError" class="input-text text-danger" style="min-height:25px;"></div>
-            </div>
 
             <div class="col-md-6">
                 <label for="inputName" class="form-label">Doctor Name</label>
@@ -127,7 +130,7 @@
 
             <div class="col-md-6">
                 <label for="gmailID" class="form-label">Email</label>
-                <input type="email" class="form-control" id="gmailID" name="doctorEmail" value="${dto.doctorEmail}" oninput="validationGmail()" onchange="checkEmail()" placeholder="doctor@example.com" required>
+                <input type="email" class="form-control" id="gmailID" name="doctorEmail" value="${dto.doctorEmail}" oninput="validationGmail()" onchange="checkEmail()" placeholder="doctor@example.com" readonly>
                 <div id="emailError" class="input-text text-danger" style="min-height:25px;"></div>
             </div>
 
@@ -145,23 +148,9 @@
             </div>
 
 
-            <div class="col-md-6">
-                <label for="specialty" class="form-label" >Specialty</label>
-                <select id="specialty" name="specialty" class="form-select" required>
-                    <option selected disabled>Choose specialty...</option>
-                    <option value="CARDIOLOGY">Cardiology</option>
-                    <option value="DERMATOLOGY">Dermatology</option>
-                    <option value="NEUROLOGY">Neurology</option>
-                    <option value="ORTHOPEDICS">Orthopedics</option>
-                    <option value="PEDIATRICS">Pediatrics</option>
-                    <option value="PSYCHIATRY">Psychiatry</option>
-                    <option value="RADIOLOGY">Radiology</option>
-                    <option value="GENERAL_MEDICINE">General medicine</option>
-                    <option value="SURGERY">Surgery</option>
-                    <option value="GYNECOLOGY">Gynecology</option>
-                    <option value="ENT">Ent</option>   <!-- (problem: ENT becomes Ent) -->
-                    <option value="OPHTHALMOLOGY">Ophthalmology</option>
-                </select>
+            <div class="mb-4">
+                <label class="form-label fw-semibold" for="specialtyID">Specialty</label>
+                <input type="text" class="form-control " id="specialtyID" name="specialty" value="${dto.specialty}"  readonly>
             </div>
 
 
@@ -202,7 +191,6 @@
 </div>
 <script src="resources/js/index.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-
 </body>
 <footer>
 

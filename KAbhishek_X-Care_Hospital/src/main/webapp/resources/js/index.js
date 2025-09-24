@@ -33,9 +33,9 @@ inputAgeError.textContent="";
 function validationPhoneNo(){
 const inputPhoneNo = document.getElementById("inputPhone").value;
 const inputPhoneNoError = document.getElementById("phoneNoError");
-const phoneRex = /^(?:\+91|91)?[6-9]\d{9}$/;
+const phoneRex = /^[6-9]\d{9}$/;
 if(!phoneRex.test(inputPhoneNo)){
-inputPhoneNoError.textContent = "Please enter a valid Indian phone number."
+inputPhoneNoError.textContent = "first digit must be between 6 and 9"
 }else{
 inputPhoneNoError.textContent="";
 }

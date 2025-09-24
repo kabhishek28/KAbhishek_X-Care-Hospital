@@ -107,8 +107,8 @@
 </main>
 
 <body>
-<div class="container mt-4 text-center">
-    <div class="row ">
+<div class="container mt-4 ">
+    <div class="row justify-content-center align-items-center">
         <c:forEach var="doc" items="${doctorsList}">
             <div class=" col-md-3 card border-5 shadow-lg rounded-4  m-2 doctor-card text-center"
                  style="transition: transform 0.3s ease, box-shadow 0.3s ease; background: linear-gradient(135deg, #ffffff, #f8f9fa);">
@@ -139,33 +139,20 @@
                         <p class="mb-1"><strong>Qualification:</strong> <span class="text-muted">${doc.qualification}</span></p>
                         <p class="mb-1"><strong>Experience:</strong> <span class="text-muted">${doc.experience} years</span></p>
                     </div>
+
+
+                    <div class="text-center mb-1 d-flex justify-content-center gap-2">
+                        <form action="getDoctorUpdatePage" method="post">
+                            <input type="hidden" name="email" value="${doc.doctorEmail}">
+                            <button class="btn btn-primary btn-sm">Update</button>
+                        </form>
+                        <form action="DoctorDelete" method="post">
+                            <input type="hidden" name="email" value="${doc.doctorEmail}">
+                            <button class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                    </div>
                 </div>
             </div>
-<!--            <div class="col-md-4 mb-4">-->
-<!--                <div class="card shadow-lg  rounded-4 " style="border: 2px solid #003366;">-->
-<!--                    <div class="card-body text-center ">-->
-<!--                        <img src="download?imagePath=${doc.imagePath}" alt="doctor image" class="rounded-circle shadow-lg mb-3 p-1 bg-light" style="border: 4px solid #003366;" width="160" height="160">-->
-<!--                        <p class="mb-1" style="color: #003366;"><strong>${doc.doctorName}</strong></p>-->
-<!--                        <p class="text-muted mb-1">${doc.specialty}</p>-->
-<!--                        <p class="mb-1"><i class="bi bi-envelope"></i> ${doc.doctorEmail}</p>-->
-<!--                        <p class="mb-1"><i class="bi bi-phone"></i> ${doc.doctorPhoneNo}</p>-->
-<!--                        <p class="mb-1"><strong>License:</strong> ${doc.license_number}</p>-->
-<!--                        <p class="mb-1"><strong>Qualification:</strong> ${doc.qualification}</p>-->
-<!--                        <p class="mb-1"><strong>Experience:</strong> ${doc.experience} years</p>-->
-<!--                    </div>-->
-
-<!--                    <div class="text-center mb-4 d-flex justify-content-center gap-2">-->
-<!--                        <form action="getDoctorUpdatePage" method="post">-->
-<!--                            <input type="hidden" name="email" value="${doc.doctorEmail}">-->
-<!--                            <button class="btn btn-primary btn-sm">Update</button>-->
-<!--                        </form>-->
-<!--                        <form action="DoctorDelete" method="post">-->
-<!--                            <input type="hidden" name="email" value="${doc.doctorEmail}">-->
-<!--                            <button class="btn btn-danger btn-sm">Delete</button>-->
-<!--                        </form>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
         </c:forEach>
     </div>
 </div>
