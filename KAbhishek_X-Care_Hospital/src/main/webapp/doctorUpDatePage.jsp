@@ -102,11 +102,22 @@
 <body>
 <div class="d-flex justify-content-center mt-5">
     <div class="card shadow-lg p-4 rounded-4" style="width: 40rem;">
-        <h3 class="text-center mb-4">Doctor Registration</h3>
+        <h3 class="text-center fw-bold mb-4 " style="color: #003366;">
+            Update <span class="text-muted">Dr ${dto.doctorName}</span> Details
+        </h3>
+        <hr class="mx-auto mb-4" style="width: 60px; border: 2px solid #0d6efd; border-radius: 5px;">
+        <div class="text-center mb-4">
+            <div class="text-center mb-4">
+                <img src="download?imagePath=${dto.imagePath}" alt="doctor image" class="rounded-circle shadow-lg p-1 bg-light" style="border: 4px solid #003366;" width="160" height="160">
+            </div>
+        </div>
+        <form class="row g-3" action="updateDoctorForm" method="post" enctype="multipart/form-data">
+            <!--            <img src="download?imagePath=${dto.imagePath}"></img>-->
+            <div class="col-md-6">
 
-        <form class="row g-3" action="doctorForm" method="post" enctype="multipart/form-data">
-
-<!--            <img src="download?imagePath=${dto.imagePath}"></img>-->
+                <input type="hidden" class="form-control" id="inputId" name="id" value="${dto.id}" oninput="validationId()" placeholder="Enter Doctor ID" required>
+                <div id="idError" class="input-text text-danger" style="min-height:25px;"></div>
+            </div>
 
             <div class="col-md-6">
                 <label for="inputName" class="form-label">Doctor Name</label>
@@ -116,7 +127,7 @@
 
             <div class="col-md-6">
                 <label for="gmailID" class="form-label">Email</label>
-                <input type="email" class="form-control" id="gmailID" name="doctorEmail" oninput="validationGmail()" onchange="checkEmail()" placeholder="doctor@example.com" required>
+                <input type="email" class="form-control" id="gmailID" name="doctorEmail" value="${dto.doctorEmail}" oninput="validationGmail()" onchange="checkEmail()" placeholder="doctor@example.com" required>
                 <div id="emailError" class="input-text text-danger" style="min-height:25px;"></div>
             </div>
 
@@ -184,7 +195,7 @@
 
 
             <div class="col-12 text-center">
-                <button type="submit" class="btn btn-primary w-100">Register Doctor</button>
+                <button type="submit" class="btn btn-primary w-100">Update Details</button>
             </div>
         </form>
     </div>
@@ -196,4 +207,4 @@
 <footer>
 
 </footer>
-</html>
+</html>.

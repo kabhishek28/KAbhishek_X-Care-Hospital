@@ -21,6 +21,16 @@
  .dropdown-menu .dropdown-item:hover {
     background-color: #0055aa;
     }
+
+    .doctor-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .doctor-card img:hover {
+        transform: scale(1.05);
+    }
+
 </style>
 <main>
     <nav class="navbar bg-body-tertiary py-1">
@@ -95,154 +105,67 @@
         </ul>
     </nav>
 </main>
+
 <body>
-<!--<table class="table table-bordered table-striped">-->
-<!--    <thead class="table-dark">-->
-<!--    <tr>-->
-<!--        <th>ID</th>-->
-<!--        <th>Name</th>-->
-<!--        <th>Email</th>-->
-<!--        <th>Phone No</th>-->
-<!--        <th>License</th>-->
-<!--        <th>Specialty</th>-->
-<!--        <th>Gender</th>-->
-<!--        <th>Qualification</th>-->
-<!--        <th>Experience (Years)</th>-->
-<!--        <th>Slot Timing</th>-->
-<!--        <th>Image</th>-->
-<!--    </tr>-->
-<!--    </thead>-->
-<!--    <tbody>-->
-<!--    <c:forEach var="doc" items="${doctorsList}">-->
-<!--        <tr>-->
-<!--            <td>${doc.id}</td>-->
-<!--            <td>${doc.doctorName}</td>-->
-<!--            <td>${doc.doctorEmail}</td>-->
-<!--            <td>${doc.doctorPhoneNo}</td>-->
-<!--            <td>${doc.license_number}</td>-->
-<!--            <td>${doc.specialty}</td>-->
-<!--            <td>${doc.doctorGender}</td>-->
-<!--            <td>${doc.qualification}</td>-->
-<!--            <td>${doc.experience}</td>-->
-<!--            <td>${doc.slotTiming}</td>-->
-<!--            <td>-->
+<div class="container mt-4 text-center">
+    <div class="row ">
+        <c:forEach var="doc" items="${doctorsList}">
+            <div class=" col-md-3 card border-5 shadow-lg rounded-4  m-2 doctor-card text-center"
+                 style="transition: transform 0.3s ease, box-shadow 0.3s ease; background: linear-gradient(135deg, #ffffff, #f8f9fa);">
+                <div class="card-body text-center">
+                    <!-- Profile Image -->
+                    <img src="download?imagePath=${doc.imagePath}"
+                         alt="doctor image"
+                         class="rounded-circle shadow-sm mb-3 p-1 bg-light"
+                         style="border: 4px solid #003366; width: 120px; height: 120px; object-fit: cover; transition: transform 0.3s ease;">
 
-<!--                <img src="download?imagePath=${doc.imagePath}" alt="Doctor Image" width="80" height="80">-->
-<!--            </td>-->
-<!--        </tr>-->
-<!--    </c:forEach>-->
-<!--    </tbody>-->
-<!--</table>-->
+                    <!-- Name & Specialty -->
+                    <h5 class="fw-bold mb-1" style="color: #003366;">${doc.doctorName}</h5>
+                    <p class="text-muted mb-1">${doc.specialty}</p>
 
-<!--<div class="table-responsive">-->
-<!--    <table class="table align-middle">-->
-<!--        <thead>-->
-<!--        <tr>-->
-<!--            ...-->
-<!--        </tr>-->
-<!--        </thead>-->
-<!--        <tbody>-->
-<!--        <tr>-->
-<!--            ...-->
-<!--        </tr>-->
-<!--        <tr class="align-bottom">-->
-<!--            ...-->
-<!--        </tr>-->
-<!--        <tr>-->
-<!--            <td>...</td>-->
-<!--            <td>...</td>-->
-<!--            <td class="align-top">This cell is aligned to the top.</td>-->
-<!--            <td>...</td>-->
-<!--        </tr>-->
-<!--        </tbody>-->
-<!--    </table>-->
-<!--</div>-->
+                    <!-- Contact Info -->
+                    <div class="mb-2">
+                        <i class="bi bi-envelope text-primary me-2"></i>
+                        <span class="text-dark">${doc.doctorEmail}</span>
+                    </div>
+                    <div class="mb-3">
+                        <i class="bi bi-phone text-success me-2"></i>
+                        <span class="text-dark">${doc.doctorPhoneNo}</span>
+                    </div>
 
-
-<!--<div class="container mt-4">-->
-<!--    <div class="row">-->
-<!--        <c:forEach var="doc" items="${doctorsList}">-->
+                    <!-- Other Details -->
+                    <div class="text-start ps-3">
+                        <p class="mb-1"><strong>License:</strong> <span class="text-muted">${doc.license_number}</span></p>
+                        <p class="mb-1"><strong>Qualification:</strong> <span class="text-muted">${doc.qualification}</span></p>
+                        <p class="mb-1"><strong>Experience:</strong> <span class="text-muted">${doc.experience} years</span></p>
+                    </div>
+                </div>
+            </div>
 <!--            <div class="col-md-4 mb-4">-->
-<!--                <div class="card shadow-lg border-0 rounded-4">-->
-<!--                    <div class="card-body text-center">-->
-<!--                        &lt;!&ndash; Round Photo &ndash;&gt;-->
-<!--                        <img src="download?imagePath=${doc.imagePath}" alt="Doctor Image"-->
-<!--                             class="rounded-circle mb-3 shadow"-->
-<!--                             width="120" height="120"/>-->
-
-
-<!--                        <h5 class="fw-bold">${doc.doctorName}</h5>-->
+<!--                <div class="card shadow-lg  rounded-4 " style="border: 2px solid #003366;">-->
+<!--                    <div class="card-body text-center ">-->
+<!--                        <img src="download?imagePath=${doc.imagePath}" alt="doctor image" class="rounded-circle shadow-lg mb-3 p-1 bg-light" style="border: 4px solid #003366;" width="160" height="160">-->
+<!--                        <p class="mb-1" style="color: #003366;"><strong>${doc.doctorName}</strong></p>-->
 <!--                        <p class="text-muted mb-1">${doc.specialty}</p>-->
 <!--                        <p class="mb-1"><i class="bi bi-envelope"></i> ${doc.doctorEmail}</p>-->
 <!--                        <p class="mb-1"><i class="bi bi-phone"></i> ${doc.doctorPhoneNo}</p>-->
 <!--                        <p class="mb-1"><strong>License:</strong> ${doc.license_number}</p>-->
 <!--                        <p class="mb-1"><strong>Qualification:</strong> ${doc.qualification}</p>-->
 <!--                        <p class="mb-1"><strong>Experience:</strong> ${doc.experience} years</p>-->
-<!--                        <p class="mb-2"><strong>Slot:</strong> ${doc.slotTiming}</p>-->
+<!--                    </div>-->
 
-<!--                        &lt;!&ndash; Buttons &ndash;&gt;-->
-<!--                        <div class="d-flex justify-content-center gap-2 mt-3">-->
-<!--                            <form action="updateDoctor" method="get">-->
-<!--                                <input type="hidden" name="doctorId" value="${doc.id}" />-->
-<!--                                <button type="submit" class="btn btn-primary btn-sm">-->
-<!--                                    <i class="bi bi-pencil-square"></i> Update-->
-<!--                                </button>-->
-<!--                            </form>-->
-
-<!--                            <form action="deleteDoctor" method="post"-->
-<!--                                  onsubmit="return confirm('Are you sure you want to delete this doctor?');">-->
-<!--                                <input type="hidden" name="doctorId" value="${doc.id}" />-->
-<!--                                <button type="submit" class="btn btn-danger btn-sm">-->
-<!--                                    <i class="bi bi-trash"></i> Delete-->
-<!--                                </button>-->
-<!--                            </form>-->
-<!--                        </div>-->
+<!--                    <div class="text-center mb-4 d-flex justify-content-center gap-2">-->
+<!--                        <form action="getDoctorUpdatePage" method="post">-->
+<!--                            <input type="hidden" name="email" value="${doc.doctorEmail}">-->
+<!--                            <button class="btn btn-primary btn-sm">Update</button>-->
+<!--                        </form>-->
+<!--                        <form action="DoctorDelete" method="post">-->
+<!--                            <input type="hidden" name="email" value="${doc.doctorEmail}">-->
+<!--                            <button class="btn btn-danger btn-sm">Delete</button>-->
+<!--                        </form>-->
 <!--                    </div>-->
 <!--                </div>-->
 <!--            </div>-->
-<!--        </c:forEach>-->
-<!--    </div>-->
-<!--</div>-->
-
-
-<!--<div class="container mt-4 border">-->
-<!--<div class="row">-->
-<!--    <c:forEach var="doc" items="${doctorsList}">-->
-<!--        <div class="col-md-4 mb-4">-->
-<!--            <div class="card shadow-lg border-0 rounded-4">-->
-<!--                <div class="card-body text-center ">-->
-<!--                    <img src="download?imagePath=${doc.imagePath}" alt="Doctor Image" class="rounded-circle mb-3 shadow" width="120" height="120" >-->
-
-<!--                    <h1>Page Title</h1>-->
-<!--                    <p>This content is within a responsive, fixed-width container.</p>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </c:forEach>-->
-<!--</div>-->
-<!--</div>-->
-
-<div class="container mt-4 ">
-    <div class="row">
-        <c:forEach var="doc" items="${doctorsList}">
-            <div class="col-md-4 mb-4">
-                <div class="card shadow-lg border-0 rounded-4">
-                    <div class="card-body text-center ">
-                        <img src="download?imagePath=${doc.imagePath}" alt="doctor image" class="rounded-circle mb-3 shadow" width="120" height="120">
-                        <h5 class="fw-bold">${doc.doctorName}</h5>
-                        <p class="text-muted mb-1">${doc.specialty}</p>
-                        <p class="mb-1"><i class="bi bi-envelope"></i> ${doc.doctorEmail}</p>
-                        <p class="mb-1"><i class="bi bi-phone"></i> ${doc.doctorPhoneNo}</p>
-                        <p class="mb-1"><strong>License:</strong> ${doc.license_number}</p>
-                        <p class="mb-1"><strong>Qualification:</strong> ${doc.qualification}</p>
-                        <p class="mb-1"><strong>Experience:</strong> ${doc.experience} years</p>
-                    </div>
-                    <div class="text-center mb-4">
-                        <a href="" class="btn btn-primary btn-sm bt-3">UpDate</a>
-                        <a href="" class="btn btn-danger btn-sm">Delete</a>
-                    </div>
-                </div>
-            </div>
         </c:forEach>
     </div>
 </div>

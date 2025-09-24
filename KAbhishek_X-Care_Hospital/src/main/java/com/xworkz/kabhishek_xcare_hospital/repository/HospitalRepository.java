@@ -34,6 +34,10 @@ public interface HospitalRepository {
 
     public List<DoctorEntity> getAllDoctorsList();
 
+    DoctorEntity findSingleDoctorData(String email);
+
+    String saveUpdatedDoctorData(DoctorEntity doctorEntity);
+
     List<DoctorEntity> checkDoctorList(String specialty);
 
     List<TimingSlotEntity> checkTimingList(String specialty);

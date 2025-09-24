@@ -131,7 +131,6 @@ public class HospitalController {
         return "doctor";
     }
 
-
     @GetMapping("download")
     public void previewImage(HttpServletResponse response,@RequestParam String imagePath) throws IOException {
         response.setContentType("image/jpeg");
@@ -244,9 +243,26 @@ public class HospitalController {
     @RequestMapping("getUpDatePage")
     public String getUpDate(Model model){
         List<DoctorDTO> list = hospitalService.getAllDoctorsList();
-        log.info(list.toString());
         model.addAttribute("doctorsList",list);
+        return "doctorsData";
+    }
 
-        return "doctorUpDate";
+    @RequestMapping("getDoctorUpdatePage")
+    public String getUpdatePage(String email,Model model){
+        DoctorDTO doctorDTO = hospitalService.findSingleDoctorData(email);
+        System.out.println(doctorDTO);
+        model.addAttribute("dto",doctorDTO);
+        return "doctorUpDatePage";
+    }
+
+    @RequestMapping("updateDoctorForm")
+    public String updateDoctordata(DoctorDTO doctorDTO,@RequestParam("photo") MultipartFile file) throws IOException {
+        byte[] photoSize = file.getBytes();
+        Path imagePath=Paths.get("D:\\doctorfolder\\"+doctorDTO.getDoctorName()+System.currentTimeMillis()+".jpg");
+        Files.write(imagePath,photoSize);
+        doctorDTO.setImagePath(imagePath.getFileName().toString());
+        System.out.println(doctorDTO);
+        hospitalService.saveUpdatedDoctorData(doctorDTO);
+        return "";
     }
 }

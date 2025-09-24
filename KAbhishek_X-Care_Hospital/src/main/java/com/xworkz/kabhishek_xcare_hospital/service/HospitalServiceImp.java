@@ -195,6 +195,21 @@ public  class HospitalServiceImp implements HospitalService {
         return doctorsDTOList;
     }
 
+    @Override
+    public DoctorDTO findSingleDoctorData(String gmail) {
+        DoctorEntity doctorEntity = hospitalRepository.findSingleDoctorData(gmail);
+        DoctorDTO doctorDTO = new DoctorDTO();
+        BeanUtils.copyProperties(doctorEntity,doctorDTO);
+        return doctorDTO;
+    }
+
+    @Override
+    public String saveUpdatedDoctorData(DoctorDTO doctorDTO) {
+        DoctorEntity doctorEntity = new DoctorEntity();
+        BeanUtils.copyProperties(doctorDTO,doctorEntity);
+        return  hospitalRepository.saveUpdatedDoctorData(doctorEntity);
+    }
+
 
     @Override
     public List<DoctorDTO> checkDoctorList(String specialty) {

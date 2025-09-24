@@ -273,6 +273,52 @@ public class HospitalRepositoryImp implements HospitalRepository{
     }
 
     @Override
+    public DoctorEntity findSingleDoctorData(String email) {
+        EntityManager eM = null ;
+        EntityTransaction eT = null;
+        DoctorEntity doctorEntity = new DoctorEntity();
+        try{
+            eM = entityManagerFactory.createEntityManager();
+            eT = eM.getTransaction();
+            eT.begin();
+            Query query= eM.createNamedQuery("getDoctorEntityByEmail");
+            query.setParameter("emailBy",email);
+            doctorEntity = (DoctorEntity) query.getSingleResult();
+            eT.commit();
+        }catch (Exception e){
+            e.printStackTrace();
+            if(eT.isActive()){
+                eT.rollback();
+            }
+        }finally {
+            eM.close();
+        }
+        return doctorEntity;
+    }
+
+    @Override
+    public String saveUpdatedDoctorData(DoctorEntity doctorEntity) {
+        EntityManager eM = null;
+        EntityTransaction eT =null;
+        try{
+            eM = entityManagerFactory.createEntityManager();
+            eT = eM.getTransaction();
+            eT.begin();
+            eM.merge(doctorEntity);
+            eT.commit();
+        }catch (Exception e){
+
+            if(eT.isActive()){
+                eT.rollback();
+                e.printStackTrace();
+            }
+        }finally {
+            eM.close();
+        }
+        return "";
+    }
+
+    @Override
     public List<DoctorEntity> checkDoctorList(String specialty) {
         EntityManager eM = null;
         List<DoctorEntity> doctorList = new ArrayList<>();

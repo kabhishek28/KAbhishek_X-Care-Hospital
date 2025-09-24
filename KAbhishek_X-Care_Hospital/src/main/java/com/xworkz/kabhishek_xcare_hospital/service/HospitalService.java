@@ -33,6 +33,10 @@ public interface HospitalService {
 
     List<DoctorDTO> getAllDoctorsList();
 
+    DoctorDTO findSingleDoctorData(String gmail);
+
+    String saveUpdatedDoctorData(DoctorDTO doctorDTO);
+
     List<DoctorDTO> checkDoctorList(String specialty);
 
     List<TimingSlotDTO> checkTimingList(String specialty);
