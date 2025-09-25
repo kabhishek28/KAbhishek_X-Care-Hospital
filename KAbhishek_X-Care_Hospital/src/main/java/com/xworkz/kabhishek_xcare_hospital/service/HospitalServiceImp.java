@@ -24,22 +24,9 @@ public  class HospitalServiceImp implements HospitalService {
     @Autowired
     HospitalRepository hospitalRepository;
 
-//    @Override
-//    public String checkAdmin(String gmail,HttpSession session) {
-//        AdminEntity adminEntity = hospitalRepository.checkAdmin(gmail);
-//        if(adminEntity.getEmail() == null){
-//            return "gmail not exist";
-//        }
-//        String genOTP = sendEmail(adminEntity.getEmail(),generateOTP());
-//        LocalDateTime localDateTime = LocalDateTime.now();
-//        LocalDateTime saveTime = saveOTP(genOTP,localDateTime,session);
-//        LocalDateTime expiryTime = saveTime.plusSeconds(150);
-//        return "gmail exist";
-//    }
-
     @Override
-    public Map<String,Object> checkAdmin(String gmail, HttpSession session){
-        AdminEntity adminEntity = hospitalRepository.checkAdmin(gmail);
+    public Map<String,Object> checkAdminExist(String gmail, HttpSession session){
+        AdminEntity adminEntity = hospitalRepository.checkAdminExist(gmail);
         Map<String,Object> response = new HashMap<>();
         if(adminEntity.getEmail() == null){
             response.put("otpSent" , false);
@@ -48,9 +35,11 @@ public  class HospitalServiceImp implements HospitalService {
         }
         String  genOTP  = sendEmail(gmail,generateOTP());
         LocalDateTime localDateTime = saveOTP(genOTP,LocalDateTime.now(),session);
+        session.setAttribute("otpGeneratedTime", localDateTime);
+        session.setAttribute("otpExpirySeconds", 120);
 
         response.put("otpSent", true);
-        response.put("remainingTime", 150);
+        response.put("remainingTime", 120);
         return response;
     }
 

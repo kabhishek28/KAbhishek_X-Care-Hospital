@@ -35,7 +35,7 @@
                 <a type="button" class="btn btn-success btn-blink shadow-sm  me-2" href="#">Access Lab Reports</a>
                 <a type="button" class="btn btn-primary btn-blink shadow-sm  me-2" href="#">Appointment</a>
                 <a type="button" class="btn  btn-danger btn-blink me-2 shadow-sm " href="#">Emergency Ambulance</a>
-                <a type="button" class="btn btn-outline-dark me-4 shadow" href="admin" >Admin Login</a>
+                <a type="button" class="btn btn-outline-dark me-4 shadow" href="adminLogin" >Admin Login</a>
             </div>
         </div>
     </nav>
@@ -46,20 +46,23 @@
 </main>
 <script>
     function startTimer(seconds) {
-            let timer = seconds;
-            const display = document.getElementById("timer");
+    let timer = seconds;
+    const display = document.getElementById("timer");
+    const submitBtn = document.querySelector("button[type='submit']");
 
-            const interval = setInterval(() => {
-                let minutes = Math.floor(timer / 60);
-                let secs = timer % 60;
-                display.innerHTML = minutes + ":" + (secs < 10 ? "0" : "") + secs;
+    const interval = setInterval(() => {
+        let minutes = Math.floor(timer / 60);
+        let secs = timer % 60;
+        display.innerHTML = minutes + ":" + (secs < 10 ? "0" : "") + secs;
 
-                if (--timer < 0) {
-                    clearInterval(interval);
-                    display.innerHTML = "OTP expired!";
-                }
-            }, 1000);
+        if (--timer < 0) {
+            clearInterval(interval);
+            display.innerHTML = "OTP expired!";
+            submitBtn.innerText = "Resend OTP";
+            submitBtn.disabled = false;
         }
+    }, 1000);
+}
 </script>
 <body onload="startTimer(${remainingTime})" >
 <div class="d-flex justify-content-center mt-5">
@@ -68,13 +71,10 @@
         <form action="login" method="post">
             <div class="mb-3">
                 <label for="gmailID" class="form-label">Email address</label>
-                <input type="email" class="form-control" id="gmailID" name="gmailName" placeholder="name@example.com" readonly oninput="validationGmail()" onchange="checkEmail()" value="${gmail}" required>
-<!--                <div  id="emailError" class="input-text text-danger" style="min-height:25px;"></div>-->
-
+                <input type="email" class="form-control" id="gmailID" name="gmailName" placeholder="name@example.com" readonly   value="${gmail}" >
             </div>
             <p id="timer"></p>
             <div class="mb-3">
-
                 <label for="OtplID" class="form-label">Enter Otp</label>
                 <input type="text" class="form-control" id="OtplID" name="otp" placeholder="Enter the OTP"   required>
                 <div  id="otpError" class="input-text text-danger" style="min-height:25px;"></div>

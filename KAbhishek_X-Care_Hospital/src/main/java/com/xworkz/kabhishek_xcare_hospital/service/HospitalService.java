@@ -11,7 +11,7 @@ import java.util.Map;
 
 public interface HospitalService {
 //    String checkAdmin(String gmail, HttpSession session);
-    Map<String,Object> checkAdmin(String gmail,HttpSession session);
+    Map<String,Object> checkAdminExist(String gmail,HttpSession session);
 
     int countEmail(String email);
 

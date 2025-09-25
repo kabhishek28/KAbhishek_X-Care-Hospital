@@ -33,7 +33,7 @@
                 <a type="button" class="btn btn-success btn-blink shadow-sm  me-2" href="#">Access Lab Reports</a>
                 <a type="button" class="btn btn-primary btn-blink shadow-sm  me-2" href="#">Appointment</a>
                 <a type="button" class="btn  btn-danger btn-blink me-2 shadow-sm " href="#">Emergency Ambulance</a>
-                <a type="button" class="btn btn-outline-dark me-4 shadow" href="admin" >Admin Login</a>
+                <a type="button" class="btn btn-outline-dark me-4 shadow" href="adminLogin" >Admin Login</a>
             </div>
         </div>
     </nav>

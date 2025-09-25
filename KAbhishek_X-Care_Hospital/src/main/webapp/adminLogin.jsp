@@ -35,7 +35,7 @@
                 <a type="button" class="btn btn-success btn-blink shadow-sm  me-2" href="#">Access Lab Reports</a>
                 <a type="button" class="btn btn-primary btn-blink shadow-sm  me-2" href="#">Appointment</a>
                 <a type="button" class="btn  btn-danger btn-blink me-2 shadow-sm " href="#">Emergency Ambulance</a>
-                <a type="button" class="btn btn-outline-dark me-4 shadow" href="admin" >Admin Login</a>
+                <a type="button" class="btn btn-outline-dark me-4 shadow" href="adminLogin" >Admin Login</a>
             </div>
         </div>
     </nav>
@@ -48,15 +48,13 @@
 <div class="d-flex justify-content-center mt-5">
 <div class="card shadow-lg p-4 rounded-4  " style="width: 22rem;">
     <h5 class="text-center mb-3">Admin Login</h5>
-    <form action="sendotp" method="post">
+    <form action="sendAdminOTP" method="post" onsubmit="return validateAdminGmailForm()">
         <div class="mb-3">
             <label for="gmailID" class="form-label">Email address</label>
             <input type="email" class="form-control" id="gmailID" name="gmailName" placeholder="name@example.com" oninput="validationGmail()" onchange="checkEmail()" required>
             <div  id="emailError" class="input-text text-danger" style="min-height:25px;"></div>
             <c:out value="${message}" />
         </div>
-
-
     <button type="submit" class="btn btn-primary w-100">Get OTP</button>
     </form>
 </div>

@@ -23,7 +23,7 @@ public class HospitalRepositoryImp implements HospitalRepository{
 
 
     @Override
-    public AdminEntity checkAdmin(String gmail) {
+    public AdminEntity checkAdminExist(String gmail) {
         EntityManager entityManager = null;
         AdminEntity adminEntity = new AdminEntity();
         try{

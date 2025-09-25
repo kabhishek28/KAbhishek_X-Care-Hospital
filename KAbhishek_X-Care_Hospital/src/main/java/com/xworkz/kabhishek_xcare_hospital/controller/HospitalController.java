@@ -22,6 +22,7 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -37,9 +38,9 @@ public class HospitalController {
     @Autowired
     HospitalService hospitalService;
 
-    @RequestMapping("admin")
+    @RequestMapping("adminLogin")
     public String adminPage(){
-        return "admin";
+        return "adminLogin";
     }
 
     @RequestMapping("getHome")
@@ -73,44 +74,58 @@ public class HospitalController {
 //    }
 
 
-    @RequestMapping("sendotp")
+    @RequestMapping("sendAdminOTP")
     public String adminLogIn(String gmailName,Model model,HttpSession session){
         session.setAttribute("email",gmailName);
-        Map<String,Object> response = hospitalService.checkAdmin(gmailName,session);
+        Map<String,Object> response = hospitalService.checkAdminExist(gmailName,session);
 
         if(!(boolean) response.get("otpSent")){
-            model.addAttribute("error",response.get("message"));
             model.addAttribute("gmail",session.getAttribute("email"));
-           return "admin";
+           return "adminLogin";
         }
         model.addAttribute("gmail", gmailName);
         model.addAttribute("remainingTime", response.get("remainingTime"));
-        return "otp";
+        return "adminLoginOTP";
     }
 
     @RequestMapping("login")
-    public ModelAndView loginPage(String gmailName , String otp ,ModelAndView modelAndView ){
-        String value = hospitalService.matchOtp(gmailName,otp);
-        if(value.equals("OTP Done")){
-            modelAndView.addObject("otpError","OTP MATCH");
-            modelAndView.setViewName("home");
-            return modelAndView;
-        }else if(value.equals("OTP Wrong")) {
-            modelAndView.addObject("otpError", "OTP NOT MATCH");
-            modelAndView.addObject("gmail",gmailName);
-            modelAndView.addObject("remainingTime", 150);
-            modelAndView.setViewName("otp");
-            return modelAndView;
-        }else if(value.equals("Time expired")){
-            modelAndView.addObject("gmail",gmailName);
-            modelAndView.addObject("time","Time Expired");
-            modelAndView.setViewName("otp");
-            return modelAndView;
+    public ModelAndView loginPage(@RequestParam String gmailName, @RequestParam String otp, HttpSession session, ModelAndView modelAndView) {
+
+        // Check OTP
+        String value = hospitalService.matchOtp(gmailName, otp);
+
+        switch (value) {
+            case "OTP Done":
+                // OTP matched → redirect to home page
+                modelAndView.setViewName("home");
+                return modelAndView;
+
+            case "OTP Wrong":
+                // OTP wrong → stay on OTP page, timer continues
+                Integer remainingTime = (Integer) session.getAttribute("remainingTime");
+                if (remainingTime == null) remainingTime = 120; // fallback
+
+                modelAndView.addObject("otpError", "OTP NOT MATCH");
+                modelAndView.addObject("gmail", gmailName);
+                modelAndView.addObject("remainingTime", remainingTime);
+                modelAndView.setViewName("adminLoginOTP");
+                return modelAndView;
+
+            case "Time expired":
+                // OTP expired → show resend button
+                modelAndView.addObject("gmail", gmailName);
+                modelAndView.addObject("timeExpired", true);
+                modelAndView.setViewName("adminLoginOTP");
+                return modelAndView;
+
+            default:
+                // fallback
+                modelAndView.addObject("gmail", gmailName);
+                modelAndView.setViewName("adminLoginOTP");
+                return modelAndView;
         }
-        modelAndView.addObject("gmail",gmailName);
-        modelAndView.setViewName("otp");
-        return modelAndView;
     }
+
 
     @RequestMapping("getDoctor")
     public String getDoctorForm(){

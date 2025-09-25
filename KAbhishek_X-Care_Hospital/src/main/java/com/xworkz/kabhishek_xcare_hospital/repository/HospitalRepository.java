@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface HospitalRepository {
-    AdminEntity checkAdmin(String gmail);
+    AdminEntity checkAdminExist(String gmail);
 
     int countEmail(String email);
 

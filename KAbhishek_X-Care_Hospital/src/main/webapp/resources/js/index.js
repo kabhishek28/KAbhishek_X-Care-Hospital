@@ -65,6 +65,10 @@ function validateQualification() {
     }
 }
 
+function clearError(){
+document.getElementById("errorID").innerHTML = "";
+}
+
 
 function getDoctorEmail() {
     const doctorSelect = document.getElementById("doctorID");
@@ -131,6 +135,15 @@ function validateSlotForm() {
         return false;
     }
     return true;
+}
+
+function validateAdminGmailForm(){
+const gmailError = document.getElementById("emailError").innerText;
+if(gmailError != "Email exists"){
+alert("Cannot submit: " + gmailError);
+return false;
+}
+return true;
 }
 
 
