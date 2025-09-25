@@ -49,7 +49,7 @@
             <li class="nav-item dropdown">
                 <a class="nav-link text-white dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Doctors</a>
                 <ul class="dropdown-menu  shadow" style="background-color: #003366;">
-                    <li><a class="dropdown-item text-white" href="getDoctor">Doctor Registration</a></li>
+                    <li><a class="dropdown-item text-white" href="registerDoctor">Doctor Registration</a></li>
                     <li><a class="dropdown-item text-white" href="getUpDatePage">UpDate Doctors</a></li>
                 </ul>
             </li>

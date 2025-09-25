@@ -127,9 +127,9 @@ public class HospitalController {
     }
 
 
-    @RequestMapping("getDoctor")
+    @RequestMapping("registerDoctor")
     public String getDoctorForm(){
-        return "doctor";
+        return "doctorRegisterForm";
     }
 
     @RequestMapping("doctorForm")
