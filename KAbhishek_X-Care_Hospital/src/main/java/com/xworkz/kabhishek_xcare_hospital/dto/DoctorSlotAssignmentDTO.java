@@ -10,11 +10,13 @@ import javax.persistence.GenerationType;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class DoctorWithSlotsDTO {
+public class DoctorSlotAssignmentDTO {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    private int doctorID;
+    private int slotID;
     private String optionDoctorName;
     private String timings;
     private String doctorEmail;

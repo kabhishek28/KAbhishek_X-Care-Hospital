@@ -27,5 +27,7 @@ public class DoctorDTO {
     private String qualification;
     private int experience;
     private String imagePath;
-    private String slotTiming;
+
+
+
 }

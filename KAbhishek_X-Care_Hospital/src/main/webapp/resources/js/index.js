@@ -70,12 +70,29 @@ document.getElementById("errorID").innerHTML = "";
 }
 
 
-function getDoctorEmail() {
+function getDoctorEmailAndID() {
     const doctorSelect = document.getElementById("doctorID");
     const emailInput = document.getElementById("gmailID");
     const selectedOption = doctorSelect.options[doctorSelect.selectedIndex];
+    document.getElementById("doctorIDHidden").value = selectedOption.getAttribute("data-id");
     const email = selectedOption.getAttribute("data-email");
     emailInput.value = email || "";
+}
+function getSlotID() {
+const  select = document.getElementById("timeID");
+const selectedOption = select.options[select.selectedIndex];
+document.getElementById("slotIDHidden").value = selectedOption.getAttribute("data-id");
+}
+function checkSlotsAssigned(){
+const inputSlot = document.getElementById("timeID").value;
+const inputGmail = document.getElementById("gmailID").value;
+const existSlot = document.getElementById("existSlotsError");
+const xhttp = new XMLHttpRequest()
+xhttp.open("GET","http://localhost:8080/KAbhishek_X-Care_Hospital/getDoctorSlots/"+inputSlot+"/"+inputGmail);
+xhttp.send();
+xhttp.onload=function(){
+existSlot.innerHTML = this.responseText;
+}
 }
 
 
@@ -114,17 +131,7 @@ patientsError.innerHTML = this.responseText;
 }
 }
 
-function checkSlotsAssigned(){
-const inputSlot = document.getElementById("timeID").value;
-const inputGmail = document.getElementById("gmailID").value;
-const existSlot = document.getElementById("existSlotsError");
-const xhttp = new XMLHttpRequest()
-xhttp.open("GET","http://localhost:8080/KAbhishek_X-Care_Hospital/getDoctorSlots/"+inputSlot+"/"+inputGmail);
-xhttp.send();
-xhttp.onload=function(){
-existSlot.innerHTML = this.responseText;
-}
-}
+
 
 
 function validateSlotForm() {
@@ -145,5 +152,7 @@ return false;
 }
 return true;
 }
+
+
 
 

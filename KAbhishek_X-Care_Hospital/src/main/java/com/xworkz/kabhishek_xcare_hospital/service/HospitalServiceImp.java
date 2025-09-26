@@ -1,11 +1,11 @@
 package com.xworkz.kabhishek_xcare_hospital.service;
 
 import com.xworkz.kabhishek_xcare_hospital.dto.DoctorDTO;
-import com.xworkz.kabhishek_xcare_hospital.dto.DoctorWithSlotsDTO;
+import com.xworkz.kabhishek_xcare_hospital.dto.DoctorSlotAssignmentDTO;
 import com.xworkz.kabhishek_xcare_hospital.dto.TimingSlotDTO;
 import com.xworkz.kabhishek_xcare_hospital.entity.AdminEntity;
 import com.xworkz.kabhishek_xcare_hospital.entity.DoctorEntity;
-import com.xworkz.kabhishek_xcare_hospital.entity.DoctorWithSlotsEntity;
+import com.xworkz.kabhishek_xcare_hospital.entity.DoctorSlotAssignmentEntity;
 import com.xworkz.kabhishek_xcare_hospital.entity.TimingSlotEntity;
 import com.xworkz.kabhishek_xcare_hospital.repository.HospitalRepository;
 import org.springframework.beans.BeanUtils;
@@ -96,10 +96,7 @@ public  class HospitalServiceImp implements HospitalService {
 
 
 
-    @Override
-    public int countEmail(String email) {
-        return hospitalRepository.countEmail(email);
-    }
+
     @Override
     public LocalDateTime saveOTP(String otp,LocalDateTime localDateTime,HttpSession session) {
         hospitalRepository.saveOTP(otp,localDateTime,session);
@@ -166,11 +163,7 @@ public  class HospitalServiceImp implements HospitalService {
         return hospitalRepository.upDateDoctorAndSlots(doctorEmail,specialty,timings,startTime,endTime);
     }
 
-    @Override
-    public int checkDoctorSlotsAssign(String doctorEmail, String slotTime) {
-        return hospitalRepository.checkDoctorSlotsAssign(doctorEmail,slotTime);
 
-    }
 
     @Override
     public List<DoctorDTO> getAllDoctorsList() {
@@ -200,37 +193,14 @@ public  class HospitalServiceImp implements HospitalService {
     }
 
 
-    @Override
-    public List<DoctorDTO> checkDoctorList(String specialty) {
 
-        List<DoctorEntity> list =  hospitalRepository.checkDoctorList(specialty);
-        List<DoctorDTO> doctors = new ArrayList<>();
-
-        for (DoctorEntity doctorEntity : list){
-            DoctorDTO doctorDTO = new DoctorDTO();
-            BeanUtils.copyProperties(doctorEntity,doctorDTO);
-            doctors.add(doctorDTO);
-        }
-
-        return doctors;
-    }
 
     @Override
-    public List<TimingSlotDTO> checkTimingList(String specialty) {
-        List<TimingSlotEntity> list = hospitalRepository.checkTimingList(specialty);
-        List<TimingSlotDTO> listDTO = new ArrayList<>();
-        for(TimingSlotEntity timingSlotEntity:list){
-            TimingSlotDTO timingSlotDTO = new TimingSlotDTO();
-            BeanUtils.copyProperties(timingSlotEntity,timingSlotDTO);
-            listDTO.add(timingSlotDTO);
-        }
-        return listDTO;
-    }
-
-    @Override
-    public String saveDoctorWithSlots(DoctorWithSlotsDTO doctorWithSlots) {
-        DoctorWithSlotsEntity doctorWithSlotsEntity = new DoctorWithSlotsEntity();
-        BeanUtils.copyProperties(doctorWithSlots,doctorWithSlotsEntity);
-        return hospitalRepository.saveDoctorWithSlots(doctorWithSlotsEntity);
+    public String saveDoctorWithSlots(DoctorSlotAssignmentDTO doctorWithSlots) {
+        DoctorSlotAssignmentEntity doctorSlotAssignmentEntity = new DoctorSlotAssignmentEntity();
+        BeanUtils.copyProperties(doctorWithSlots,doctorSlotAssignmentEntity);
+        System.out.println(doctorSlotAssignmentEntity);
+        DoctorEntity doctorEntity = hospitalRepository.
+        return "";//hospitalRepository.saveDoctorWithSlots(doctorSlotAssignmentEntity);
     }
 }

@@ -1,7 +1,7 @@
 package com.xworkz.kabhishek_xcare_hospital.service;
 
 import com.xworkz.kabhishek_xcare_hospital.dto.DoctorDTO;
-import com.xworkz.kabhishek_xcare_hospital.dto.DoctorWithSlotsDTO;
+import com.xworkz.kabhishek_xcare_hospital.dto.DoctorSlotAssignmentDTO;
 import com.xworkz.kabhishek_xcare_hospital.dto.TimingSlotDTO;
 
 import javax.servlet.http.HttpSession;
@@ -12,8 +12,6 @@ import java.util.Map;
 public interface HospitalService {
 //    String checkAdmin(String gmail, HttpSession session);
     Map<String,Object> checkAdminExist(String gmail,HttpSession session);
-
-    int countEmail(String email);
 
     LocalDateTime saveOTP(String otp, LocalDateTime localDateTime ,HttpSession session);
 
@@ -29,19 +27,14 @@ public interface HospitalService {
 
     String upDateDoctorAndSlots(String doctorEmail,String specialty,String timings,String startTime,String endTime);
 
-    int checkDoctorSlotsAssign(String doctorEmail,String slotTime);
-
     List<DoctorDTO> getAllDoctorsList();
 
     DoctorDTO findSingleDoctorData(String gmail);
 
     String saveUpdatedDoctorData(DoctorDTO doctorDTO);
 
-    List<DoctorDTO> checkDoctorList(String specialty);
 
-    List<TimingSlotDTO> checkTimingList(String specialty);
-
-    String saveDoctorWithSlots(DoctorWithSlotsDTO doctorWithSlots);
+    String saveDoctorWithSlots(DoctorSlotAssignmentDTO doctorWithSlots);
 
 
 

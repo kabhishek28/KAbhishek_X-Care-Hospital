@@ -103,10 +103,10 @@
 <div class="d-flex justify-content-center mt-5">
     <div class="card shadow-lg p-4 rounded-4" style="width: 24rem;">
         <h5 class="text-center mb-4 fw-bold">Check Doctors</h5>
-        <form action="findDoctor" method="post">
+        <form action="findDoctorsSlots" method="post">
             <div class="mb-4">
                 <label for="specialty" class="form-label fw-semibold">Specialty</label>
-                <select id="specialty" name="specialty" class="form-select" required aria-readonly="">
+                <select id="specialty" name="specialty" class="form-select" required >
                     <option disabled ${selectedSpecialty == null ? "selected" : ""}>Choose specialty...</option>
                     <option value="CARDIOLOGY" ${selectedSpecialty == 'CARDIOLOGY' ? "selected" : ""}>Cardiology</option>
                     <option value="DERMATOLOGY" ${selectedSpecialty == 'DERMATOLOGY' ? "selected" : ""}>Dermatology</option>
@@ -146,27 +146,33 @@
                 <h5 class="text-center mb-4 fw-bold">Check Doctors</h5>
 
                 <form action="doctorSlotAssign" method="post" onsubmit="return validateSlotForm()">
+
+<!--                    <input type="number" class="form-control" id="docId" name="doctorID" value="${doctor.id}" oninput="validationId()" placeholder="Enter Doctor ID" hidden>-->
                     <div class="mb-4">
                         <label for="doctorID" class="form-label fw-semibold">Doctors</label>
-                        <select id="doctorID" typeof="text" name="optionDoctorName" class="form-select" onchange="getDoctorEmail()" required>
+                        <select id="doctorID" typeof="text" name="optionDoctorName" class="form-select" onchange="getDoctorEmailAndID()" required>
                             <option selected disabled>Choose Doctor...</option>
                             <c:forEach var = "doc" items="${doctors}">
-                                <option value="${doc.doctorName}" data-email="${doc.doctorEmail}">
+                                <option value="${doc.doctorName}" data-id= "${doc.id}" data-email="${doc.doctorEmail}">
                                     ${doc.doctorName}
                                 </option>
+
                             </c:forEach>
                         </select>
+                        <input type="hidden" id="doctorIDHidden" name="doctorID">
                     </div>
 
                     <div class="mb-4">
                         <label for="timeID" class="form-label fw-semibold">Timings Slot</label>
-                        <select id="timeID" name="timings" class="form-select" onchange="checkSlotsAssigned()" required>
+                        <select id="timeID" name="timings" class="form-select" onchange="checkSlotsAssigned(); getSlotID()" required>
                             <option selected disabled>Choose Timings...</option>
                             <c:forEach var = "tim" items="${slots}">
-                                <option value="${tim.startTime} to ${tim.endTime}">${tim.startTime} to ${tim.endTime}</option>
+                                <option value="${tim.startTime} to ${tim.endTime}" data-id="${tim.id}">${tim.startTime} to ${tim.endTime}</option>
+
                             </c:forEach>
                         </select>
                         <div  id="existSlotsError" class="input-text text-danger" style="min-height:25px;"></div>
+                        <input type="hidden" id="slotIDHidden" name="slotID">
                     </div>
 
                     <div class="col-md-6">
