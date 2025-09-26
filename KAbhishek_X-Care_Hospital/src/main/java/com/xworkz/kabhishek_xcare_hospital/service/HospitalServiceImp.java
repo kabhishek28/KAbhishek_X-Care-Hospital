@@ -197,12 +197,18 @@ public  class HospitalServiceImp implements HospitalService {
 
     @Override
     public String saveDoctorWithSlots(DoctorSlotAssignmentDTO doctorWithSlots) {
-        int doctorID = doctorWithSlots.getDoctorID();
-        int slotID = doctorWithSlots.getSlotID();
-        DoctorEntity doctorEntity = hospitalRepository.getDoctorEntityByID(doctorID);
+        DoctorEntity doctorEntity = hospitalRepository.getDoctorEntityByID(doctorWithSlots.getDoctorID());
+        TimingSlotEntity timingSlotEntity = hospitalRepository.getTimingSlotEntityByID(doctorWithSlots.getSlotID());
 
-        TimingSlotEntity timingSlotEntity = hospitalRepository.getTimingSlotEntityByID(slotID);
+        DoctorSlotAssignmentEntity doctorSlotAssignmentEntity = new DoctorSlotAssignmentEntity();
+        doctorSlotAssignmentEntity.setId(doctorWithSlots.getId());
+        doctorSlotAssignmentEntity.setOptionDoctorName(doctorWithSlots.getOptionDoctorName());
+        doctorSlotAssignmentEntity.setDoctorEmail(doctorWithSlots.getDoctorEmail());
+        doctorSlotAssignmentEntity.setSpecialty(doctorWithSlots.getSpecialty());
+        doctorSlotAssignmentEntity.setTimings(doctorWithSlots.getTimings());
+        doctorSlotAssignmentEntity.setDoctorEntity(doctorEntity);
+        doctorSlotAssignmentEntity.setTimingSlotEntity(timingSlotEntity);
 
-        return "";//hospitalRepository.saveDoctorWithSlots(doctorSlotAssignmentEntity);
+        return hospitalRepository.saveDoctorWithSlots(doctorSlotAssignmentEntity);
     }
 }

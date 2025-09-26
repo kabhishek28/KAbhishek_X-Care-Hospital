@@ -44,7 +44,6 @@ public class SlotAssignmentController {
 
     @RequestMapping("doctorSlotAssign")
     public String assignSlotWithDoctor(DoctorSlotAssignmentDTO doctorWithSlots, Model model){
-        System.out.println(doctorWithSlots);
         String value = hospitalService.saveDoctorWithSlots(doctorWithSlots);
 
         if(!value.equals("Data has been Saved")){

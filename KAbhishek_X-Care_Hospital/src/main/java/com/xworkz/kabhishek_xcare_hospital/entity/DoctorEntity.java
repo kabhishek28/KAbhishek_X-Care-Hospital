@@ -55,5 +55,9 @@ public class DoctorEntity {
     private List<DoctorSlotAssignmentEntity> assignmentEntities;
 
 
+    @OneToOne(mappedBy = "doctorEntity",cascade = CascadeType.ALL,orphanRemoval = true)
+    @ToString.Exclude
+    private ImageEntity imageEntity;
+
 
 }

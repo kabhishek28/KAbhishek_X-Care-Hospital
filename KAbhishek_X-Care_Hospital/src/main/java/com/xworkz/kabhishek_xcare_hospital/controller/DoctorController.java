@@ -36,12 +36,13 @@ public class DoctorController {
     @RequestMapping("doctorForm")
     public String saveDoctorFrom(DoctorDTO dto , @RequestParam("photo") MultipartFile file, Model model) throws IOException {
         byte[] photoSize=file.getBytes();
+
         Path imagePath= Paths.get("D:\\doctorfolder\\"+dto.getDoctorName()+System.currentTimeMillis()+".jpg");
         Files.write(imagePath,photoSize);
         dto.setImagePath(imagePath.getFileName().toString());
 
         model.addAttribute("dto",dto);
-        hospitalService.saveDoctor(dto);
+        //hospitalService.saveDoctor(dto);
         return "doctorRegisterForm";
     }
 
