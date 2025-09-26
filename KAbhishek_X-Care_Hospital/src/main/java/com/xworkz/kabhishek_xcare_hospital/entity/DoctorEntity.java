@@ -2,6 +2,7 @@ package com.xworkz.kabhishek_xcare_hospital.entity;
 
 import com.xworkz.kabhishek_xcare_hospital.constants.Specialty;
 import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.List;
@@ -50,6 +51,7 @@ public class DoctorEntity {
     private String imagePath;
 
     @OneToMany(mappedBy = "doctorEntity",cascade = CascadeType.ALL,orphanRemoval = true)
+    @ToString.Exclude
     private List<DoctorSlotAssignmentEntity> assignmentEntities;
 
 

@@ -197,10 +197,12 @@ public  class HospitalServiceImp implements HospitalService {
 
     @Override
     public String saveDoctorWithSlots(DoctorSlotAssignmentDTO doctorWithSlots) {
-        DoctorSlotAssignmentEntity doctorSlotAssignmentEntity = new DoctorSlotAssignmentEntity();
-        BeanUtils.copyProperties(doctorWithSlots,doctorSlotAssignmentEntity);
-        System.out.println(doctorSlotAssignmentEntity);
-        DoctorEntity doctorEntity = hospitalRepository.
+        int doctorID = doctorWithSlots.getDoctorID();
+        int slotID = doctorWithSlots.getSlotID();
+        DoctorEntity doctorEntity = hospitalRepository.getDoctorEntityByID(doctorID);
+
+        TimingSlotEntity timingSlotEntity = hospitalRepository.getTimingSlotEntityByID(slotID);
+
         return "";//hospitalRepository.saveDoctorWithSlots(doctorSlotAssignmentEntity);
     }
 }

@@ -48,7 +48,7 @@ public class RestController {
 
     @GetMapping("/getDoctorSlots/{inputSlot}/{inputEmail}")
     public String getSlots(@PathVariable String inputSlot,@PathVariable String inputEmail){
-        System.out.println(inputEmail+"==="+inputSlot);
+
         int count = restControllerSercive.checkDoctorSlotsAssign(inputEmail,inputSlot);
         if(count==0){
             return "";

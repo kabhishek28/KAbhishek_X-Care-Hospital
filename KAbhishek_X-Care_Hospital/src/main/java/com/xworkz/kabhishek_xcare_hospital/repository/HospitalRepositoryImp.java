@@ -281,6 +281,53 @@ public class HospitalRepositoryImp implements HospitalRepository{
         return value;
     }
 
+    @Override
+    public DoctorEntity getDoctorEntityByID(int doctorID) {
+        EntityManager eM = null ;
+        EntityTransaction eT = null;
+        DoctorEntity doctorEntity = new DoctorEntity();
+        try{
+            eM = entityManagerFactory.createEntityManager();
+            eT = eM.getTransaction();
+            eT.begin();
+
+            doctorEntity = eM.find(DoctorEntity.class,doctorID);
+            eT.commit();
+        }catch (Exception e){
+            e.printStackTrace();
+            if(eT.isActive()){
+                eT.rollback();
+            }
+        }finally {
+            eM.close();
+        }
+        return doctorEntity;
+
+    }
+
+    @Override
+    public TimingSlotEntity getTimingSlotEntityByID(int slotID) {
+        EntityManager eM = null ;
+        EntityTransaction eT = null;
+        TimingSlotEntity timingSlotEntity = new TimingSlotEntity();
+        try{
+            eM = entityManagerFactory.createEntityManager();
+            eT = eM.getTransaction();
+            eT.begin();
+            timingSlotEntity = eM.find(TimingSlotEntity.class,slotID);
+            eT.commit();
+        }catch (Exception e){
+            e.printStackTrace();
+            if(eT.isActive()){
+                eT.rollback();
+            }
+        }finally {
+            eM.close();
+        }
+        return timingSlotEntity;
+
+
+    }
 
 
     @Override

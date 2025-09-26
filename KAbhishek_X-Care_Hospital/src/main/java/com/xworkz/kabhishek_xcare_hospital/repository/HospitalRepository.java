@@ -33,5 +33,10 @@ public interface HospitalRepository {
 
     String saveUpdatedDoctorData(DoctorEntity doctorEntity);
 
+    DoctorEntity getDoctorEntityByID(int doctorID);
+
+    TimingSlotEntity getTimingSlotEntityByID(int slotID);
+
+
     String saveDoctorWithSlots(DoctorSlotAssignmentEntity doctorWithSlotsEntity);
 }

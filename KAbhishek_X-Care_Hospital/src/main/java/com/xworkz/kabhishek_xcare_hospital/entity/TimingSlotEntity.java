@@ -1,6 +1,7 @@
 package com.xworkz.kabhishek_xcare_hospital.entity;
 
 import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.List;
@@ -29,9 +30,7 @@ public class TimingSlotEntity {
     private String endTime;
 
     @OneToMany(mappedBy = "timingSlotEntity",cascade = CascadeType.ALL,orphanRemoval = true)
+    @ToString.Exclude
     List<DoctorSlotAssignmentEntity> assignmentEntities;
-
-
-
 
 }
