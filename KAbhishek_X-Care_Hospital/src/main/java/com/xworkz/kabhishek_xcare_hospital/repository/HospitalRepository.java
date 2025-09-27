@@ -1,9 +1,6 @@
 package com.xworkz.kabhishek_xcare_hospital.repository;
 
-import com.xworkz.kabhishek_xcare_hospital.entity.AdminEntity;
-import com.xworkz.kabhishek_xcare_hospital.entity.DoctorEntity;
-import com.xworkz.kabhishek_xcare_hospital.entity.DoctorSlotAssignmentEntity;
-import com.xworkz.kabhishek_xcare_hospital.entity.TimingSlotEntity;
+import com.xworkz.kabhishek_xcare_hospital.entity.*;
 
 import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
@@ -39,4 +36,7 @@ public interface HospitalRepository {
 
 
     String saveDoctorWithSlots(DoctorSlotAssignmentEntity doctorWithSlotsEntity);
+
+    String saveDoctorImageDetails(ImageEntity imageEntity);
+
 }

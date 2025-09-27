@@ -5,6 +5,7 @@ import com.xworkz.kabhishek_xcare_hospital.dto.DoctorSlotAssignmentDTO;
 import com.xworkz.kabhishek_xcare_hospital.dto.TimingSlotDTO;
 
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
@@ -17,7 +18,7 @@ public interface HospitalService {
 
     String matchOtp(String gmail,String inputOTP);
 
-    void saveDoctor(DoctorDTO dto);
+    void saveDoctor(DoctorDTO dto) throws IOException;
 
     void saveTimeSlots(TimingSlotDTO timingSlotDTO);
 

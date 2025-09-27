@@ -18,6 +18,7 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
 @Controller
 @RequestMapping("/")
@@ -34,15 +35,9 @@ public class DoctorController {
     }
 
     @RequestMapping("doctorForm")
-    public String saveDoctorFrom(DoctorDTO dto , @RequestParam("photo") MultipartFile file, Model model) throws IOException {
-        byte[] photoSize=file.getBytes();
-
-        Path imagePath= Paths.get("D:\\doctorfolder\\"+dto.getDoctorName()+System.currentTimeMillis()+".jpg");
-        Files.write(imagePath,photoSize);
-        dto.setImagePath(imagePath.getFileName().toString());
-
+    public String saveDoctorFrom(DoctorDTO dto , Model model) throws IOException {
         model.addAttribute("dto",dto);
-        //hospitalService.saveDoctor(dto);
+        hospitalService.saveDoctor(dto);
         return "doctorRegisterForm";
     }
 
@@ -54,5 +49,21 @@ public class DoctorController {
         ServletOutputStream servletOutputStream=response.getOutputStream();
         IOUtils.copy(inputStream,servletOutputStream);
         response.flushBuffer();
+    }
+
+    @RequestMapping("allDoctorsList")
+    public String getUpDatePage(Model model){
+        List<DoctorDTO> list = hospitalService.getAllDoctorsList();
+        model.addAttribute("doctorsList",list);
+        return "doctorsUpdatePage";
+    }
+
+    @RequestMapping("getDoctorUpdatePage")
+    public String getUpdatePage(int doctorID,Model model){
+        System.out.println(doctorID);
+//        DoctorDTO doctorDTO = hospitalService.findSingleDoctorData(doctorID);
+//        System.out.println(doctorDTO);
+//        model.addAttribute("dto",doctorDTO);
+        return "doctorUpDateFormPage";
     }
 }

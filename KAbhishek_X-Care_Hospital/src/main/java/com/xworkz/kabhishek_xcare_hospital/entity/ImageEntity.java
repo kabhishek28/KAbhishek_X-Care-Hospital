@@ -1,7 +1,10 @@
 package com.xworkz.kabhishek_xcare_hospital.entity;
 
+import lombok.Data;
+
 import javax.persistence.*;
 
+@Data
 @Entity
 @Table(name = "image_table")
 public class ImageEntity {

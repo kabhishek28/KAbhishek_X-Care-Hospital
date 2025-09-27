@@ -47,8 +47,6 @@ public class DoctorEntity {
     @Column(name = "experience")
     private int experience;
 
-    @Column(name = "image_path")
-    private String imagePath;
 
     @OneToMany(mappedBy = "doctorEntity",cascade = CascadeType.ALL,orphanRemoval = true)
     @ToString.Exclude

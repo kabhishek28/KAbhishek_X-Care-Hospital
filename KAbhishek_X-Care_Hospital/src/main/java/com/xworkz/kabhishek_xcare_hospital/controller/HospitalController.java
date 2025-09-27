@@ -101,20 +101,9 @@ public class HospitalController {
         return "patients";
     }
 
-    @RequestMapping("getUpDatePage")
-    public String getUpDate(Model model){
-        List<DoctorDTO> list = hospitalService.getAllDoctorsList();
-        model.addAttribute("doctorsList",list);
-        return "doctorsData";
-    }
 
-    @RequestMapping("getDoctorUpdatePage")
-    public String getUpdatePage(String email,Model model){
-        DoctorDTO doctorDTO = hospitalService.findSingleDoctorData(email);
-        System.out.println(doctorDTO);
-        model.addAttribute("dto",doctorDTO);
-        return "doctorUpDatePage";
-    }
+
+
 
     @RequestMapping("updateDoctorForm")
     public String updateDoctordata(DoctorDTO doctorDTO,@RequestParam("photo") MultipartFile file,Model model) throws IOException {

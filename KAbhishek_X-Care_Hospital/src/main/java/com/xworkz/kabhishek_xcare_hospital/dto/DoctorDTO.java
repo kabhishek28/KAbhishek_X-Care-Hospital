@@ -4,6 +4,7 @@ import com.xworkz.kabhishek_xcare_hospital.constants.Specialty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
@@ -26,8 +27,7 @@ public class DoctorDTO {
     private String doctorGender;
     private String qualification;
     private int experience;
+    private MultipartFile photo;
     private String imagePath;
-
-
 
 }

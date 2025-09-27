@@ -51,7 +51,7 @@
                 <a class="nav-link text-white dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Doctors</a>
                 <ul class="dropdown-menu  shadow" style="background-color: #003366;">
                     <li><a class="dropdown-item text-white" href="registerDoctor">Doctor Registration</a></li>
-                    <li><a class="dropdown-item text-white" href="getUpDatePage">UpDate Doctors</a></li>
+                    <li><a class="dropdown-item text-white" href="allDoctorsList">UpDate Doctors</a></li>
                 </ul>
             </li>
             <li class="nav-item">
@@ -106,7 +106,7 @@
 
         <form class="row g-3" action="doctorForm" method="post" enctype="multipart/form-data">
 
-<!--            <img src="download?imagePath=${dto.imagePath}"></img>-->
+
 
             <div class="col-md-6">
                 <label for="inputName" class="form-label">Doctor Name</label>

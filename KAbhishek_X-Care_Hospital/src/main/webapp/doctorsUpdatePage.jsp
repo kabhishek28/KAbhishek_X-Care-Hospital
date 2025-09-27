@@ -61,7 +61,7 @@
                 <a class="nav-link text-white dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Doctors</a>
                 <ul class="dropdown-menu  shadow" style="background-color: #003366;">
                     <li><a class="dropdown-item text-white" href="registerDoctor">Doctor Registration</a></li>
-                    <li><a class="dropdown-item text-white" href="getUpDatePage">UpDate Doctors</a></li>
+                    <li><a class="dropdown-item text-white" href="allDoctorsList">UpDate Doctors</a></li>
                 </ul>
             </li>
             <li class="nav-item">
@@ -143,11 +143,11 @@
 
                     <div class="text-center mb-1 d-flex justify-content-center gap-2">
                         <form action="getDoctorUpdatePage" method="post">
-                            <input type="hidden" name="email" value="${doc.doctorEmail}">
+                            <input type="hidden" name="doctorID" value="${doc.id}">
                             <button class="btn btn-primary btn-sm">Update</button>
                         </form>
                         <form action="DoctorDelete" method="post">
-                            <input type="hidden" name="email" value="${doc.doctorEmail}">
+                            <input type="hidden" name="email" value="${doc.id}">
                             <button class="btn btn-danger btn-sm">Delete</button>
                         </form>
                     </div>

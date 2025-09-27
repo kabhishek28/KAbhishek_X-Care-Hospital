@@ -1,10 +1,7 @@
 package com.xworkz.kabhishek_xcare_hospital.repository;
 
-import com.xworkz.kabhishek_xcare_hospital.entity.AdminEntity;
-import com.xworkz.kabhishek_xcare_hospital.entity.DoctorEntity;
+import com.xworkz.kabhishek_xcare_hospital.entity.*;
 
-import com.xworkz.kabhishek_xcare_hospital.entity.DoctorSlotAssignmentEntity;
-import com.xworkz.kabhishek_xcare_hospital.entity.TimingSlotEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -349,4 +346,25 @@ public class HospitalRepositoryImp implements HospitalRepository{
         }
         return "Data has been Saved";
     }
+
+    @Override
+    public String saveDoctorImageDetails(ImageEntity imageEntity) {
+        EntityManager eM = null;
+        EntityTransaction eT = null;
+        try {
+            eM = entityManagerFactory.createEntityManager();
+            eT = eM.getTransaction();
+            eT.begin();
+            eM.persist(imageEntity);
+            eT.commit();
+        }catch (Exception e){
+            if(eT.isActive()){
+                eT.rollback();
+            }
+        }finally {
+            eM.close();
+        }
+        return "Data has been Saved";
+    }
+
 }

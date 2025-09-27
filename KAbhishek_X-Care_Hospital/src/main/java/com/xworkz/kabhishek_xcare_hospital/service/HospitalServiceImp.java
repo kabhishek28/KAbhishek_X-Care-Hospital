@@ -3,18 +3,21 @@ package com.xworkz.kabhishek_xcare_hospital.service;
 import com.xworkz.kabhishek_xcare_hospital.dto.DoctorDTO;
 import com.xworkz.kabhishek_xcare_hospital.dto.DoctorSlotAssignmentDTO;
 import com.xworkz.kabhishek_xcare_hospital.dto.TimingSlotDTO;
-import com.xworkz.kabhishek_xcare_hospital.entity.AdminEntity;
-import com.xworkz.kabhishek_xcare_hospital.entity.DoctorEntity;
-import com.xworkz.kabhishek_xcare_hospital.entity.DoctorSlotAssignmentEntity;
-import com.xworkz.kabhishek_xcare_hospital.entity.TimingSlotEntity;
+import com.xworkz.kabhishek_xcare_hospital.entity.*;
 import com.xworkz.kabhishek_xcare_hospital.repository.HospitalRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -118,10 +121,27 @@ public  class HospitalServiceImp implements HospitalService {
     }
 
     @Override
-    public void saveDoctor(DoctorDTO dto) {
+    public void saveDoctor(DoctorDTO dto) throws IOException {
         DoctorEntity doctorEntity = new DoctorEntity();
+        ImageEntity imageEntity = new ImageEntity();
+
+        MultipartFile file = dto.getPhoto();
+        byte[] photoSize=file.getBytes();
+        Path imagePath= Paths.get("D:\\doctorfolder\\"+dto.getDoctorName()+System.currentTimeMillis()+".jpg");
+        Files.write(imagePath,photoSize);
+
         BeanUtils.copyProperties(dto,doctorEntity);
         hospitalRepository.saveDoctor(doctorEntity);
+
+        imageEntity.setOriginalImageName(file.getName());
+        imageEntity.setChangedName(imagePath.getFileName().toString());
+        imageEntity.setImageSize(file.getSize());
+        imageEntity.setImagePath(imagePath.toString());
+        DoctorEntity doctor = hospitalRepository.findSingleDoctorData(dto.getDoctorEmail());
+        imageEntity.setDoctorEntity(doctor);
+        hospitalRepository.saveDoctorImageDetails(imageEntity);
+
+
     }
 
     @Override
@@ -163,16 +183,26 @@ public  class HospitalServiceImp implements HospitalService {
         return hospitalRepository.upDateDoctorAndSlots(doctorEmail,specialty,timings,startTime,endTime);
     }
 
-
-
     @Override
     public List<DoctorDTO> getAllDoctorsList() {
         List<DoctorEntity> doctorsList = hospitalRepository.getAllDoctorsList();
         List<DoctorDTO> doctorsDTOList = new ArrayList<>();
+
         for(DoctorEntity doctor:doctorsList){
-            DoctorDTO doctorDTO = new DoctorDTO();
-            BeanUtils.copyProperties(doctor,doctorDTO);
-            doctorsDTOList.add(doctorDTO);
+            System.out.println(doctor.getImageEntity());
+            ImageEntity imageEntity = doctor.getImageEntity();
+            if(imageEntity == null){
+                DoctorDTO doctorDTO = new DoctorDTO();
+                BeanUtils.copyProperties(doctor,doctorDTO);
+                doctorsDTOList.add(doctorDTO);
+            }else {
+                DoctorDTO doctorDTO = new DoctorDTO();
+                String imagePath = doctor.getImageEntity().getChangedName();
+                BeanUtils.copyProperties(doctor,doctorDTO);
+                doctorDTO.setImagePath(imagePath);
+                doctorsDTOList.add(doctorDTO);
+            }
+
         }
         return doctorsDTOList;
     }
