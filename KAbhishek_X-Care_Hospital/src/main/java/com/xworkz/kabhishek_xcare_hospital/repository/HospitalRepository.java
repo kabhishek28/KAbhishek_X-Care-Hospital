@@ -2,6 +2,7 @@ package com.xworkz.kabhishek_xcare_hospital.repository;
 
 import com.xworkz.kabhishek_xcare_hospital.entity.*;
 
+import javax.print.Doc;
 import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -14,7 +15,7 @@ public interface HospitalRepository {
 
     AdminEntity getAdminEntity(String gmail);
 
-    void saveDoctor(DoctorEntity doctorEntity);
+    int saveDoctor(DoctorEntity doctorEntity);
 
     void saveTimingSlots(TimingSlotEntity timingSlotEntity);
 
@@ -26,9 +27,11 @@ public interface HospitalRepository {
 
      List<DoctorEntity> getAllDoctorsList();
 
-    DoctorEntity findSingleDoctorData(String email);
+    DoctorEntity findSingleDoctorData(int doctorID);
 
     String saveUpdatedDoctorData(DoctorEntity doctorEntity);
+
+
 
     DoctorEntity getDoctorEntityByID(int doctorID);
 
@@ -38,5 +41,7 @@ public interface HospitalRepository {
     String saveDoctorWithSlots(DoctorSlotAssignmentEntity doctorWithSlotsEntity);
 
     String saveDoctorImageDetails(ImageEntity imageEntity);
+
+    String saveUpdatedDoctorImageDetails(ImageEntity imageEntity);
 
 }

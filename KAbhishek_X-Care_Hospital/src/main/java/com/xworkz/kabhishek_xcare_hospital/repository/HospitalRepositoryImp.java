@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.*;
+import javax.print.Doc;
 import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -94,9 +95,10 @@ public class HospitalRepositoryImp implements HospitalRepository{
     }
 
     @Override
-    public void saveDoctor(DoctorEntity doctorEntity) {
+    public int saveDoctor(DoctorEntity doctorEntity) {
         EntityManager eM = null ;
         EntityTransaction eT = null;
+
         try {
 
             eM = entityManagerFactory.createEntityManager();
@@ -104,6 +106,7 @@ public class HospitalRepositoryImp implements HospitalRepository{
             eT.begin();
             eM.persist(doctorEntity);
             eT.commit();
+
         }catch (Exception e){
             log.info(e.getMessage());
             if(eT.isActive()){
@@ -112,6 +115,7 @@ public class HospitalRepositoryImp implements HospitalRepository{
         }finally {
             eM.close();
         }
+        return doctorEntity.getId();
     }
 
     @Override
@@ -230,7 +234,7 @@ public class HospitalRepositoryImp implements HospitalRepository{
     }
 
     @Override
-    public DoctorEntity findSingleDoctorData(String email) {
+    public DoctorEntity findSingleDoctorData(int doctorID) {
         EntityManager eM = null ;
         EntityTransaction eT = null;
         DoctorEntity doctorEntity = new DoctorEntity();
@@ -238,9 +242,7 @@ public class HospitalRepositoryImp implements HospitalRepository{
             eM = entityManagerFactory.createEntityManager();
             eT = eM.getTransaction();
             eT.begin();
-            Query query= eM.createNamedQuery("getDoctorEntityByEmail");
-            query.setParameter("emailBy",email);
-            doctorEntity = (DoctorEntity) query.getSingleResult();
+            doctorEntity = eM.find(DoctorEntity.class,doctorID);
             eT.commit();
         }catch (Exception e){
             e.printStackTrace();
@@ -258,19 +260,18 @@ public class HospitalRepositoryImp implements HospitalRepository{
         EntityManager eM = null;
         EntityTransaction eT =null;
         String value = "Data not Saved";
-
         try{
             eM = entityManagerFactory.createEntityManager();
             eT = eM.getTransaction();
             eT.begin();
             eM.merge(doctorEntity);
-            eT.commit();
-            value = "Data Saved";
-        }catch (Exception e){
 
+            value = "data saved";
+            eT.commit();
+        }catch (Exception e){
+            e.printStackTrace();
             if(eT.isActive()){
                 eT.rollback();
-                e.printStackTrace();
             }
         }finally {
             eM.close();
@@ -364,7 +365,40 @@ public class HospitalRepositoryImp implements HospitalRepository{
         }finally {
             eM.close();
         }
-        return "Data has been Saved";
+        return "Updated Doctor Data Saved";
+    }
+
+    @Override
+    public String saveUpdatedDoctorImageDetails(ImageEntity imageEntity) {
+        EntityManager eM = null;
+        EntityTransaction eT =null;
+        String value = "Data not Saved";
+
+        try{
+            eM = entityManagerFactory.createEntityManager();
+            eT = eM.getTransaction();
+            eT.begin();
+            ImageEntity existing = eM.find(ImageEntity.class, imageEntity.getId());
+
+            if (existing != null) {
+                existing.setOriginalImageName(imageEntity.getOriginalImageName());
+                existing.setImagePath(imageEntity.getImagePath());
+                existing.setChangedName(imageEntity.getChangedName());
+                value = "Data Updated";
+            } else {
+                value = "Data not Saved";
+            }
+
+            eT.commit();
+        }catch (Exception e){
+            e.printStackTrace();
+            if(eT.isActive()){
+                eT.rollback();
+            }
+        }finally {
+            eM.close();
+        }
+        return value;
     }
 
 }

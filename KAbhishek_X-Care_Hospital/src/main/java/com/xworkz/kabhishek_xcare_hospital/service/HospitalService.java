@@ -30,10 +30,9 @@ public interface HospitalService {
 
     List<DoctorDTO> getAllDoctorsList();
 
-    DoctorDTO findSingleDoctorData(String gmail);
+    DoctorDTO findSingleDoctorData(int doctorID);
 
-    String saveUpdatedDoctorData(DoctorDTO doctorDTO);
-
+    String saveUpdatedDoctorData(DoctorDTO doctorDTO) throws IOException;
 
     String saveDoctorWithSlots(DoctorSlotAssignmentDTO doctorWithSlots);
 

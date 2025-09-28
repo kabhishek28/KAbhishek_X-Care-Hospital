@@ -30,11 +30,11 @@ public class RestController {
 
     @GetMapping("/getDoctorName/{specialty}")
     public String getName(@PathVariable String specialty, Model model){
-        System.out.println(specialty);
+
         List<DoctorDTO> doctors = restControllerSercive.checkDoctorList(specialty);
         List<TimingSlotDTO> timingSlot = restControllerSercive.checkTimingList(specialty);
-        System.out.println(doctors);
-        System.out.println(timingSlot);
+
+
         if (doctors.size()==0) {
             model.addAttribute("message", "Doctor not exists");
         } else {

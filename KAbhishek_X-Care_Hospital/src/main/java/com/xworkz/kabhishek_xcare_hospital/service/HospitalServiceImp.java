@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.print.Doc;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -131,13 +132,13 @@ public  class HospitalServiceImp implements HospitalService {
         Files.write(imagePath,photoSize);
 
         BeanUtils.copyProperties(dto,doctorEntity);
-        hospitalRepository.saveDoctor(doctorEntity);
+        int doctorId = hospitalRepository.saveDoctor(doctorEntity);
 
-        imageEntity.setOriginalImageName(file.getName());
+        imageEntity.setOriginalImageName(file.getOriginalFilename());
         imageEntity.setChangedName(imagePath.getFileName().toString());
         imageEntity.setImageSize(file.getSize());
         imageEntity.setImagePath(imagePath.toString());
-        DoctorEntity doctor = hospitalRepository.findSingleDoctorData(dto.getDoctorEmail());
+        DoctorEntity doctor = hospitalRepository.findSingleDoctorData(doctorId);
         imageEntity.setDoctorEntity(doctor);
         hospitalRepository.saveDoctorImageDetails(imageEntity);
 
@@ -189,7 +190,7 @@ public  class HospitalServiceImp implements HospitalService {
         List<DoctorDTO> doctorsDTOList = new ArrayList<>();
 
         for(DoctorEntity doctor:doctorsList){
-            System.out.println(doctor.getImageEntity());
+
             ImageEntity imageEntity = doctor.getImageEntity();
             if(imageEntity == null){
                 DoctorDTO doctorDTO = new DoctorDTO();
@@ -208,18 +209,50 @@ public  class HospitalServiceImp implements HospitalService {
     }
 
     @Override
-    public DoctorDTO findSingleDoctorData(String gmail) {
-        DoctorEntity doctorEntity = hospitalRepository.findSingleDoctorData(gmail);
+    public DoctorDTO findSingleDoctorData(int doctorID) {
+        DoctorEntity doctorEntity = hospitalRepository.findSingleDoctorData(doctorID);
+        ImageEntity imageEntity = doctorEntity.getImageEntity();
         DoctorDTO doctorDTO = new DoctorDTO();
-        BeanUtils.copyProperties(doctorEntity,doctorDTO);
+        if(imageEntity == null){
+            BeanUtils.copyProperties(doctorEntity,doctorDTO);
+        }else {
+            BeanUtils.copyProperties(doctorEntity,doctorDTO);
+            doctorDTO.setImagePath(imageEntity.getChangedName());
+        }
+
         return doctorDTO;
     }
 
     @Override
-    public String saveUpdatedDoctorData(DoctorDTO doctorDTO) {
+    public String saveUpdatedDoctorData(DoctorDTO doctorDTO) throws IOException {
         DoctorEntity doctorEntity = new DoctorEntity();
+        ImageEntity imageEntity = new ImageEntity();
+
+        MultipartFile file = doctorDTO.getPhoto();
+        byte[] photoSize = file.getBytes();
+        Path imagePath = Paths.get("D:\\doctorfolder\\"+doctorDTO.getDoctorName()+System.currentTimeMillis()+".jpg");
+        Files.write(imagePath,photoSize);
+
         BeanUtils.copyProperties(doctorDTO,doctorEntity);
-        return  hospitalRepository.saveUpdatedDoctorData(doctorEntity);
+        String value = hospitalRepository.saveUpdatedDoctorData(doctorEntity);
+
+        DoctorEntity doctor = hospitalRepository.findSingleDoctorData(doctorDTO.getId());
+
+        imageEntity.setId(doctor.getImageEntity().getId());
+        imageEntity.setOriginalImageName(file.getOriginalFilename());
+        imageEntity.setChangedName(imagePath.getFileName().toString());
+        imageEntity.setImageSize(file.getSize());
+        imageEntity.setImagePath(imagePath.toString());
+        imageEntity.setDoctorEntity(doctor);
+        String value1 =  hospitalRepository.saveUpdatedDoctorImageDetails(imageEntity);
+
+        if (!value.equals("data saved") && !value1.equals("Updated Doctor Data Saved")) {
+            return "Data not Saved";
+        }else {
+            return  "Data Saved";
+        }
+
+
     }
 
 

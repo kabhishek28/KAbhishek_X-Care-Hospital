@@ -103,22 +103,4 @@ public class HospitalController {
 
 
 
-
-
-    @RequestMapping("updateDoctorForm")
-    public String updateDoctordata(DoctorDTO doctorDTO,@RequestParam("photo") MultipartFile file,Model model) throws IOException {
-        byte[] photoSize = file.getBytes();
-        Path imagePath=Paths.get("D:\\doctorfolder\\"+doctorDTO.getDoctorName()+System.currentTimeMillis()+".jpg");
-        Files.write(imagePath,photoSize);
-        doctorDTO.setImagePath(imagePath.getFileName().toString());
-        System.out.println(doctorDTO);
-        String value = hospitalService.saveUpdatedDoctorData(doctorDTO);
-        if(!value.equals("Data Saved")){
-            model.addAttribute("updatedDataNotSaved","Updated Doctor Data Not Saved");
-            return "doctorUpDatePage";
-        }else {
-            model.addAttribute("updatedDataSaved","Updated Doctor Data Saved");
-            return "doctorUpDatePage";
-        }
-    }
 }

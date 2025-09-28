@@ -48,12 +48,12 @@ public class DoctorEntity {
     private int experience;
 
 
-    @OneToMany(mappedBy = "doctorEntity",cascade = CascadeType.ALL,orphanRemoval = true)
+    @OneToMany(mappedBy = "doctorEntity",cascade = CascadeType.ALL)
     @ToString.Exclude
     private List<DoctorSlotAssignmentEntity> assignmentEntities;
 
 
-    @OneToOne(mappedBy = "doctorEntity",cascade = CascadeType.ALL,orphanRemoval = true)
+    @OneToOne(mappedBy = "doctorEntity",cascade = CascadeType.ALL)
     @ToString.Exclude
     private ImageEntity imageEntity;
 

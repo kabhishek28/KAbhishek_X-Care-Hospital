@@ -60,10 +60,20 @@ public class DoctorController {
 
     @RequestMapping("getDoctorUpdatePage")
     public String getUpdatePage(int doctorID,Model model){
-        System.out.println(doctorID);
-//        DoctorDTO doctorDTO = hospitalService.findSingleDoctorData(doctorID);
-//        System.out.println(doctorDTO);
-//        model.addAttribute("dto",doctorDTO);
+        DoctorDTO doctorDTO = hospitalService.findSingleDoctorData(doctorID);
+        model.addAttribute("dto",doctorDTO);
         return "doctorUpDateFormPage";
+    }
+
+    @RequestMapping("updateDoctorForm")
+    public String updateDoctordata(DoctorDTO doctorDTO,Model model) throws IOException {
+        String value = hospitalService.saveUpdatedDoctorData(doctorDTO);
+        if(!value.equals("Data Saved")){
+            model.addAttribute("updatedDataNotSaved","Updated Doctor Data Not Saved");
+            return "doctorUpDateFormPage";
+        }else {
+            model.addAttribute("updatedDataSaved","Updated Doctor Data Saved");
+            return "doctorUpDateFormPage";
+        }
     }
 }
