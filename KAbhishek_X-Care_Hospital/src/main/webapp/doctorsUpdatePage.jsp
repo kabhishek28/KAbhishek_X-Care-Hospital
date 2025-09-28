@@ -107,6 +107,10 @@
 </main>
 
 <body>
+<div>
+    <p class="text-danger fw-bold text-center">${dataNotDelete}</p>
+    <p class="text-success  fw-bold text-center">${dataDelete}</p>
+</div>
 <div class="container mt-4 ">
     <div class="row justify-content-center align-items-center">
         <c:forEach var="doc" items="${doctorsList}">
@@ -146,8 +150,8 @@
                             <input type="hidden" name="doctorID" value="${doc.id}">
                             <button class="btn btn-primary btn-sm">Update</button>
                         </form>
-                        <form action="DoctorDelete" method="post">
-                            <input type="hidden" name="email" value="${doc.id}">
+                        <form action="deleteDoctor" method="post">
+                            <input type="hidden" name="doctorID" value="${doc.id}">
                             <button class="btn btn-danger btn-sm">Delete</button>
                         </form>
                     </div>

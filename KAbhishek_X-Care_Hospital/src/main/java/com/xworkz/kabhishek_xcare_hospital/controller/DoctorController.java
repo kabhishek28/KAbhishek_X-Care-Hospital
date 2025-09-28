@@ -1,6 +1,7 @@
 package com.xworkz.kabhishek_xcare_hospital.controller;
 
 import com.xworkz.kabhishek_xcare_hospital.dto.DoctorDTO;
+import com.xworkz.kabhishek_xcare_hospital.service.DoctorService;
 import com.xworkz.kabhishek_xcare_hospital.service.HospitalService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
@@ -27,6 +28,9 @@ public class DoctorController {
 
     @Autowired
     HospitalService hospitalService;
+
+    @Autowired
+    DoctorService doctorService;
 
 
     @RequestMapping("registerDoctor")
@@ -75,5 +79,18 @@ public class DoctorController {
             model.addAttribute("updatedDataSaved","Updated Doctor Data Saved");
             return "doctorUpDateFormPage";
         }
+    }
+
+    @RequestMapping("deleteDoctor")
+    public String deleteDoctor(int doctorID,Model model){
+        String value = doctorService.deleteDoctorData(doctorID);
+        if(!value.equals("data deleted")){
+            model.addAttribute("dataNotDelete","Doctor Data not Deleted");
+            return "";
+        }else {
+            model.addAttribute("dataDelete","Doctor Data Deleted");
+            return "";
+        }
+
     }
 }
