@@ -16,7 +16,7 @@ import java.util.List;
 
 @Repository
 @Slf4j
-public class SlotAssignmentRepositoryImp {
+public class SlotAssignmentRepositoryImp implements SlotAssignmentRepository {
 
     @Autowired
     EntityManagerFactory entityManagerFactory;

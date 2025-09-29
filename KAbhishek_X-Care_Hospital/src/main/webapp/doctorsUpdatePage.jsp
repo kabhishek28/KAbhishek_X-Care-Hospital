@@ -65,7 +65,7 @@
                 </ul>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white toggle" aria-current="page" href="getPatients">Patients Registration</a>
+                <a class="nav-link text-white toggle" aria-current="page" href="patient">Patients Registration</a>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link text-white dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Slot</a>

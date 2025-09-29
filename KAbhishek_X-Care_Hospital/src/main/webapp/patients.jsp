@@ -55,7 +55,7 @@
                 </ul>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white toggle" aria-current="page" href="getPatients">Patients Registration</a>
+                <a class="nav-link text-white toggle" aria-current="page" href="patient">Patients Registration</a>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link text-white dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Slot</a>
@@ -95,16 +95,13 @@
             </li>
         </ul>
     </nav>
-
-
-
 </main>
 <body>
 <div class="d-flex justify-content-center mt-5">
     <div class="card shadow-lg p-4 rounded-4" style="width: 40rem;">
         <h3 class="text-center mb-4">Patient Registration</h3>
 
-        <form class="row g-3" action="patientsForm" method="post">
+        <form class="row g-3" action="patients/save" method="post">
 
 
             <div class="col-md-6">
@@ -163,7 +160,7 @@
 
             <div class="col-md-6">
                 <label for="specialty" class="form-label" >Specialty</label>
-                <select id="specialty" name="specialty" class="form-select" onchange="checkSpecialty()" required>
+                <select id="specialty" name="specialty" class="form-select" onchange="checkSpecialtyDoctor()" required>
                     <option selected disabled>Choose specialty...</option>
                     <option value="CARDIOLOGY">Cardiology</option>
                     <option value="DERMATOLOGY">Dermatology</option>
