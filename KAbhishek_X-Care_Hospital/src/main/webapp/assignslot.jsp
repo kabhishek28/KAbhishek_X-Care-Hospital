@@ -156,7 +156,6 @@
                                 <option value="${doc.doctorName}" data-id= "${doc.id}" data-email="${doc.doctorEmail}">
                                     ${doc.doctorName}
                                 </option>
-
                             </c:forEach>
                         </select>
                         <input type="hidden" id="doctorIDHidden" name="doctorID">
@@ -198,12 +197,6 @@
     <p class="text-danger fw-bold text-center">${messageAssign}</p>
     <p class="text-success  fw-bold text-center">${messageAssignSaved}</p>
 </div>
-
-
-
-
-
-
 
 <script src="resources/js/index.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
