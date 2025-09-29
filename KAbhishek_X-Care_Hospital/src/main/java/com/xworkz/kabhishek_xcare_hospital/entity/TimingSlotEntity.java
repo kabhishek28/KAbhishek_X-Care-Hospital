@@ -10,7 +10,6 @@ import java.util.List;
 @Entity
 @Table(name = "timing_slot_table")
 @NamedQuery(name = "getTimeSlotBySpecialty",query = "select e from TimingSlotEntity e where e.specialty=:specialtyBy ")
-//@NamedQuery(name = "updateSlotAssign",query = "update TimingSlotEntity t set t.slotBooked = 1 where t.startTime=:startTimeBy and t.endTime=:endTimeBy")
 @NamedQuery(name = "checkTimeSlotBySpecialty",query = "select e from TimingSlotEntity e where e.specialty=:specialtyBy ")
 
 public class TimingSlotEntity {

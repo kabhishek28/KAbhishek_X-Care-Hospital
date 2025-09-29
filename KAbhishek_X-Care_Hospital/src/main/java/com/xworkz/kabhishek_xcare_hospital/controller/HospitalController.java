@@ -86,21 +86,9 @@ public class HospitalController {
         }
     }
 
-
-
-
-
-
-
-
-
-
-
     @RequestMapping("getPatients")
     public String getPatientsPage(){
         return "patients";
     }
-
-
 
 }

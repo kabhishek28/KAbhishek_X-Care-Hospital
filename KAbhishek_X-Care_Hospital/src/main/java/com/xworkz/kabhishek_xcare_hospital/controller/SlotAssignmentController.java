@@ -4,6 +4,7 @@ import com.xworkz.kabhishek_xcare_hospital.dto.DoctorDTO;
 import com.xworkz.kabhishek_xcare_hospital.dto.DoctorSlotAssignmentDTO;
 import com.xworkz.kabhishek_xcare_hospital.dto.TimingSlotDTO;
 import com.xworkz.kabhishek_xcare_hospital.service.HospitalService;
+import com.xworkz.kabhishek_xcare_hospital.service.SlotAssignmentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,8 +18,10 @@ import java.util.List;
 @Slf4j
 public class SlotAssignmentController {
 
+
+
     @Autowired
-    HospitalService hospitalService;
+    SlotAssignmentService slotAssignmentService;
 
     @RequestMapping("assignSlot")
     public String assignSlotPage(){
@@ -27,9 +30,8 @@ public class SlotAssignmentController {
 
     @RequestMapping("findDoctorsSlots")
     public String getDoctor(String specialty, Model model) {
-        List<DoctorDTO> doctors = hospitalService.findDoctorList(specialty);
-        List<TimingSlotDTO> timingSlot = hospitalService.findTimingList(specialty);
-
+        List<DoctorDTO> doctors = slotAssignmentService.findDoctorList(specialty);
+        List<TimingSlotDTO> timingSlot = slotAssignmentService.findTimingList(specialty);
 
         if (doctors.size()==0) {
             model.addAttribute("message", "Doctor not exists");
@@ -44,7 +46,7 @@ public class SlotAssignmentController {
 
     @RequestMapping("doctorSlotAssign")
     public String assignSlotWithDoctor(DoctorSlotAssignmentDTO doctorWithSlots, Model model){
-        String value = hospitalService.saveDoctorWithSlots(doctorWithSlots);
+        String value = slotAssignmentService.saveDoctorWithSlots(doctorWithSlots);
 
         if(!value.equals("Data has been Saved")){
             model.addAttribute("saveMessageError","Slot could not be assigned to the doctor.");

@@ -4,7 +4,7 @@ import com.xworkz.kabhishek_xcare_hospital.dto.DoctorDTO;
 import com.xworkz.kabhishek_xcare_hospital.dto.TimingSlotDTO;
 import com.xworkz.kabhishek_xcare_hospital.entity.DoctorEntity;
 import com.xworkz.kabhishek_xcare_hospital.entity.TimingSlotEntity;
-import com.xworkz.kabhishek_xcare_hospital.repository.RestControllerRespository;
+import com.xworkz.kabhishek_xcare_hospital.repository.RestControllerRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,17 +16,17 @@ import java.util.List;
 public class RestControllerSerciveImp implements RestControllerSercive {
 
     @Autowired
-    RestControllerRespository restControllerRespository;
+    RestControllerRepository restControllerRepository;
 
     @Override
     public int countEmail(String email) {
-        return restControllerRespository.countEmail(email);
+        return restControllerRepository.countEmail(email);
     }
 
     @Override
     public List<DoctorDTO> checkDoctorList(String specialty) {
 
-        List<DoctorEntity> list =  restControllerRespository.checkDoctorList(specialty);
+        List<DoctorEntity> list =  restControllerRepository.checkDoctorList(specialty);
         List<DoctorDTO> doctors = new ArrayList<>();
 
         for (DoctorEntity doctorEntity : list){
@@ -40,7 +40,7 @@ public class RestControllerSerciveImp implements RestControllerSercive {
 
     @Override
     public List<TimingSlotDTO> checkTimingList(String specialty) {
-        List<TimingSlotEntity> list = restControllerRespository.checkTimingList(specialty);
+        List<TimingSlotEntity> list = restControllerRepository.checkTimingList(specialty);
         List<TimingSlotDTO> listDTO = new ArrayList<>();
         for(TimingSlotEntity timingSlotEntity:list){
             TimingSlotDTO timingSlotDTO = new TimingSlotDTO();
@@ -52,7 +52,7 @@ public class RestControllerSerciveImp implements RestControllerSercive {
 
     @Override
     public int checkDoctorSlotsAssign(String doctorEmail, String slotTime) {
-        return restControllerRespository.checkDoctorSlotsAssign(doctorEmail,slotTime);
+        return restControllerRepository.checkDoctorSlotsAssign(doctorEmail,slotTime);
 
     }
 }

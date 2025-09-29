@@ -1,6 +1,7 @@
 package com.xworkz.kabhishek_xcare_hospital.repository;
 
 import com.xworkz.kabhishek_xcare_hospital.entity.DoctorEntity;
+import com.xworkz.kabhishek_xcare_hospital.entity.DoctorSlotAssignmentEntity;
 import com.xworkz.kabhishek_xcare_hospital.entity.TimingSlotEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,40 +16,21 @@ import java.util.List;
 
 @Repository
 @Slf4j
-public class RestControllerRepositoryImp implements RestControllerRepository {
+public class SlotAssignmentRepositoryImp {
 
     @Autowired
     EntityManagerFactory entityManagerFactory;
-    @Override
-    public int countEmail(String email) {
-        EntityManager entityManager = null;
-        long count= 0L;
-        int converted_count=0;
-        try{
-            entityManager = entityManagerFactory.createEntityManager();
-            Query query = entityManager.createNamedQuery("countOfEmail");
-            query.setParameter("emailBy", email);
-            count = (long) query.getSingleResult();
-            converted_count=Math.toIntExact(count);
-        }catch (Exception e){
-            e.printStackTrace();
-        }finally {
-            entityManager.close();
-        }
-        return converted_count;
-    }
 
     @Override
-    public List<DoctorEntity> checkDoctorList(String specialty) {
+    public List<DoctorEntity> findDoctorList(String specialty) {
         EntityManager eM = null;
         List<DoctorEntity> doctorList = new ArrayList<>();
 
         try {
             eM = entityManagerFactory.createEntityManager();
-            Query query = eM.createNamedQuery("checkDoctorListBySpecialty");
+            Query query = eM.createNamedQuery("findDoctorListBySpecialty");
             query.setParameter("specialtyBy", specialty);
             doctorList = query.getResultList();
-
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -61,12 +43,12 @@ public class RestControllerRepositoryImp implements RestControllerRepository {
     }
 
     @Override
-    public List<TimingSlotEntity> checkTimingList(String specialty) {
+    public List<TimingSlotEntity> findTimingList(String specialty) {
         EntityManager eM = null;
         List<TimingSlotEntity> TimeList = new ArrayList<>();
         try {
             eM = entityManagerFactory.createEntityManager();
-            Query query = eM.createNamedQuery("checkTimeSlotBySpecialty");
+            Query query = eM.createNamedQuery("getTimeSlotBySpecialty");
             query.setParameter("specialtyBy", specialty);
             TimeList = query.getResultList();
 
@@ -81,20 +63,64 @@ public class RestControllerRepositoryImp implements RestControllerRepository {
     }
 
     @Override
-    public int checkDoctorSlotsAssign(String doctorEmail, String slotTime) {
+    public DoctorEntity getDoctorEntityByID(int doctorID) {
+        EntityManager eM = null ;
+        EntityTransaction eT = null;
+        DoctorEntity doctorEntity = new DoctorEntity();
+        try{
+            eM = entityManagerFactory.createEntityManager();
+            eT = eM.getTransaction();
+            eT.begin();
+
+            doctorEntity = eM.find(DoctorEntity.class,doctorID);
+            eT.commit();
+        }catch (Exception e){
+            e.printStackTrace();
+            if(eT.isActive()){
+                eT.rollback();
+            }
+        }finally {
+            eM.close();
+        }
+        return doctorEntity;
+
+    }
+
+    @Override
+    public TimingSlotEntity getTimingSlotEntityByID(int slotID) {
+        EntityManager eM = null ;
+        EntityTransaction eT = null;
+        TimingSlotEntity timingSlotEntity = new TimingSlotEntity();
+        try{
+            eM = entityManagerFactory.createEntityManager();
+            eT = eM.getTransaction();
+            eT.begin();
+            timingSlotEntity = eM.find(TimingSlotEntity.class,slotID);
+            eT.commit();
+        }catch (Exception e){
+            e.printStackTrace();
+            if(eT.isActive()){
+                eT.rollback();
+            }
+        }finally {
+            eM.close();
+        }
+        return timingSlotEntity;
+
+
+    }
+
+
+    @Override
+    public String saveDoctorWithSlots(DoctorSlotAssignmentEntity doctorWithSlotsEntity) {
         EntityManager eM = null;
         EntityTransaction eT = null;
-        long count= 0L;
-        int converted_count = 0;
         try {
             eM = entityManagerFactory.createEntityManager();
             eT = eM.getTransaction();
             eT.begin();
-            Query query = eM.createNamedQuery("TimingSlotEntityCheckDoctorSlotExists");
-            query.setParameter("doctorEmailBy",doctorEmail);
-            query.setParameter("slotTimeBy",slotTime);
-            count = (long) query.getSingleResult();
-            converted_count=Math.toIntExact(count);
+            eM.persist(doctorWithSlotsEntity);
+            eT.commit();
         }catch (Exception e){
             if(eT.isActive()){
                 eT.rollback();
@@ -102,6 +128,6 @@ public class RestControllerRepositoryImp implements RestControllerRepository {
         }finally {
             eM.close();
         }
-        return converted_count;
+        return "Data has been Saved";
     }
 }

@@ -26,8 +26,7 @@ import java.util.List;
 @Slf4j
 public class DoctorController {
 
-    @Autowired
-    HospitalService hospitalService;
+
 
     @Autowired
     DoctorService doctorService;
@@ -41,7 +40,7 @@ public class DoctorController {
     @RequestMapping("doctorForm")
     public String saveDoctorFrom(DoctorDTO dto , Model model) throws IOException {
         model.addAttribute("dto",dto);
-        hospitalService.saveDoctor(dto);
+        doctorService.saveDoctor(dto);
         return "doctorRegisterForm";
     }
 
@@ -57,21 +56,21 @@ public class DoctorController {
 
     @RequestMapping("allDoctorsList")
     public String getUpDatePage(Model model){
-        List<DoctorDTO> list = hospitalService.getAllDoctorsList();
+        List<DoctorDTO> list = doctorService.getAllDoctorsList();
         model.addAttribute("doctorsList",list);
         return "doctorsUpdatePage";
     }
 
     @RequestMapping("getDoctorUpdatePage")
     public String getUpdatePage(int doctorID,Model model){
-        DoctorDTO doctorDTO = hospitalService.findSingleDoctorData(doctorID);
+        DoctorDTO doctorDTO = doctorService.findSingleDoctorData(doctorID);
         model.addAttribute("dto",doctorDTO);
         return "doctorUpDateFormPage";
     }
 
     @RequestMapping("updateDoctorForm")
     public String updateDoctordata(DoctorDTO doctorDTO,Model model) throws IOException {
-        String value = hospitalService.saveUpdatedDoctorData(doctorDTO);
+        String value = doctorService.saveUpdatedDoctorData(doctorDTO);
         if(!value.equals("Data Saved")){
             model.addAttribute("updatedDataNotSaved","Updated Doctor Data Not Saved");
             return "doctorUpDateFormPage";
@@ -91,6 +90,5 @@ public class DoctorController {
             model.addAttribute("dataDelete","Doctor Data Deleted");
             return "";
         }
-
     }
 }

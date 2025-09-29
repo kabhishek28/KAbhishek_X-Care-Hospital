@@ -94,311 +94,58 @@ public class HospitalRepositoryImp implements HospitalRepository{
         return adminEntity;
     }
 
-    @Override
-    public int saveDoctor(DoctorEntity doctorEntity) {
-        EntityManager eM = null ;
-        EntityTransaction eT = null;
-
-        try {
-
-            eM = entityManagerFactory.createEntityManager();
-            eT = eM.getTransaction();
-            eT.begin();
-            eM.persist(doctorEntity);
-            eT.commit();
-
-        }catch (Exception e){
-            log.info(e.getMessage());
-            if(eT.isActive()){
-                eT.rollback();
-            }
-        }finally {
-            eM.close();
-        }
-        return doctorEntity.getId();
-    }
-
-    @Override
-    public void saveTimingSlots(TimingSlotEntity timingSlotEntity) {
-        EntityManager eM = null;
-        EntityTransaction eT = null;
-        try {
-            eM = entityManagerFactory.createEntityManager();
-            eT = eM.getTransaction();
-            eT.begin();
-            eM.persist(timingSlotEntity);
-            eT.commit();
-        }catch (Exception e){
-            if(eT.isActive()){
-                eT.rollback();
-            }
-        }finally {
-            eM.close();
-        }
-    }
-
-    @Override
-    public List<DoctorEntity> findDoctorList(String specialty) {
-        EntityManager eM = null;
-        List<DoctorEntity> doctorList = new ArrayList<>();
-
-        try {
-            eM = entityManagerFactory.createEntityManager();
-            Query query = eM.createNamedQuery("findDoctorListBySpecialty");
-            query.setParameter("specialtyBy", specialty);
-            doctorList = query.getResultList();
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (eM != null) {
-                eM.close();
-            }
-        }
-        return doctorList;
-    }
-
-    @Override
-    public List<TimingSlotEntity> findTimingList(String specialty) {
-        EntityManager eM = null;
-        List<TimingSlotEntity> TimeList = new ArrayList<>();
-        try {
-            eM = entityManagerFactory.createEntityManager();
-            Query query = eM.createNamedQuery("getTimeSlotBySpecialty");
-            query.setParameter("specialtyBy", specialty);
-            TimeList = query.getResultList();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (eM != null) {
-                eM.close();
-            }
-        }
-        return TimeList;
-    }
-
-    @Override
-    public String upDateDoctorAndSlots(String doctorEmail, String specialty,String timings, String startTime, String endTime) {
-        EntityManager eM = null;
-        EntityTransaction eT = null;
-        String message = "Update failed";
-        try{
-            eM = entityManagerFactory.createEntityManager();
-            eT = eM.getTransaction();
-            eT.begin();
-            Query query = eM.createNamedQuery("SetDoctorSlots");
-            query.setParameter("doctorEmailBy",doctorEmail);
-            query.setParameter("specialtyBy",specialty);
-            query.setParameter("slotTimingBy",timings);
-            int doctorUpDate = query.executeUpdate();
-
-            Query query1 = eM.createNamedQuery("updateSlotAssign");
-            query1.setParameter("startTimeBy",startTime);
-            query1.setParameter("endTimeBy",endTime);
-            int slotUpDate = query1.executeUpdate();
-
-            eT.commit();
-            message="Doctor updated: " + doctorUpDate + ", Slot updated: " + slotUpDate;
-
-        }catch (Exception e){
-            if(eT.isActive()){
-                eT.rollback();
-
-            }
-        }finally {
-            eM.close();
-        }
-        return message;
-    }
 
 
 
-    @Override
-    public List<DoctorEntity> getAllDoctorsList() {
-        EntityManager eM = null;
-        List<DoctorEntity> doctorList = new ArrayList<>();
-        try {
-            eM = entityManagerFactory.createEntityManager();
-            Query query = eM.createNamedQuery("getAllDoctorsList");
-            doctorList = query.getResultList();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (eM != null) {
-                eM.close();
-            }
-        }
-        return doctorList;
-    }
-
-    @Override
-    public DoctorEntity findSingleDoctorData(int doctorID) {
-        EntityManager eM = null ;
-        EntityTransaction eT = null;
-        DoctorEntity doctorEntity = new DoctorEntity();
-        try{
-            eM = entityManagerFactory.createEntityManager();
-            eT = eM.getTransaction();
-            eT.begin();
-            doctorEntity = eM.find(DoctorEntity.class,doctorID);
-            eT.commit();
-        }catch (Exception e){
-            e.printStackTrace();
-            if(eT.isActive()){
-                eT.rollback();
-            }
-        }finally {
-            eM.close();
-        }
-        return doctorEntity;
-    }
-
-    @Override
-    public String saveUpdatedDoctorData(DoctorEntity doctorEntity) {
-        EntityManager eM = null;
-        EntityTransaction eT =null;
-        String value = "Data not Saved";
-        try{
-            eM = entityManagerFactory.createEntityManager();
-            eT = eM.getTransaction();
-            eT.begin();
-            eM.merge(doctorEntity);
-
-            value = "data saved";
-            eT.commit();
-        }catch (Exception e){
-            e.printStackTrace();
-            if(eT.isActive()){
-                eT.rollback();
-            }
-        }finally {
-            eM.close();
-        }
-        return value;
-    }
-
-    @Override
-    public DoctorEntity getDoctorEntityByID(int doctorID) {
-        EntityManager eM = null ;
-        EntityTransaction eT = null;
-        DoctorEntity doctorEntity = new DoctorEntity();
-        try{
-            eM = entityManagerFactory.createEntityManager();
-            eT = eM.getTransaction();
-            eT.begin();
-
-            doctorEntity = eM.find(DoctorEntity.class,doctorID);
-            eT.commit();
-        }catch (Exception e){
-            e.printStackTrace();
-            if(eT.isActive()){
-                eT.rollback();
-            }
-        }finally {
-            eM.close();
-        }
-        return doctorEntity;
-
-    }
-
-    @Override
-    public TimingSlotEntity getTimingSlotEntityByID(int slotID) {
-        EntityManager eM = null ;
-        EntityTransaction eT = null;
-        TimingSlotEntity timingSlotEntity = new TimingSlotEntity();
-        try{
-            eM = entityManagerFactory.createEntityManager();
-            eT = eM.getTransaction();
-            eT.begin();
-            timingSlotEntity = eM.find(TimingSlotEntity.class,slotID);
-            eT.commit();
-        }catch (Exception e){
-            e.printStackTrace();
-            if(eT.isActive()){
-                eT.rollback();
-            }
-        }finally {
-            eM.close();
-        }
-        return timingSlotEntity;
 
 
-    }
+
+//    @Override
+//    public String upDateDoctorAndSlots(String doctorEmail, String specialty,String timings, String startTime, String endTime) {
+//        EntityManager eM = null;
+//        EntityTransaction eT = null;
+//        String message = "Update failed";
+//        try{
+//            eM = entityManagerFactory.createEntityManager();
+//            eT = eM.getTransaction();
+//            eT.begin();
+//            Query query = eM.createNamedQuery("SetDoctorSlots");
+//            query.setParameter("doctorEmailBy",doctorEmail);
+//            query.setParameter("specialtyBy",specialty);
+//            query.setParameter("slotTimingBy",timings);
+//            int doctorUpDate = query.executeUpdate();
+//
+//            Query query1 = eM.createNamedQuery("updateSlotAssign");
+//            query1.setParameter("startTimeBy",startTime);
+//            query1.setParameter("endTimeBy",endTime);
+//            int slotUpDate = query1.executeUpdate();
+//
+//            eT.commit();
+//            message="Doctor updated: " + doctorUpDate + ", Slot updated: " + slotUpDate;
+//
+//        }catch (Exception e){
+//            if(eT.isActive()){
+//                eT.rollback();
+//
+//            }
+//        }finally {
+//            eM.close();
+//        }
+//        return message;
+//    }
 
 
-    @Override
-    public String saveDoctorWithSlots(DoctorSlotAssignmentEntity doctorWithSlotsEntity) {
-        EntityManager eM = null;
-        EntityTransaction eT = null;
-        try {
-            eM = entityManagerFactory.createEntityManager();
-            eT = eM.getTransaction();
-            eT.begin();
-            eM.persist(doctorWithSlotsEntity);
-            eT.commit();
-        }catch (Exception e){
-            if(eT.isActive()){
-                eT.rollback();
-            }
-        }finally {
-            eM.close();
-        }
-        return "Data has been Saved";
-    }
 
-    @Override
-    public String saveDoctorImageDetails(ImageEntity imageEntity) {
-        EntityManager eM = null;
-        EntityTransaction eT = null;
-        try {
-            eM = entityManagerFactory.createEntityManager();
-            eT = eM.getTransaction();
-            eT.begin();
-            eM.persist(imageEntity);
-            eT.commit();
-        }catch (Exception e){
-            if(eT.isActive()){
-                eT.rollback();
-            }
-        }finally {
-            eM.close();
-        }
-        return "Updated Doctor Data Saved";
-    }
 
-    @Override
-    public String saveUpdatedDoctorImageDetails(ImageEntity imageEntity) {
-        EntityManager eM = null;
-        EntityTransaction eT =null;
-        String value = "Data not Saved";
 
-        try{
-            eM = entityManagerFactory.createEntityManager();
-            eT = eM.getTransaction();
-            eT.begin();
-            ImageEntity existing = eM.find(ImageEntity.class, imageEntity.getId());
 
-            if (existing != null) {
-                existing.setOriginalImageName(imageEntity.getOriginalImageName());
-                existing.setImagePath(imageEntity.getImagePath());
-                existing.setChangedName(imageEntity.getChangedName());
-                value = "Data Updated";
-            } else {
-                value = "Data not Saved";
-            }
 
-            eT.commit();
-        }catch (Exception e){
-            e.printStackTrace();
-            if(eT.isActive()){
-                eT.rollback();
-            }
-        }finally {
-            eM.close();
-        }
-        return value;
-    }
+
+
+
+
+
+
+
 
 }

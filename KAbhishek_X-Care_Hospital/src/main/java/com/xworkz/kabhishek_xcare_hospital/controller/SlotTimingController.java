@@ -3,6 +3,7 @@ package com.xworkz.kabhishek_xcare_hospital.controller;
 
 import com.xworkz.kabhishek_xcare_hospital.dto.TimingSlotDTO;
 import com.xworkz.kabhishek_xcare_hospital.service.HospitalService;
+import com.xworkz.kabhishek_xcare_hospital.service.SlotTimingService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,7 +18,7 @@ import java.time.format.DateTimeFormatter;
 public class SlotTimingController {
 
     @Autowired
-    HospitalService hospitalService;
+    SlotTimingService slotTimingService;
 
     @RequestMapping("setSlot")
     public String defineSlotTiming(){
@@ -37,7 +38,7 @@ public class SlotTimingController {
         timingSlot.setStartTime(formattedStart);
         timingSlot.setEndTime(formattedEnd);
 
-        hospitalService.saveTimeSlots(timingSlot);
+        slotTimingService.saveTimeSlots(timingSlot);
         return "slotTiming";
     }
 }

@@ -5,7 +5,7 @@ import com.xworkz.kabhishek_xcare_hospital.entity.TimingSlotEntity;
 
 import java.util.List;
 
-public interface RestControllerRespository {
+public interface RestControllerRepository {
     int countEmail(String email);
 
     List<DoctorEntity> checkDoctorList(String specialty);

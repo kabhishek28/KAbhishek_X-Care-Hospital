@@ -11,31 +11,13 @@ import java.util.List;
 import java.util.Map;
 
 public interface HospitalService {
-//    String checkAdmin(String gmail, HttpSession session);
+
     Map<String,Object> checkAdminExist(String gmail,HttpSession session);
 
     LocalDateTime saveOTP(String otp, LocalDateTime localDateTime ,HttpSession session);
 
     String matchOtp(String gmail,String inputOTP);
 
-    void saveDoctor(DoctorDTO dto) throws IOException;
-
-    void saveTimeSlots(TimingSlotDTO timingSlotDTO);
-
-    List<DoctorDTO> findDoctorList(String specialty);
-
-    List<TimingSlotDTO> findTimingList(String specialty);
-
-    String upDateDoctorAndSlots(String doctorEmail,String specialty,String timings,String startTime,String endTime);
-
-    List<DoctorDTO> getAllDoctorsList();
-
-    DoctorDTO findSingleDoctorData(int doctorID);
-
-    String saveUpdatedDoctorData(DoctorDTO doctorDTO) throws IOException;
-
-    String saveDoctorWithSlots(DoctorSlotAssignmentDTO doctorWithSlots);
-
-
+//    String upDateDoctorAndSlots(String doctorEmail,String specialty,String timings,String startTime,String endTime);
 
 }
