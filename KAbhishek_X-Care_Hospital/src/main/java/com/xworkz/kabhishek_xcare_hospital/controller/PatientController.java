@@ -19,7 +19,7 @@ public class PatientController {
     @RequestMapping("/save")
     public String savePatientsData(PatientsDTO patientsDTO){
         System.out.println(patientsDTO);
-        return  "/patients";
+        return  "patients";
     }
 
 }

@@ -101,8 +101,7 @@
     <div class="card shadow-lg p-4 rounded-4" style="width: 40rem;">
         <h3 class="text-center mb-4">Patient Registration</h3>
 
-        <form class="row g-3" action="patients/save" method="post">
-
+        <form class="row g-3" action="patient/save" method="post">
 
             <div class="col-md-6">
                 <label for="inputName" class="form-label">Full Name</label>
@@ -117,7 +116,6 @@
                 <div  id="ageError" class="input-text text-danger" style="min-height:25px;"></div>
             </div>
 
-
             <div class="col-md-6">
                 <label for="gender" class="form-label">Gender</label>
                 <select id="gender" name="gender" class="form-select" required>
@@ -128,7 +126,6 @@
                     <option value="prefer_not_say">Prefer not to say</option>
                 </select>
             </div>
-
 
             <div class="col-md-6">
                 <label for="inputPhone" class="form-label">Contact Number</label>
@@ -183,12 +180,18 @@
                 <label for="doctor" class="form-label">Doctor</label>
                 <select id="doctor" name="doctor" class="form-select" required>
                     <option selected disabled>Select doctor</option>
-                    <!-- Populate dynamically from DB -->
-                    <option value="DR_KUMAR">Dr. A. Kumar</option>
-                    <option value="DR_MEHTA">Dr. S. Mehta</option>
-                    <option value="DR_SINGH">Dr. R. Singh</option>
+                    <c:if test="${not empty doctors}">
+                        <ul>
+                            <c:forEach var="doc" items="${doctors}">
+                                <li>${doc.name} - ${doc.specialty}</li>
+                            </c:forEach>
+                        </ul>
+                    </c:if>
                 </select>
             </div>
+            <c:if test="${not empty message}">
+                <p class="text-danger fw-bold text-center">${message}</p>
+            </c:if>
 
 
             <div class="col-md-6">
@@ -224,7 +227,7 @@
     </div>
 </div>
 
-<script src="resources/js/index.js"></script>
+<script src="resources/js/ajax.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
         crossorigin="anonymous"></script>
