@@ -88,19 +88,18 @@ function checkSpecialtyDoctor() {
     };
 }
 
-function checkSpecialtyDoctorSlot(){
-const inputDoctorID = document.getElementById("doctorList").value;
+function checkSpecialtyDoctorSlot() {
+    const inputDoctorID = document.getElementById("doctorList").value;
     const appointmentDropdown = document.getElementById("appointmentTime");
 
-const doctorSlotDropdown = document.getElementById("doctorSlotList");
-const doctorSlotMessage = document.getElementById("doctorSlotMessage");
-console.log(inputDoctorID);
+    if (!inputDoctorID) return;
 
-const xhttp = new XMLHttpRequest;
-xhttp.open("GET","http://localhost:8080/KAbhishek_X-Care_Hospital/getDoctorSlot/"+inputDoctorID);
-xhttp.send();
-xhttp.onload = function(){
-if (this.status === 200) {
+    const xhttp = new XMLHttpRequest();
+    xhttp.open("GET", "http://localhost:8080/KAbhishek_X-Care_Hospital/getDoctorSlot/" + inputDoctorID, true);
+    xhttp.send();
+
+    xhttp.onload = function() {
+        if (this.status === 200) {
             const slots = JSON.parse(this.responseText); // Parse JSON list
             console.log(slots);
 
@@ -119,5 +118,6 @@ if (this.status === 200) {
         }
     };
 }
+
 
 

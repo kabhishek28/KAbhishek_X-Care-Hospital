@@ -84,11 +84,32 @@ public class RestController {
 
     @RequestMapping("/getDoctorSlot/{inputDoctorID}")
     @ResponseBody
-    public List<String> getDoctorSlot(@PathVariable int inputDoctorID){
-        System.out.println(inputDoctorID);
-        List<String> doctorSlotAssignmentDTOS = slotAssignmentService.getDoctorSlotsById(inputDoctorID);
-        System.out.println(doctorSlotAssignmentDTOS);
-        return doctorSlotAssignmentDTOS;
+    public String getDoctorSlot(@PathVariable int inputDoctorID){
+        try {
+            List<String> slots = slotAssignmentService.getDoctorSlotsById(inputDoctorID);
+
+            if (slots == null || slots.isEmpty()) {
+                return "[]"; // Empty JSON array
+            }
+
+            // Build JSON manually
+            StringBuilder json = new StringBuilder();
+            json.append("[");
+            for (int i = 0; i < slots.size(); i++) {
+                json.append("\"").append(slots.get(i).replace("\"", "\\\"")).append("\""); // Escape quotes
+                if (i < slots.size() - 1) {
+                    json.append(",");
+                }
+            }
+            json.append("]");
+
+            return json.toString();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "[]"; // Return empty JSON array on error
+        }
     }
-}
+    }
+
 
