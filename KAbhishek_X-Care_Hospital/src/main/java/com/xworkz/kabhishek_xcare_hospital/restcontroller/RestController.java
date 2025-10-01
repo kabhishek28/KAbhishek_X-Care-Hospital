@@ -1,7 +1,9 @@
 package com.xworkz.kabhishek_xcare_hospital.restcontroller;
 
 import com.xworkz.kabhishek_xcare_hospital.dto.DoctorDTO;
+import com.xworkz.kabhishek_xcare_hospital.dto.DoctorSlotAssignmentDTO;
 import com.xworkz.kabhishek_xcare_hospital.service.RestControllerSercive;
+import com.xworkz.kabhishek_xcare_hospital.service.SlotAssignmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,14 +19,17 @@ public class RestController {
     @Autowired
     RestControllerSercive restControllerSercive;
 
+    @Autowired
+    SlotAssignmentService slotAssignmentService;
+
     @GetMapping("/checkEmail/{email}")
-    public String checkmail(@PathVariable String email){
-            int count=restControllerSercive.countEmail(email);
-            if(count==0){
-                return "Email not exists";
-            }else{
-                return "Email exists";
-            }
+    public String checkmail(@PathVariable String email) {
+        int count = restControllerSercive.countEmail(email);
+        if (count == 0) {
+            return "Email not exists";
+        } else {
+            return "Email exists";
+        }
     }
 
 //    @GetMapping("/getDoctorName/{specialty}")
@@ -46,19 +51,44 @@ public class RestController {
 //    }
 
     @GetMapping("/getDoctorSlots/{inputSlot}/{inputEmail}")
-    public String getSlots(@PathVariable String inputSlot,@PathVariable String inputEmail){
-        int count = restControllerSercive.checkDoctorSlotsAssign(inputEmail,inputSlot);
-        if(count==0){
+    public String getSlots(@PathVariable String inputSlot, @PathVariable String inputEmail) {
+        int count = restControllerSercive.checkDoctorSlotsAssign(inputEmail, inputSlot);
+        if (count == 0) {
             return "";
-        }else{
+        } else {
             return "Slot All ready Assign";
         }
     }
 
-    @GetMapping("/getDoctorList/{specialty}")
+    @GetMapping("/getDoctorList/{inputSpecialty}")
     @ResponseBody
-    public List<DoctorDTO> getDoctorList(@PathVariable String specialty, Model model){
-        System.out.println(specialty);
-        return restControllerSercive.checkDoctorList(specialty);
+    public String getDoctorList(@PathVariable String inputSpecialty) {
+        List<DoctorDTO> doctorDTOS = restControllerSercive.checkDoctorList(inputSpecialty);
+
+        // Build JSON manually
+        StringBuilder json = new StringBuilder("[");
+        for (int i = 0; i < doctorDTOS.size(); i++) {
+            DoctorDTO d = doctorDTOS.get(i);
+            json.append("{")
+                    .append("\"id\":").append(d.getId()).append(",")
+                    .append("\"name\":\"").append(d.getDoctorName()).append("\",")
+                    .append("\"specialty\":\"").append(d.getSpecialty()).append("\"")
+                    .append("}");
+            if (i < doctorDTOS.size() - 1) {
+                json.append(",");
+            }
+        }
+        json.append("]");
+        return json.toString();
+    }
+
+    @RequestMapping("/getDoctorSlot/{inputDoctorID}")
+    @ResponseBody
+    public List<String> getDoctorSlot(@PathVariable int inputDoctorID){
+        System.out.println(inputDoctorID);
+        List<String> doctorSlotAssignmentDTOS = slotAssignmentService.getDoctorSlotsById(inputDoctorID);
+        System.out.println(doctorSlotAssignmentDTOS);
+        return doctorSlotAssignmentDTOS;
     }
 }
+

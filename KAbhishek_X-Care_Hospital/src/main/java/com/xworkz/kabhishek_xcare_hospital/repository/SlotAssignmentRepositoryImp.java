@@ -130,4 +130,27 @@ public class SlotAssignmentRepositoryImp implements SlotAssignmentRepository {
         }
         return "Data has been Saved";
     }
+
+    @Override
+    public List<DoctorSlotAssignmentEntity> getDoctorSlotsById(int doctorID) {
+        EntityManager eM = null;
+        List<DoctorSlotAssignmentEntity> slotAssignmentEntities = new ArrayList<>();
+        try {
+            eM = entityManagerFactory.createEntityManager();
+            String jpql = "SELECT d FROM DoctorSlotAssignmentEntity d " +
+                    "JOIN FETCH d.doctorEntity doc " +
+                    "JOIN FETCH d.timingSlotEntity t " +
+                    "WHERE doc.id = :doctorID";
+
+            slotAssignmentEntities = eM.createQuery(jpql, DoctorSlotAssignmentEntity.class)
+                    .setParameter("doctorID", doctorID)
+                    .getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (eM != null) eM.close();
+        }
+        return slotAssignmentEntities;
+    }
+
 }

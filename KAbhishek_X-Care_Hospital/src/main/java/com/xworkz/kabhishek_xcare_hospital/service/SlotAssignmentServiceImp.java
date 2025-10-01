@@ -64,4 +64,15 @@ public class SlotAssignmentServiceImp implements SlotAssignmentService{
 
         return slotAssignmentRepository.saveDoctorWithSlots(doctorSlotAssignmentEntity);
     }
+
+    @Override
+    public List<String> getDoctorSlotsById(int doctorId) {
+        List<String> doctorSlots = new ArrayList<>();
+        List<DoctorSlotAssignmentEntity> doctorSlotAssignmentEntities = slotAssignmentRepository.getDoctorSlotsById(doctorId);
+        for(DoctorSlotAssignmentEntity list : doctorSlotAssignmentEntities){
+            String time = list.getTimings();
+            doctorSlots.add(time);
+        }
+        return doctorSlots;
+    }
 }

@@ -13,4 +13,6 @@ public interface SlotAssignmentService {
     List<TimingSlotDTO> findTimingList(String specialty);
 
     String saveDoctorWithSlots(DoctorSlotAssignmentDTO doctorWithSlots);
+
+    List<String> getDoctorSlotsById(int doctorId);
 }

@@ -19,5 +19,7 @@ public interface SlotAssignmentRepository {
 
     String saveDoctorWithSlots(DoctorSlotAssignmentEntity doctorWithSlotsEntity);
 
+    List<DoctorSlotAssignmentEntity> getDoctorSlotsById(int doctorID);
+
 
 }

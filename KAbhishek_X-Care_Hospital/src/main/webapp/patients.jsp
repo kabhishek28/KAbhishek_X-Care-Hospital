@@ -156,8 +156,8 @@
 
 
             <div class="col-md-6">
-                <label for="specialty" class="form-label" >Specialty</label>
-                <select id="specialty" name="specialty" class="form-select" onchange="checkSpecialtyDoctor()" required>
+                <label for="specialtyID" class="form-label" >Specialty</label>
+                <select id="specialtyID" name="specialty" class="form-select" onchange="checkSpecialtyDoctor()" required>
                     <option selected disabled>Choose specialty...</option>
                     <option value="CARDIOLOGY">Cardiology</option>
                     <option value="DERMATOLOGY">Dermatology</option>
@@ -173,36 +173,27 @@
                     <option value="OPHTHALMOLOGY">Ophthalmology</option>
                 </select>
             </div>
+            <div>
+                <p id="doctorMessage" class="text-danger fw-bold text-center"></p>
+            </div>
 
 
 
             <div class="col-md-6">
-                <label for="doctor" class="form-label">Doctor</label>
-                <select id="doctor" name="doctor" class="form-select" required>
+                <label for="doctorList"  class="form-label">Doctor</label>
+                <select id="doctorList" name="doctor" class="form-select" onchange="checkSpecialtyDoctorSlot()" required>
                     <option selected disabled>Select doctor</option>
-                    <c:if test="${not empty doctors}">
-                        <ul>
-                            <c:forEach var="doc" items="${doctors}">
-                                <li>${doc.name} - ${doc.specialty}</li>
-                            </c:forEach>
-                        </ul>
-                    </c:if>
                 </select>
             </div>
-            <c:if test="${not empty message}">
-                <p class="text-danger fw-bold text-center">${message}</p>
-            </c:if>
+
+
 
 
             <div class="col-md-6">
                 <label for="appointmentTime" class="form-label">Appointment Time</label>
                 <select id="appointmentTime" name="appointmentTime" class="form-select" required>
                     <option selected disabled>Select time</option>
-                    <!-- Populate dynamically -->
-                    <option value="MORNING">09:00 AM - 11:00 AM</option>
-                    <option value="NOON">11:00 AM - 01:00 PM</option>
-                    <option value="AFTERNOON">02:00 PM - 04:00 PM</option>
-                    <option value="EVENING">04:00 PM - 06:00 PM</option>
+                    <!-- Populated dynamically -->
                 </select>
             </div>
 
