@@ -25,7 +25,7 @@ public class PatientController {
 
     @RequestMapping("/save")
     public String savePatientsData(PatientsDTO patientsDTO, Model model){
-        System.out.println(patientsDTO);
+
         String value = patientsService.savePatientsDetails(patientsDTO);
         if(!value.equals("Patients Data Saved")){
             model.addAttribute("DataNotSaved","Patients Data not Saved");
