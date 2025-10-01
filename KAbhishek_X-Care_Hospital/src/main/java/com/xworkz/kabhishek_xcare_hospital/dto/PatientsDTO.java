@@ -22,7 +22,7 @@ public class PatientsDTO {
     private String disease;
     private String bloodGroup;
     private String specialty;
-    private String doctor;
+    private int doctor;
     private String appointmentTime;
     private String address;
     private int fees;

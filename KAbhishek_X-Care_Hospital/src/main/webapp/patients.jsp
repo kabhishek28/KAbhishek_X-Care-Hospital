@@ -100,7 +100,10 @@
 <div class="d-flex justify-content-center mt-5">
     <div class="card shadow-lg p-4 rounded-4" style="width: 40rem;">
         <h3 class="text-center mb-4">Patient Registration</h3>
-
+        <div>
+            <p class="text-danger fw-bold text-center">${DataNotSaved}</p>
+            <p class="text-success  fw-bold text-center">${DataSaved}</p>
+        </div>
         <form class="row g-3" action="patient/save" method="post">
 
             <div class="col-md-6">

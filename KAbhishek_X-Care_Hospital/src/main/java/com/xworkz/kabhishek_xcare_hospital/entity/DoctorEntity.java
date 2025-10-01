@@ -56,5 +56,8 @@ public class DoctorEntity {
     @ToString.Exclude
     private ImageEntity imageEntity;
 
+    @OneToMany(mappedBy = "doctorEntity",cascade = CascadeType.ALL)
+    @ToString.Exclude
+    private List<PatientsEntity> patientsEntity;
 
 }
