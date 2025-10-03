@@ -23,9 +23,9 @@ public class PatientController {
         return "patients";
     }
 
+
     @RequestMapping("/save")
     public String savePatientsData(PatientsDTO patientsDTO, Model model){
-
         String value = patientsService.savePatientsDetails(patientsDTO);
         if(!value.equals("Patients Data Saved")){
             model.addAttribute("DataNotSaved","Patients Data not Saved");
@@ -34,7 +34,5 @@ public class PatientController {
             model.addAttribute("DataSaved","Patients Data Saved");
             return  "patients";
         }
-
     }
-
 }
