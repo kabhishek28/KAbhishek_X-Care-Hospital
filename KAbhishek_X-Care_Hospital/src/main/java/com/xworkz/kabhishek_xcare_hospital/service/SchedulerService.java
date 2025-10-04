@@ -5,4 +5,7 @@ import org.springframework.stereotype.Service;
 @Service
 public interface SchedulerService {
 
+    public void checkOTPExpiry(){
+        List
+    }
 }
