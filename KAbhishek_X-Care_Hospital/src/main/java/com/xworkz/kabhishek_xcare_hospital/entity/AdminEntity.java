@@ -11,8 +11,8 @@ import java.time.LocalDateTime;
 @NamedQuery(name = "countOfEmail",query = "select count(e.email) from AdminEntity e where e.email=:emailBy")
 @NamedQuery(name = "updateOTPByGmail" , query = "UPDATE AdminEntity e SET e.otp=:otpby , e.localDateTime=:dateTime where e.email=:emailby")
 @NamedQuery(name = "getEntityByName" , query = "Select e from AdminEntity e where e.email =: emailBy")
+@NamedQuery(name = "getAllAdminData" , query = "select e from AdminEntity e where e.otp is not null")
 public class AdminEntity {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "admin_id")

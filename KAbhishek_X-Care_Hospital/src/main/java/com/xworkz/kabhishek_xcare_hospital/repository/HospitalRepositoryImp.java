@@ -94,10 +94,47 @@ public class HospitalRepositoryImp implements HospitalRepository{
         return adminEntity;
     }
 
+    @Override
+    public List<AdminEntity> getAllAdmin() {
+      EntityManager eM = null;
+      EntityTransaction eT = null;
+      List<AdminEntity> adminEntityList = null;
+      try{
+          eM = entityManagerFactory.createEntityManager();
+          eT = eM.getTransaction();
+          eT.begin();
+          Query query = eM.createNamedQuery("getAllAdminData");
+          adminEntityList = query.getResultList();
+      }catch (Exception e){
+          e.printStackTrace();
+          if(eT.isActive()){
+              eT.rollback();
+          }
+      }finally {
+          eM.close();
+      }
+      return adminEntityList;
+    }
 
-
-
-
+    @Override
+    public void upDateAdminEntity(AdminEntity adminEntity) {
+        EntityManager eM = null;
+        EntityTransaction eT = null;
+        try{
+            eM = entityManagerFactory.createEntityManager();
+            eT = eM.getTransaction();
+            eT.begin();
+            eM.merge(adminEntity);
+            eT.commit();
+        }catch (Exception e){
+            e.printStackTrace();
+            if(eT.isActive()){
+                eT.rollback();
+            }
+        }finally {
+            eM.close();
+        }
+    }
 
 
 //    @Override
@@ -133,19 +170,5 @@ public class HospitalRepositoryImp implements HospitalRepository{
 //        }
 //        return message;
 //    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }

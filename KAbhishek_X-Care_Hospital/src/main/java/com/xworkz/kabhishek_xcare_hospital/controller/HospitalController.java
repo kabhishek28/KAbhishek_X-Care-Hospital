@@ -53,39 +53,28 @@ public class HospitalController {
 
     @RequestMapping("login")
     public ModelAndView loginPage(@RequestParam String gmailName, @RequestParam String otp, HttpSession session, ModelAndView modelAndView) {
-
-
         String value = hospitalService.matchOtp(gmailName, otp);
-
         switch (value) {
             case "OTP Done":
-
                 modelAndView.setViewName("home");
                 return modelAndView;
-
             case "OTP Wrong":
                 Integer remainingTime = (Integer) session.getAttribute("remainingTime");
                 if (remainingTime == null) remainingTime = 120; // fallback
-
                 modelAndView.addObject("otpError", "OTP NOT MATCH");
                 modelAndView.addObject("gmail", gmailName);
                 modelAndView.addObject("remainingTime", remainingTime);
                 modelAndView.setViewName("adminLoginOTP");
                 return modelAndView;
-
             case "Time expired":
                 modelAndView.addObject("gmail", gmailName);
                 modelAndView.addObject("timeExpired", true);
                 modelAndView.setViewName("adminLoginOTP");
                 return modelAndView;
-
             default:
                 modelAndView.addObject("gmail", gmailName);
                 modelAndView.setViewName("adminLoginOTP");
                 return modelAndView;
         }
     }
-
-
-
 }

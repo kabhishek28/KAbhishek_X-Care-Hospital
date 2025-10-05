@@ -5,6 +5,7 @@ import com.xworkz.kabhishek_xcare_hospital.entity.*;
 
 import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 public interface HospitalRepository {
@@ -14,6 +15,10 @@ public interface HospitalRepository {
     void saveOTP(String OTP , LocalDateTime localDateTime, HttpSession session);
 
     AdminEntity getAdminEntity(String gmail);
+
+    List<AdminEntity> getAllAdmin();
+
+    void upDateAdminEntity(AdminEntity adminEntity);
 
    // String upDateDoctorAndSlots(String doctorEmail,String specialty,String timings,String startTime,String endTime);
 
