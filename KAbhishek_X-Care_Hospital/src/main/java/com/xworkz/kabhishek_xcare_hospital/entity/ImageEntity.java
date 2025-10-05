@@ -7,7 +7,7 @@ import javax.persistence.*;
 @Data
 @Entity
 @Table(name = "image_table")
-public class ImageEntity {
+public class ImageEntity extends AuditEntity{
 
     @Id
     @Column(name = "id")

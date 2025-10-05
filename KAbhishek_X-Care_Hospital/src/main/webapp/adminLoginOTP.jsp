@@ -46,24 +46,50 @@
 </main>
 <script>
     function startTimer(seconds) {
-    let timer = seconds;
-    const display = document.getElementById("timer");
-    const submitBtn = document.querySelector("button[type='submit']");
+        let timer = seconds;
+        const display = document.getElementById("timer");
+        const submitBtn = document.querySelector("#otpButton");
 
-    const interval = setInterval(() => {
-        let minutes = Math.floor(timer / 60);
-        let secs = timer % 60;
-        display.innerHTML = minutes + ":" + (secs < 10 ? "0" : "") + secs;
+        const interval = setInterval(() => {
+            let minutes = Math.floor(timer / 60);
+            let secs = timer % 60;
+            display.innerHTML = minutes + ":" + (secs < 10 ? "0" : "") + secs;
 
-        if (--timer < 0) {
-            clearInterval(interval);
-            display.innerHTML = "OTP expired!";
-            submitBtn.innerText = "Resend OTP";
-            submitBtn.disabled = false;
-        }
-    }, 1000);
-}
+            if (--timer < 0) {
+                clearInterval(interval);
+                display.innerHTML = "OTP expired!";
+
+                // Change button to "Resend OTP"
+                submitBtn.innerText = "Resend OTP";
+                submitBtn.disabled = false;
+
+                // Convert it into resend button
+                submitBtn.onclick = function() {
+                    resendOtp();
+                };
+            }
+        }, 1000);
+    }
+
+    function resendOtp() {
+        const gmail = document.getElementById("gmail").value; // your input field id
+
+        fetch(`/sendAdminOTP?gmailName=${gmail}`)
+            .then(response => {
+                if (response.ok) {
+                    // Reset timer again for 120s
+                    startTimer(120);
+                    const submitBtn = document.querySelector("#otpButton");
+                    submitBtn.innerText = "Submit OTP";
+                    alert("New OTP has been sent to your email!");
+                } else {
+                    alert("Error resending OTP");
+                }
+            })
+            .catch(error => console.error("Error:", error));
+    }
 </script>
+
 <body onload="startTimer(${remainingTime})" >
 <div class="d-flex justify-content-center mt-5">
     <div class="card shadow-lg p-4 rounded-4  " style="width: 22rem;">
@@ -78,7 +104,9 @@
                 <label for="OtplID" class="form-label">Enter Otp</label>
                 <input type="text" class="form-control" id="OtplID" name="otp" placeholder="Enter the OTP"   required>
                 <div  id="otpError" class="input-text text-danger" style="min-height:25px;"></div>
-                <c:out value="${otpError}" />
+               <p class="text-danger fw-bold text-center">
+                   <c:out  value="${otpError}" />
+               </p>
                 <c:out value="${time}"/>
             </div>
 

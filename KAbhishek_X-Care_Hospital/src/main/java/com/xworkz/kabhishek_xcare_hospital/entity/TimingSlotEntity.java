@@ -12,7 +12,7 @@ import java.util.List;
 @NamedQuery(name = "getTimeSlotBySpecialty",query = "select e from TimingSlotEntity e where e.specialty=:specialtyBy ")
 @NamedQuery(name = "checkTimeSlotBySpecialty",query = "select e from TimingSlotEntity e where e.specialty=:specialtyBy ")
 
-public class TimingSlotEntity {
+public class TimingSlotEntity extends AuditEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

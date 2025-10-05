@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Table(name = "doctor_slots_assignment_table")
 @NamedQuery(name = "TimingSlotEntityCheckDoctorSlotExists", query = "SELECT COUNT(t) FROM DoctorSlotAssignmentEntity t WHERE t.doctorEmail =:doctorEmailBy AND t.timings =:slotTimeBy"
 )
-public class DoctorSlotAssignmentEntity {
+public class DoctorSlotAssignmentEntity extends AuditEntity{
 
     @Id
     @Column(name = "id")

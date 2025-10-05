@@ -14,7 +14,7 @@ import java.util.List;
 @NamedQuery(name = "getAllDoctorsList",query = "select e from DoctorEntity e")
 @NamedQuery(name = "getDoctorEntityByEmail",query = "select e from DoctorEntity e where e.doctorEmail=:emailBy")
 @NamedQuery(name = "checkDoctorListBySpecialty",query = "select e from DoctorEntity e where e.specialty=:specialtyBy" )
-public class DoctorEntity {
+public class DoctorEntity extends AuditEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

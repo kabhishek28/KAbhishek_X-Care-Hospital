@@ -40,6 +40,7 @@ public class HospitalController {
     @RequestMapping("sendAdminOTP")
     public String adminLogIn(String gmailName,Model model,HttpSession session){
         session.setAttribute("email",gmailName);
+
         Map<String,Object> response = hospitalService.checkAdminExist(gmailName,session);
 
         if(!(boolean) response.get("otpSent")){
@@ -58,10 +59,13 @@ public class HospitalController {
             case "OTP Done":
                 modelAndView.setViewName("home");
                 return modelAndView;
+            case "resend OTP":
+            modelAndView.addObject("otpError","Resend OTP");
+            modelAndView.setViewName("adminLoginOTP");
             case "OTP Wrong":
                 Integer remainingTime = (Integer) session.getAttribute("remainingTime");
                 if (remainingTime == null) remainingTime = 120; // fallback
-                modelAndView.addObject("otpError", "OTP NOT MATCH");
+                modelAndView.addObject("otpError", "Wrong OTP Entered");
                 modelAndView.addObject("gmail", gmailName);
                 modelAndView.addObject("remainingTime", remainingTime);
                 modelAndView.setViewName("adminLoginOTP");

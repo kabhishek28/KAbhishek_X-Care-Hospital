@@ -1,24 +1,13 @@
 package com.xworkz.kabhishek_xcare_hospital.service;
 
-import com.xworkz.kabhishek_xcare_hospital.dto.DoctorDTO;
-import com.xworkz.kabhishek_xcare_hospital.dto.DoctorSlotAssignmentDTO;
-import com.xworkz.kabhishek_xcare_hospital.dto.TimingSlotDTO;
 import com.xworkz.kabhishek_xcare_hospital.entity.*;
 import com.xworkz.kabhishek_xcare_hospital.repository.HospitalRepository;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import javax.print.Doc;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -110,15 +99,19 @@ public  class HospitalServiceImp implements HospitalService {
     @Override
     public String matchOtp(String gmail, String inputOTP) {
         AdminEntity adminEntity = hospitalRepository.getAdminEntity(gmail);
-        LocalDateTime generatedTime = adminEntity.getLocalDateTime();
-        LocalDateTime expiryTime = generatedTime.plusSeconds(150);
-        if(!adminEntity.getOtp().equals(inputOTP)){
-            return "OTP Wrong";
+        if(adminEntity.getOtp() == null && adminEntity.getLocalDateTime() == null){
+            return "resend OTP";
+        }else {
+            LocalDateTime generatedTime = adminEntity.getLocalDateTime();
+            LocalDateTime expiryTime = generatedTime.plusSeconds(150);
+            if(!adminEntity.getOtp().equals(inputOTP)){
+                return "OTP Wrong";
+            } else if(LocalDateTime.now().isAfter(expiryTime)){
+                return "Time expired";
+            }else {
+                return "OTP Done";
+            }
         }
-        if(LocalDateTime.now().isAfter(expiryTime)){
-            return "Time expired";
-        }
-        return "OTP Done";
     }
 
 //    @Override
