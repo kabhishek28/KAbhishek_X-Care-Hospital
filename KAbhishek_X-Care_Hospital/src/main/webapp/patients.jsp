@@ -107,20 +107,20 @@
         <form class="row g-3" action="patient/save" method="post">
 
             <div class="col-md-6">
-                <label for="inputName" class="form-label">Full Name</label>
+                <label for="inputName" class="form-label">Full Name</label><span>*</span>
                 <input type="text" class="form-control" id="inputName" name="patientName" oninput="validationName()" placeholder="John Doe" required>
                 <div  id="nameError" class="input-text text-danger" style="min-height:25px;"></div>
             </div>
 
 
             <div class="col-md-6">
-                <label for="ageID" class="form-label">Age</label>
+                <label for="ageID" class="form-label">Age</label><span>*</span>
                 <input type="number" class="form-control" id="ageID" name="age" placeholder="30" oninput="validationAge()" min="0" max="120" required>
                 <div  id="ageError" class="input-text text-danger" style="min-height:25px;"></div>
             </div>
 
             <div class="col-md-6">
-                <label for="gender" class="form-label">Gender</label>
+                <label for="gender" class="form-label">Gender</label><span>*</span>
                 <select id="gender" name="gender" class="form-select" required>
                     <option selected disabled>Choose...</option>
                     <option value="male">Male</option>
@@ -131,19 +131,19 @@
             </div>
 
             <div class="col-md-6">
-                <label for="inputPhone" class="form-label">Contact Number</label>
+                <label for="inputPhone" class="form-label">Contact Number</label><span>*</span>
                 <input type="tel" class="form-control" id="inputPhone" name="contact" oninput="validationPhoneNo()" placeholder="+91 9876543210" required>
                 <div id="phoneNoError" class="input-text text-danger" style="min-height:25px;"></div>
             </div>
 
 
             <div class="col-12">
-                <label for="disease" class="form-label">Disease / Symptoms</label>
+                <label for="disease" class="form-label">Disease / Symptoms</label><span>*</span>
                 <input type="text" class="form-control" id="disease" name="disease" placeholder="Fever, Chest Pain..." required>
             </div>
 
             <div class="col-md-6">
-                <label for="bloodGroup" class="form-label">Blood Group</label>
+                <label for="bloodGroup" class="form-label">Blood Group</label><span>*</span>
                 <select id="bloodGroup" name="bloodGroup" class="form-select" required>
                     <option selected disabled>Select blood group</option>
                     <option value="A+">A+</option>
@@ -159,7 +159,7 @@
 
 
             <div class="col-md-6">
-                <label for="specialtyID" class="form-label" >Specialty</label>
+                <label for="specialtyID" class="form-label" >Specialty</label><span>*</span>
                 <select id="specialtyID" name="specialty" class="form-select" onchange="checkSpecialtyDoctor()" required>
                     <option selected disabled>Choose specialty...</option>
                     <option value="CARDIOLOGY">Cardiology</option>
@@ -183,7 +183,7 @@
 
 
             <div class="col-md-6">
-                <label for="doctorList"  class="form-label">Doctor</label>
+                <label for="doctorList"  class="form-label">Doctor</label><span>*</span>
                 <select id="doctorList" name="doctor" class="form-select" onchange="checkSpecialtyDoctorSlot()" required>
                     <option selected disabled>Select doctor</option>
                 </select>
@@ -193,7 +193,7 @@
 
 
             <div class="col-md-6">
-                <label for="appointmentTime" class="form-label">Appointment Time</label>
+                <label for="appointmentTime" class="form-label">Appointment Time</label><span>*</span>
                 <select id="appointmentTime" name="appointmentTime" class="form-select" required>
                     <option selected disabled>Select time</option>
                     <!-- Populated dynamically -->
@@ -201,13 +201,13 @@
             </div>
 
             <div class="col-12">
-                <label for="address" class="form-label">Address</label>
+                <label for="address" class="form-label">Address</label><span>*</span>
                 <textarea id="address" name="address" class="form-control" rows="2" placeholder="Enter full address"></textarea>
             </div>
 
             <div class="col-md-6">
                 <label for="fees" class="form-label">Consultation Fees</label>
-                <input type="number" class="form-control" id="fees" name="fees" placeholder="doctor fees"  min="0" required>
+                <input type="number" class="form-control" id="fees" name="fees" placeholder="doctor fees"  min="0" >
             </div>
 
 

@@ -107,6 +107,53 @@ emailError.innerHTML=this.responseText;
 }
 }
 
+function checkKeys(event) {
+  const expError = document.getElementById('experienceError');
+
+  const allowedKeys = [
+      'Backspace', 'Tab', 'ArrowLeft', 'ArrowRight',
+      'Delete', 'Home', 'End'
+    ];
+
+    if (allowedKeys.includes(event.key)) {
+      expError.textContent = "";
+      return; // allow them to work normally
+    }
+
+    // ❌ Block alphabets and symbols
+    if (
+      (event.key >= 'a' && event.key <= 'z') ||
+      (event.key >= 'A' && event.key <= 'Z') ||
+      ['+', '-', 'e', 'E', '.', ',', '/'].includes(event.key)
+    ) {
+      event.preventDefault(); // stop typing
+      expError.textContent = "Only numbers allowed.";
+    } else {
+      expError.textContent = "";
+    }
+  }
+
+function validateExperience(){
+ const expInput = document.getElementById('experience');
+  const expError = document.getElementById('experienceError');
+  const value = expInput.value;
+
+  // Range check
+  if (value !== "") {
+    const numValue = parseInt(value);
+    if (numValue < 0) {
+      expError.textContent = "Experience cannot be negative.";
+      expInput.value = "";
+    } else if (numValue > 60) {
+      expError.textContent = "Experience cannot exceed 60 years.";
+      expInput.value = "";
+    } else {
+      expError.textContent = "";
+    }
+  }
+}
+
+
 //function getDoctorMail(){
 //const doctorName = document.getElementById("doctorID").value;
 //const doctorNameError = document.getElementById("optionDoctorNameError");

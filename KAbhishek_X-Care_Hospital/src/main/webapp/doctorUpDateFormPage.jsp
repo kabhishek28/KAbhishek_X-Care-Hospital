@@ -119,12 +119,12 @@
             <!--            <img src="download?imagePath=${dto.imagePath}"></img>-->
 
 
-                <input type="hidden" class="form-control" id="inputId" name="id" value="${dto.id}" oninput="validationId()" placeholder="Enter Doctor ID" required>
+                <input type="hidden" class="form-control" id="inputId" name="id" value="${dto.id}" oninput="validationId()" placeholder="Enter Doctor ID" >
                 <div id="idError" class="input-text text-danger" style="min-height:25px;"></div>
 
             <div class="col-md-6">
                 <label for="inputName" class="form-label">Doctor Name</label>
-                <input type="text" class="form-control" id="inputName" name="doctorName" oninput="validationName()" placeholder="Dr. John Doe" required>
+                <input type="text" class="form-control" id="inputName" name="doctorName" oninput="validationName()" placeholder="Dr. John Doe" >
                 <div  id="nameError" class="input-text text-danger" style="min-height:25px;"></div>
             </div>
 
@@ -136,14 +136,14 @@
 
             <div class="col-md-6">
                 <label for="inputPhone" class="form-label">Phone Number</label>
-                <input type="number" class="form-control" id="inputPhone" name="doctorPhoneNo" oninput="validationPhoneNo()" placeholder="+91 9876543210" required>
+                <input type="number" class="form-control" id="inputPhone" name="doctorPhoneNo" oninput="validationPhoneNo()" placeholder="+91 9876543210" >
                 <div id="phoneNoError" class="input-text text-danger" style="min-height:25px;"></div>
             </div>
 
 
             <div class="col-md-6">
                 <label for="licenseNumber" class="form-label">License / Reg. No.</label>
-                <input type="text" class="form-control" id="licenseNumber" name="license_number" oninput="validateLicenseNo()" placeholder="e.g., MC-123456" required>
+                <input type="text" class="form-control" id="licenseNumber" name="license_number" oninput="validateLicenseNo()" placeholder="e.g., MC-123456" >
                 <div id="licenseError" class="input-text text-danger" style="min-height:25px;"></div>
             </div>
 
@@ -156,30 +156,28 @@
 
             <div class="col-md-6">
                 <label for="gender" class="form-label">Gender</label>
-                <select id="gender" class="form-select" name="doctorGender" required>
+                <select id="gender" class="form-select" name="doctorGender" >
                     <option selected disabled>Choose...</option>
                     <option value="male">Male</option>
                     <option value="female">Female</option>
-                    <option value="other">Other</option>
-                    <option value="prefer_not_say">Prefer not to say</option>
                 </select>
             </div>
 
             <div class="col-md-6">
                 <label for="qualification" class="form-label">Qualification</label>
-                <input type="text" class="form-control" id="qualification" name="qualification" placeholder="e.g., MBBS, MD" oninput="validateQualification()" required>
+                <input type="text" class="form-control" id="qualification" name="qualification" placeholder="e.g., MBBS, MD" oninput="validateQualification()">
                 <div id="qualificationError" class="input-text text-danger" style="min-height:25px;"></div>
             </div>
 
             <div class="col-md-6">
                 <label for="experience" class="form-label">Experience (Years)</label>
-                <input type="number" class="form-control" id="experience" name="experience" placeholder="e.g., 10" min="0" max="60" required>
-
+                <input type="number" class="form-control" id="experience" name="experience" placeholder="e.g., 10" min="0" max="60" onkeydown="checkKeys(event)" oninput="validateExperience()">
+                <div id="experienceError" class="input-text text-danger" style="min-height:25px;">
             </div>
 
             <div class="col-12">
                 <label for="photo" class="form-label">Upload Profile Photo(png only)</label>
-                <input type="file" class="form-control" id="photo" name="photo" accept="image/png" required>
+                <input type="file" class="form-control" id="photo" name="photo" accept="image/png" >
             </div>
 
 

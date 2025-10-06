@@ -95,47 +95,38 @@
             </li>
         </ul>
     </nav>
-
-
-
 </main>
 <body>
 <div class="d-flex justify-content-center mt-5">
     <div class="card shadow-lg p-4 rounded-4" style="width: 40rem;">
         <h3 class="text-center mb-4">Doctor Registration</h3>
-
         <form class="row g-3" action="doctorForm" method="post" enctype="multipart/form-data">
-
-
-
             <div class="col-md-6">
-                <label for="inputName" class="form-label">Doctor Name</label>
+                <label for="inputName" class="form-label">Doctor Name</label><span>*</span>
                 <input type="text" class="form-control" id="inputName" name="doctorName" oninput="validationName()" placeholder="Dr. John Doe" required>
                 <div  id="nameError" class="input-text text-danger" style="min-height:25px;"></div>
             </div>
 
             <div class="col-md-6">
-                <label for="gmailID" class="form-label">Email</label>
+                <label for="gmailID" class="form-label">Email</label><span>*</span>
                 <input type="email" class="form-control" id="gmailID" name="doctorEmail" oninput="validationGmail()" onchange="checkEmail()" placeholder="doctor@example.com" required>
                 <div id="emailError" class="input-text text-danger" style="min-height:25px;"></div>
             </div>
 
             <div class="col-md-6">
-                <label for="inputPhone" class="form-label">Phone Number</label>
-                <input type="number" class="form-control" id="inputPhone" name="doctorPhoneNo" oninput="validationPhoneNo()" placeholder="+91 9876543210" required>
+                <label for="inputPhone" class="form-label">Phone Number</label><span>*</span>
+                <input type="number" class="form-control" id="inputPhone" name="doctorPhoneNo" oninput="validationPhoneNo()" placeholder="+91 9876543210" maxlength="10" required>
                 <div id="phoneNoError" class="input-text text-danger" style="min-height:25px;"></div>
             </div>
 
-
             <div class="col-md-6">
-                <label for="licenseNumber" class="form-label">License / Reg. No.</label>
+                <label for="licenseNumber" class="form-label">License / Reg. No.</label><span>*</span>
                 <input type="text" class="form-control" id="licenseNumber" name="license_number" oninput="validateLicenseNo()" placeholder="e.g., MC-123456" required>
                 <div id="licenseError" class="input-text text-danger" style="min-height:25px;"></div>
             </div>
 
-
             <div class="col-md-6">
-                <label for="specialty" class="form-label" >Specialty</label>
+                <label for="specialty" class="form-label" >Specialty</label><span>*</span>
                 <select id="specialty" name="specialty" class="form-select" required>
                     <option selected disabled>Choose specialty...</option>
                     <option value="CARDIOLOGY">Cardiology</option>
@@ -148,40 +139,36 @@
                     <option value="GENERAL_MEDICINE">General medicine</option>
                     <option value="SURGERY">Surgery</option>
                     <option value="GYNECOLOGY">Gynecology</option>
-                    <option value="ENT">Ent</option>   <!-- (problem: ENT becomes Ent) -->
+                    <option value="ENT">Ent</option>
                     <option value="OPHTHALMOLOGY">Ophthalmology</option>
                 </select>
             </div>
 
-
             <div class="col-md-6">
-                <label for="gender" class="form-label">Gender</label>
+                <label for="gender" class="form-label">Gender</label><span>*</span>
                 <select id="gender" class="form-select" name="doctorGender" required>
                     <option selected disabled>Choose...</option>
                     <option value="male">Male</option>
                     <option value="female">Female</option>
-                    <option value="other">Other</option>
-                    <option value="prefer_not_say">Prefer not to say</option>
                 </select>
             </div>
 
             <div class="col-md-6">
-                <label for="qualification" class="form-label">Qualification</label>
+                <label for="qualification" class="form-label">Qualification</label><span>*</span>
                 <input type="text" class="form-control" id="qualification" name="qualification" placeholder="e.g., MBBS, MD" oninput="validateQualification()" required>
                 <div id="qualificationError" class="input-text text-danger" style="min-height:25px;"></div>
             </div>
 
             <div class="col-md-6">
-                <label for="experience" class="form-label">Experience (Years)</label>
-                <input type="number" class="form-control" id="experience" name="experience" placeholder="e.g., 10" min="0" max="60" required>
-
+                <label for="experience" class="form-label">Experience (Years)</label><span>*</span>
+                <input type="number" class="form-control" id="experience" name="experience" placeholder="e.g., 10" min="0" max="60" onkeydown="checkKeys(event)" oninput="validateExperience()" required>
+                <div id="experienceError" class="input-text text-danger" style="min-height:25px;"></div>
             </div>
 
             <div class="col-12">
                 <label for="photo" class="form-label">Upload Profile Photo(png only)</label>
-                <input type="file" class="form-control" id="photo" name="photo" accept="image/png" required>
+                <input type="file" class="form-control" id="photo" name="photo" accept="image/png" >
             </div>
-
 
             <div class="col-12 text-center">
                 <button type="submit" class="btn btn-primary w-100">Register Doctor</button>
