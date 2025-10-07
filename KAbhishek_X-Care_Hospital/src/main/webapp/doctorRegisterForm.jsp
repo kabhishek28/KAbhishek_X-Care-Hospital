@@ -21,6 +21,7 @@
     background-color: #0055aa;
     }
 </style>
+
 <main>
     <!-- As a link -->
     <nav class="navbar bg-body-tertiary py-1">
@@ -97,6 +98,7 @@
     </nav>
 </main>
 <body>
+
 <div class="d-flex justify-content-center mt-5">
     <div class="card shadow-lg p-4 rounded-4" style="width: 40rem;">
         <h3 class="text-center mb-4">Doctor Registration</h3>
@@ -115,7 +117,7 @@
 
             <div class="col-md-6">
                 <label for="inputPhone" class="form-label">Phone Number</label><span>*</span>
-                <input type="number" class="form-control" id="inputPhone" name="doctorPhoneNo" oninput="validationPhoneNo()" placeholder="+91 9876543210" maxlength="10" required>
+                <input type="number" class="form-control" id="inputPhone" name="doctorPhoneNo" oninput="validationPhoneNo()" placeholder="+91 9876543210"  required>
                 <div id="phoneNoError" class="input-text text-danger" style="min-height:25px;"></div>
             </div>
 
@@ -176,9 +178,40 @@
         </form>
     </div>
 </div>
+<div class="modal fade" id="successModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTitle">Message</h5>
+            </div>
+            <div class="modal-body">
+                <p id="modalMessage"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script src="resources/js/index.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+<script>
+    var successMsg = '<c:out value="${modalMessageSaved != null ? modalMessageSaved : ''}" />';
+    var errorMsg   = '<c:out value="${modalMessageNotSaved != null ? modalMessageNotSaved : ''}" />';
 
+    if(successMsg.trim() !== ""){
+        document.getElementById("modalTitle").textContent = "Success";
+        document.getElementById("modalMessage").textContent = successMsg;
+        var myModal = new bootstrap.Modal(document.getElementById('successModal'));
+        myModal.show();
+    } else if(errorMsg.trim() !== ""){
+        document.getElementById("modalTitle").textContent = "Error";
+        document.getElementById("modalMessage").textContent = errorMsg;
+        var myModal = new bootstrap.Modal(document.getElementById('successModal'));
+        myModal.show();
+    }
+</script>
 </body>
 <footer>
 

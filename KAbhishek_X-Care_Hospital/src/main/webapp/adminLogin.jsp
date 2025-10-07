@@ -55,7 +55,7 @@
             <div  id="emailError" class="input-text text-danger" style="min-height:25px;"></div>
             <c:out value="${message}" />
         </div>
-    <button type="submit" class="btn btn-primary w-100">Get OTP</button>
+    <button type="submit" id="getOTPButtonID" class="btn btn-primary w-100">Get OTP</button>
     </form>
 </div>
 </div>

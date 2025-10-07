@@ -26,8 +26,6 @@ import java.util.List;
 @Slf4j
 public class DoctorController {
 
-
-
     @Autowired
     DoctorService doctorService;
 
@@ -40,8 +38,13 @@ public class DoctorController {
     @RequestMapping("doctorForm")
     public String saveDoctorFrom(DoctorDTO dto , Model model) throws IOException {
         model.addAttribute("dto",dto);
-        doctorService.saveDoctor(dto);
-        return "doctorRegisterForm";
+        String value = doctorService.saveDoctor(dto);
+        if(!value.equals("Doctor Details Saved")){
+            model.addAttribute("modalMessageNotSaved",value);
+        }else {
+            model.addAttribute("modalMessageSaved",value);
+        }
+        return "home";
     }
 
     @GetMapping("download")

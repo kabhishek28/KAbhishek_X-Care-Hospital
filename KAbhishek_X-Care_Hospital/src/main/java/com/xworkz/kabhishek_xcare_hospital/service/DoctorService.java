@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface DoctorService {
 
-    void saveDoctor(DoctorDTO dto) throws IOException;
+    String saveDoctor(DoctorDTO dto) throws IOException;
 
     List<DoctorDTO> getAllDoctorsList();
 

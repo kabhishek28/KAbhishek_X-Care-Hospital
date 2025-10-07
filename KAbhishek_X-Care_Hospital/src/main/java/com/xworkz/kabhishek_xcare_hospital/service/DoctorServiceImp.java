@@ -26,7 +26,7 @@ public class DoctorServiceImp implements DoctorService{
 
 
     @Override
-    public void saveDoctor(DoctorDTO dto) throws IOException {
+    public String saveDoctor(DoctorDTO dto) throws IOException {
         DoctorEntity doctorEntity = new DoctorEntity();
         ImageEntity imageEntity = new ImageEntity();
 
@@ -44,7 +44,12 @@ public class DoctorServiceImp implements DoctorService{
         imageEntity.setImagePath(imagePath.toString());
         DoctorEntity doctor = doctorRepository.findSingleDoctorData(doctorId);
         imageEntity.setDoctorEntity(doctor);
-        doctorRepository.saveDoctorImageDetails(imageEntity);
+        String value = doctorRepository.saveDoctorImageDetails(imageEntity);
+        if(!value.equals("Updated Doctor Data Saved")){
+            return "Doctor Details Not Saved";
+        }else {
+            return "Doctor Details Saved";
+        }
     }
 
     @Override

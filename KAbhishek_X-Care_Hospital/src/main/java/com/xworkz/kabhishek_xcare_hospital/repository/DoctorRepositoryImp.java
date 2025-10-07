@@ -26,7 +26,6 @@ public class DoctorRepositoryImp implements DoctorRepository{
         EntityTransaction eT = null;
 
         try {
-
             eM = entityManagerFactory.createEntityManager();
             eT = eM.getTransaction();
             eT.begin();

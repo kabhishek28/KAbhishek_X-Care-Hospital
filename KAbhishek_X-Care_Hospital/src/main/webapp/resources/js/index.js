@@ -12,11 +12,13 @@ emailError.textContent="";
 function validationName(){
 const nameInput = document.getElementById("inputName").value;
 const nameError = document.getElementById("nameError");
-const name = /^[A-Za-z\s]+$/;
-if(!name.test(nameInput)){
-nameError.textContent = "allows only letters (A–Z, a–z) and spaces."
+const nameRex = /^[A-Za-z]+(\s[A-Za-z]+)*$/;
+if(!nameRex.test(nameInput)){
+nameError.textContent = "Numbers and special characters are not allowed"
+return
 }else{
 nameError.textContent="";
+return
 }
 }
 
@@ -31,15 +33,31 @@ inputAgeError.textContent="";
 }
 
 function validationPhoneNo(){
-const inputPhoneNo = document.getElementById("inputPhone").value;
+const inputPhone = document.getElementById("inputPhone");
+const inputPhoneNo = inputPhone.value;
 const inputPhoneNoError = document.getElementById("phoneNoError");
+
 const phoneRex = /^[6-9]\d{9}$/;
-if(!phoneRex.test(inputPhoneNo)){
+const maxLength = 10;
+
+if(inputPhoneNo.length>maxLength){
+inputPhone.value = inputPhoneNo.slice(0,maxLength);
+inputPhoneNoError.textContent = "Phone number cannot be more than 10 digits"
+return
+}
+
+if( inputPhoneNo.length > 0 && !/^[6-9]/.test(inputPhoneNo)){
 inputPhoneNoError.textContent = "first digit must be between 6 and 9"
-}else{
+return
+}
+
+if(inputPhoneNo.length === 10 && !phoneRex.test(inputPhoneNo)) {
+       inputPhoneNoError.textContent = "Invalid phone number";
+       return;
+       }
 inputPhoneNoError.textContent="";
 }
-}
+
 
 
 function validateLicenseNo() {
@@ -78,11 +96,13 @@ function getDoctorEmailAndID() {
     const email = selectedOption.getAttribute("data-email");
     emailInput.value = email || "";
 }
+
 function getSlotID() {
 const  select = document.getElementById("timeID");
 const selectedOption = select.options[select.selectedIndex];
 document.getElementById("slotIDHidden").value = selectedOption.getAttribute("data-id");
 }
+
 function checkSlotsAssigned(){
 const inputSlot = document.getElementById("timeID").value;
 const inputGmail = document.getElementById("gmailID").value;
@@ -103,7 +123,14 @@ const xhttp=new XMLHttpRequest();
 xhttp.open("GET","http://localhost:8080/KAbhishek_X-Care_Hospital/checkEmail/"+emailInput);
 xhttp.send();
 xhttp.onload=function(){
-emailError.innerHTML=this.responseText;
+const response = this.responseText;
+if(response == "Email not exists"){
+emailError.innerHTML = response;
+document.getElementById("getOTPButtonID").disabled = true;
+}else{
+emailError.innerHTML = "";
+document.getElementById("getOTPButtonID").disabled = false;
+}
 }
 }
 
@@ -117,16 +144,16 @@ function checkKeys(event) {
 
     if (allowedKeys.includes(event.key)) {
       expError.textContent = "";
-      return; // allow them to work normally
+      return;
     }
 
-    // ❌ Block alphabets and symbols
+
     if (
       (event.key >= 'a' && event.key <= 'z') ||
       (event.key >= 'A' && event.key <= 'Z') ||
       ['+', '-', 'e', 'E', '.', ',', '/'].includes(event.key)
     ) {
-      event.preventDefault(); // stop typing
+      event.preventDefault();
       expError.textContent = "Only numbers allowed.";
     } else {
       expError.textContent = "";
@@ -154,16 +181,7 @@ function validateExperience(){
 }
 
 
-//function getDoctorMail(){
-//const doctorName = document.getElementById("doctorID").value;
-//const doctorNameError = document.getElementById("optionDoctorNameError");
-//const xhttp = new XMLHttpRequest();
-//xhttp.open("GET","http://localhost:8080/KAbhishek_X-Care_Hospital/getDoctorName/"+doctorName);
-//xhttp.send();
-//xhttp.onload=function(){
-//doctorNameError.innerHTML=this.responseText;
-//}
-//}
+
 
 
 
@@ -193,7 +211,7 @@ function validateSlotForm() {
 
 function validateAdminGmailForm(){
 const gmailError = document.getElementById("emailError").innerText;
-if(gmailError != "Email exists"){
+if(gmailError != ""){
 alert("Cannot submit: " + gmailError);
 return false;
 }
