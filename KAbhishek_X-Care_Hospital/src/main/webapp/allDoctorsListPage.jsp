@@ -31,6 +31,20 @@
         transform: scale(1.05);
     }
 
+    .toast {
+  animation: slideDown 0.5s ease forwards;
+}
+@keyframes slideDown {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
 </style>
 <main>
     <nav class="navbar bg-body-tertiary py-1">
@@ -107,10 +121,7 @@
 </main>
 
 <body>
-<div>
-    <p class="text-danger fw-bold text-center">${dataNotDelete}</p>
-    <p class="text-success  fw-bold text-center">${dataDelete}</p>
-</div>
+
 <div class="container mt-4 ">
     <div class="row justify-content-center align-items-center">
         <c:forEach var="doc" items="${doctorsList}">
@@ -152,7 +163,7 @@
                         </form>
                         <form action="deleteDoctor" method="post">
                             <input type="hidden" name="doctorID" value="${doc.id}">
-                            <button class="btn btn-danger btn-sm">Delete</button>
+                            <button type="button" class="btn btn-danger btn-sm" onclick="confirmDelete('${doc.id}')">Delete</button>
                         </form>
                     </div>
                 </div>
@@ -161,8 +172,84 @@
     </div>
 </div>
 
+
+
+
+<!-- 🔴 Delete Confirmation Modal -->
+<div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" >
+        <div class="modal-content border-0 shadow-lg rounded-4">
+            <div class="modal-header" style="background : linear-gradient(135deg, #003366, #007bff)">
+                <h5 class="modal-title fw-bold" style="color:white;">
+                    <i class="bi bi-exclamation-triangle-fill me-2" ></i >
+                    Confirm Delete
+                </h5>
+            </div>
+            <div class="modal-body text-center">
+                <p class="fw-semibold mb-3">Are you sure you want to delete this doctor's data?</p>
+                <p class="text-muted small">This action cannot be undone.</p>
+            </div>
+            <div class="modal-footer border-0 justify-content-center pb-4">
+                <form id="deleteForm" action="deleteDoctor" method="post">
+                    <input type="hidden" id="doctorID" name="doctorID">
+                    <button type="submit" class="btn px-4 shadow-sm text-white" style="background:linear-gradient(135deg, #003366, #007bff)">Yes, Delete</button>
+                    <button type="button" class="btn btn-outline-secondary px-4 shadow-sm" data-bs-dismiss="modal">Cancel</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 🟢 Toast Notification (Top Center) -->
+<div class="position-fixed top-0 start-50 translate-middle-x p-3" style="z-index: 1100;">
+    <div id="toastMessage" class="toast align-items-center border-0 shadow-lg rounded-3 text-white fw-semibold" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body text-center" id="toastBody"></div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+</div>
+
+
 <script src="resources/js/index.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+<script>
+    // Show Delete Modal
+    function confirmDelete(doctorID) {
+      document.getElementById("doctorID").value = doctorID;
+      var deleteModal = new bootstrap.Modal(document.getElementById('deleteConfirmModal'));
+      deleteModal.show();
+    }
+
+    // Show Toast when page reloads after delete
+    document.addEventListener("DOMContentLoaded", function () {
+      var successMsg = '<c:out value="${dataDelete != null ? dataDelete : ''}" />';
+      var errorMsg   = '<c:out value="${dataNotDelete != null ? dataNotDelete : ''}" />';
+
+      if (successMsg.trim() !== "") {
+        showToast(successMsg, "success");
+      } else if (errorMsg.trim() !== "") {
+        showToast(errorMsg, "danger");
+      }
+    });
+
+    // Toast Helper Function
+    function showToast(message, type) {
+      var toastEl = document.getElementById('toastMessage');
+      var toastBody = document.getElementById('toastBody');
+      toastBody.textContent = message;
+
+      if (type === "danger") {
+        toastEl.style.background = "linear-gradient(135deg, #b30000, #ff4d4d)";
+      } else {
+        toastEl.style.background = "linear-gradient(135deg, #003366, #007bff)";
+      }
+
+      var toast = new bootstrap.Toast(toastEl, { delay: 2000 });
+      toast.show();
+    }
+</script>
+
 </body>
 <footer>
 

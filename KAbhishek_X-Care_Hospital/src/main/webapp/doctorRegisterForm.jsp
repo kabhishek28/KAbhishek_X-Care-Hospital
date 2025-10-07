@@ -20,6 +20,20 @@
  .dropdown-menu .dropdown-item:hover {
     background-color: #0055aa;
     }
+
+     .toast {
+  animation: slideDown 0.5s ease forwards;
+}
+@keyframes slideDown {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
 </style>
 
 <main>
@@ -178,18 +192,16 @@
         </form>
     </div>
 </div>
-<div class="modal fade" id="successModal" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modalTitle">Message</h5>
-            </div>
-            <div class="modal-body">
-                <p id="modalMessage"></p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
+
+
+
+<div class="position-fixed top-0 start-50 translate-middle-x p-3" style="z-index: 1100;">
+    <div id="toastMessage"
+         class="toast align-items-center border-0 shadow-lg rounded-3 text-white fw-semibold"
+         role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body text-center" id="toastBody"></div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
     </div>
 </div>
@@ -200,18 +212,30 @@
     var successMsg = '<c:out value="${modalMessageSaved != null ? modalMessageSaved : ''}" />';
     var errorMsg   = '<c:out value="${modalMessageNotSaved != null ? modalMessageNotSaved : ''}" />';
 
-    if(successMsg.trim() !== ""){
-        document.getElementById("modalTitle").textContent = "Success";
-        document.getElementById("modalMessage").textContent = successMsg;
-        var myModal = new bootstrap.Modal(document.getElementById('successModal'));
-        myModal.show();
-    } else if(errorMsg.trim() !== ""){
-        document.getElementById("modalTitle").textContent = "Error";
-        document.getElementById("modalMessage").textContent = errorMsg;
-        var myModal = new bootstrap.Modal(document.getElementById('successModal'));
-        myModal.show();
+    // Reference to toast and body
+    const toastElement = document.getElementById("toastMessage");
+    const toastBody = document.getElementById("toastBody");
+
+    if (successMsg.trim() !== "") {
+        toastBody.textContent = successMsg;
+
+        // Gradient for success
+        toastElement.style.background = "linear-gradient(135deg, #003366, #007bff)";
+        toastElement.style.color = "white";
+        const toast = new bootstrap.Toast(toastElement, { delay: 2000 });
+        toast.show();
+    }
+    else if (errorMsg.trim() !== "") {
+        toastBody.textContent = errorMsg;
+
+        // Gradient for error
+        toastElement.style.background = "linear-gradient(135deg, #b30000, #ff4d4d)";
+        toastElement.style.color = "white";
+        const toast = new bootstrap.Toast(toastElement, { delay: 2000 });
+        toast.show();
     }
 </script>
+
 </body>
 <footer>
 

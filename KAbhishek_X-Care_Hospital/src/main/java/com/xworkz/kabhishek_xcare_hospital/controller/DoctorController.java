@@ -44,7 +44,7 @@ public class DoctorController {
         }else {
             model.addAttribute("modalMessageSaved",value);
         }
-        return "home";
+        return "doctorRegisterForm";
     }
 
     @GetMapping("download")
@@ -61,7 +61,7 @@ public class DoctorController {
     public String getUpDatePage(Model model){
         List<DoctorDTO> list = doctorService.getAllDoctorsList();
         model.addAttribute("doctorsList",list);
-        return "doctorsUpdatePage";
+        return "allDoctorsListPage";
     }
 
     @RequestMapping("getDoctorUpdatePage")
@@ -86,12 +86,14 @@ public class DoctorController {
     @RequestMapping("deleteDoctor")
     public String deleteDoctor(int doctorID,Model model){
         String value = doctorService.deleteDoctorData(doctorID);
-        if(!value.equals("data deleted")){
+
+        List<DoctorDTO> list = doctorService.getAllDoctorsList();
+        model.addAttribute("doctorsList",list);
+        if(!value.equals("Data Deleted")){
             model.addAttribute("dataNotDelete","Doctor Data not Deleted");
-            return "";
         }else {
             model.addAttribute("dataDelete","Doctor Data Deleted");
-            return "";
         }
+        return "allDoctorsListPage";
     }
 }

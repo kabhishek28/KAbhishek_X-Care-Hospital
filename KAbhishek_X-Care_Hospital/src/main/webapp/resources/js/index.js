@@ -14,7 +14,7 @@ const nameInput = document.getElementById("inputName").value;
 const nameError = document.getElementById("nameError");
 const nameRex = /^[A-Za-z]+(\s[A-Za-z]+)*$/;
 if(!nameRex.test(nameInput)){
-nameError.textContent = "Numbers and special characters are not allowed"
+nameError.textContent = "Numbers and special characters are not allowed";
 return
 }else{
 nameError.textContent="";
