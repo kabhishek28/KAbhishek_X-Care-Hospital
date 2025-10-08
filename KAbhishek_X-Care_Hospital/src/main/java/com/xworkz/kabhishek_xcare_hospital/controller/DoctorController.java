@@ -2,7 +2,6 @@ package com.xworkz.kabhishek_xcare_hospital.controller;
 
 import com.xworkz.kabhishek_xcare_hospital.dto.DoctorDTO;
 import com.xworkz.kabhishek_xcare_hospital.service.DoctorService;
-import com.xworkz.kabhishek_xcare_hospital.service.HospitalService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,14 +10,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
+
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 
 @Controller
@@ -60,6 +56,7 @@ public class DoctorController {
     @RequestMapping("allDoctorsList")
     public String getUpDatePage(Model model){
         List<DoctorDTO> list = doctorService.getAllDoctorsList();
+        log.info(list.toString());
         model.addAttribute("doctorsList",list);
         return "allDoctorsListPage";
     }
