@@ -17,15 +17,17 @@ public class SlotTimingRepositoryImp implements SlotTimingRepository{
     EntityManagerFactory entityManagerFactory;
 
     @Override
-    public void saveTimingSlots(TimingSlotEntity timingSlotEntity) {
+    public String saveTimingSlots(TimingSlotEntity timingSlotEntity) {
         EntityManager eM = null;
         EntityTransaction eT = null;
+        String value = "Slot timing is not Saved";
         try {
             eM = entityManagerFactory.createEntityManager();
             eT = eM.getTransaction();
             eT.begin();
             eM.persist(timingSlotEntity);
             eT.commit();
+            value = "Time Slot assigned successfully.";
         }catch (Exception e){
             if(eT.isActive()){
                 eT.rollback();
@@ -33,5 +35,6 @@ public class SlotTimingRepositoryImp implements SlotTimingRepository{
         }finally {
             eM.close();
         }
+        return value;
     }
 }

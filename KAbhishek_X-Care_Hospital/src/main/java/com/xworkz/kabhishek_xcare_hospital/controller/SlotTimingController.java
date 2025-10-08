@@ -7,6 +7,7 @@ import com.xworkz.kabhishek_xcare_hospital.service.SlotTimingService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.time.LocalTime;
@@ -26,7 +27,7 @@ public class SlotTimingController {
     }
 
     @RequestMapping("saveSlotTiming")
-    public String saveSlotTiming(TimingSlotDTO timingSlot ){
+    public String saveSlotTiming(TimingSlotDTO timingSlot, Model model){
 
         LocalTime start = LocalTime.parse(timingSlot.getStartTime(), DateTimeFormatter.ofPattern("HH:mm"));
         LocalTime end = LocalTime.parse(timingSlot.getEndTime(),DateTimeFormatter.ofPattern("HH:mm"));
@@ -38,7 +39,12 @@ public class SlotTimingController {
         timingSlot.setStartTime(formattedStart);
         timingSlot.setEndTime(formattedEnd);
 
-        slotTimingService.saveTimeSlots(timingSlot);
+        String value = slotTimingService.saveTimeSlots(timingSlot);
+        if(!value.equals("Time Slot assigned successfully.")){
+            model.addAttribute("timeSlotNotAssigned",value);
+        }else {
+            model.addAttribute("timeSlotAssigned",value);
+        }
         return "slotTiming";
     }
 }

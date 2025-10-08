@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page isELIgnored="false" %>
 <!--<!doctype html>-->
-<html lang="en">
+<html lang="en" xmlns:c="http://www.w3.org/1999/XSL/Transform">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -134,10 +134,7 @@
         <p class="text-danger fw-bold text-center">${message}</p>
     </c:if>
 </div>
-<div>
-    <p class="text-danger fw-bold text-center">${saveMessageError}</p>
-    <p class="text-success  fw-bold text-center">${saveMessage}</p>
-</div>
+
 
 <div>
     <c:if test="${not empty doctors}">
@@ -146,7 +143,6 @@
                 <h5 class="text-center mb-4 fw-bold">Check Doctors</h5>
 
                 <form action="doctorSlotAssign" method="post" onsubmit="return validateSlotForm()">
-
 <!--                    <input type="number" class="form-control" id="docId" name="doctorID" value="${doctor.id}" oninput="validationId()" placeholder="Enter Doctor ID" hidden>-->
                     <div class="mb-4">
                         <label for="doctorID" class="form-label fw-semibold">Doctors</label>
@@ -198,8 +194,44 @@
     <p class="text-success  fw-bold text-center">${messageAssignSaved}</p>
 </div>
 
+
+<div class="position-fixed top-0 start-50 translate-middle-x p-3 " style="z-index: 1100;">
+    <div id="toastMessage" class="toast align-items-center border-0 shadow-lg rounded-3 text-white fw-semibold"
+         role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body text-center" id="toastBody"></div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+</div>
 <script src="resources/js/index.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+    const successMessage = "${saveMessage}";
+    const errorMessage = "${saveMessageError}";
+
+    let message = "";
+    const toastElement = document.getElementById("toastMessage");
+    const toastBody = document.getElementById("toastBody");
+
+    if (successMessage && successMessage !== "") {
+        message = successMessage;
+
+        toastElement.style.background = "linear-gradient(135deg, #003366, #007bff)";
+    } else if (errorMessage && errorMessage !== "") {
+        message = errorMessage;
+
+        toastElement.style.background = "linear-gradient(135deg, #8B0000, #FF4500)";
+    }
+
+    if (message) {
+        toastBody.textContent = message;
+        const toast = new bootstrap.Toast(toastElement, { delay: 2000 });
+        toast.show();
+    }
+});
+</script>
 </body>
 <footer>
 

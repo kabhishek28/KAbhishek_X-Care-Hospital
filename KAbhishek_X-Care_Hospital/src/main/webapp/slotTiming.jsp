@@ -1,4 +1,5 @@
-<!doctype html>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page isELIgnored="false" %>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -136,7 +137,47 @@
 </div>
 </div>
 
+
+
+
+
+<div class="position-fixed top-0 start-50 translate-middle-x p-3 " style="z-index: 1100;">
+    <div id="toastMessage" class="toast align-items-center border-0 shadow-lg rounded-3 text-white fw-semibold"
+    role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body text-center" id="toastBody"></div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+    const successMessage = "${timeSlotAssigned}";
+    const errorMessage = "${timeSlotNotAssigned}";
+
+    let message = "";
+    const toastElement = document.getElementById("toastMessage");
+    const toastBody = document.getElementById("toastBody");
+
+    if (successMessage && successMessage !== "") {
+        message = successMessage;
+
+        toastElement.style.background = "linear-gradient(135deg, #003366, #007bff)";
+    } else if (errorMessage && errorMessage !== "") {
+        message = errorMessage;
+
+        toastElement.style.background = "linear-gradient(135deg, #8B0000, #FF4500)";
+    }
+
+    if (message) {
+        toastBody.textContent = message;
+        const toast = new bootstrap.Toast(toastElement, { delay: 2000 });
+        toast.show();
+    }
+});
+</script>
 </body>
 <footer>
 

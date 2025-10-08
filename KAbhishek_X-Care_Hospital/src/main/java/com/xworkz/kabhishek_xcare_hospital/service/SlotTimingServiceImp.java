@@ -16,9 +16,9 @@ public class SlotTimingServiceImp implements SlotTimingService{
     SlotTimingRepository slotTimingRepository;
 
     @Override
-    public void saveTimeSlots(TimingSlotDTO timingSlotDTO) {
+    public String saveTimeSlots(TimingSlotDTO timingSlotDTO) {
         TimingSlotEntity timingSlotEntity = new TimingSlotEntity();
         BeanUtils.copyProperties(timingSlotDTO,timingSlotEntity);
-        slotTimingRepository.saveTimingSlots(timingSlotEntity);
+        return slotTimingRepository.saveTimingSlots(timingSlotEntity);
     }
 }

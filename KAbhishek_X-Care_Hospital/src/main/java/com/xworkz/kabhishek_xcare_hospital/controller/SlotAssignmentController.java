@@ -49,11 +49,10 @@ public class SlotAssignmentController {
         String value = slotAssignmentService.saveDoctorWithSlots(doctorWithSlots);
 
         if(!value.equals("Data has been Saved")){
-            model.addAttribute("saveMessageError","Slot could not be assigned to the doctor.");
-            return "assignslot";
+            model.addAttribute("saveMessageError","Slot assignment failed.");
         }else {
-            model.addAttribute("saveMessage","Slot has been successfully assigned to the doctor.");
-            return "assignslot";
+            model.addAttribute("saveMessage","Slot assigned successfully.");
         }
+        return "assignslot";
     }
 }

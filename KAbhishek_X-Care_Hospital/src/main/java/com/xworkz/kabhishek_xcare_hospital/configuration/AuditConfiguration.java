@@ -18,5 +18,4 @@ public class AuditConfiguration {
     public AuditorAware<String> auditorAware(HttpSession session){
         return new AuditorAwareImpl(session);
     }
-
 }

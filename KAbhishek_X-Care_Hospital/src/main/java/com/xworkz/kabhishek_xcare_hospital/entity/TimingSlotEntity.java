@@ -28,8 +28,8 @@ public class TimingSlotEntity extends AuditEntity{
     @Column(name = "end_time")
     private String endTime;
 
-    @OneToMany(mappedBy = "timingSlotEntity",cascade = CascadeType.ALL,orphanRemoval = true)
+    @OneToMany(mappedBy = "timingSlotEntity",cascade = CascadeType.ALL)
     @ToString.Exclude
-    List<DoctorSlotAssignmentEntity> assignmentEntities;
+    private List<DoctorSlotAssignmentEntity> assignmentEntities;
 
 }

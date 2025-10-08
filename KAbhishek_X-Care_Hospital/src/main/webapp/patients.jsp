@@ -26,8 +26,8 @@
     <nav class="navbar bg-body-tertiary py-1">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
-                <span><img src="img/Hospital logo3.png" alt="Hospital Logo" width="70" height="60"></span>
-                <span><img src="img/Hospital logo4.png" alt="Hospital Name" width="150" height="60"></span>
+                <span><img src="${pageContext.request.contextPath}/img/Hospital logo3.png" alt="Hospital Logo" width="70" height="60"></span>
+                <span><img src="${pageContext.request.contextPath}/img/Hospital logo4.png" alt="Hospital Name" width="150" height="60"></span>
 
             </a>
             <div class="" role="group" aria-label="Hospital Actions">
@@ -100,10 +100,7 @@
 <div class="d-flex justify-content-center mt-5">
     <div class="card shadow-lg p-4 rounded-4" style="width: 40rem;">
         <h3 class="text-center mb-4">Patient Registration</h3>
-        <div>
-            <p class="text-danger fw-bold text-center">${DataNotSaved}</p>
-            <p class="text-success  fw-bold text-center">${DataSaved}</p>
-        </div>
+
         <form class="row g-3" action="patient/save" method="post">
 
             <div class="col-md-6">
@@ -115,7 +112,7 @@
 
             <div class="col-md-6">
                 <label for="ageID" class="form-label">Age</label><span>*</span>
-                <input type="number" class="form-control" id="ageID" name="age" placeholder="30" oninput="validationAge()" min="0" max="120" required>
+                <input type="number" class="form-control" id="ageID" name="age" placeholder="30" oninput="validationAge()" min="0" max="100" required>
                 <div  id="ageError" class="input-text text-danger" style="min-height:25px;"></div>
             </div>
 
@@ -125,8 +122,6 @@
                     <option selected disabled>Choose...</option>
                     <option value="male">Male</option>
                     <option value="female">Female</option>
-                    <option value="other">Other</option>
-                    <option value="prefer_not_say">Prefer not to say</option>
                 </select>
             </div>
 
@@ -209,11 +204,6 @@
                 <label for="fees" class="form-label">Consultation Fees</label>
                 <input type="number" class="form-control" id="fees" name="fees" placeholder="doctor fees"  min="0" >
             </div>
-
-
-
-
-
             <div class="col-12 text-center">
                 <button type="submit" class="btn btn-primary w-100">Book Appointment</button>
             </div>
@@ -221,10 +211,52 @@
     </div>
 </div>
 
+
+
+
+<div class="position-fixed top-0 start-50 translate-middle-x p-3 " style="z-index: 1100;">
+    <div id="toastMessage" class="toast align-items-center border-0 shadow-lg rounded-3 text-white fw-semibold"
+         role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body text-center" id="toastBody"></div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+</div>
+
 <script src="resources/js/ajax.js"></script>
+<script src="resources/js/patient.js"></script>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
         crossorigin="anonymous"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+    const successMessage = "${DataSaved}";
+    const errorMessage = "${DataNotSaved}";
+
+    let message = "";
+    const toastElement = document.getElementById("toastMessage");
+    const toastBody = document.getElementById("toastBody");
+
+    if (successMessage && successMessage !== "") {
+        message = successMessage;
+
+        toastElement.style.background = "linear-gradient(135deg, #003366, #007bff)";
+    } else if (errorMessage && errorMessage !== "") {
+        message = errorMessage;
+
+        toastElement.style.background = "linear-gradient(135deg, #8B0000, #FF4500)";
+    }
+
+    if (message) {
+        toastBody.textContent = message;
+        const toast = new bootstrap.Toast(toastElement, { delay: 2000 });
+        toast.show();
+    }
+});
+</script>
 </body>
 
 <footer>
