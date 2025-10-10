@@ -46,6 +46,7 @@ public class DoctorController {
     @GetMapping("download")
     public void previewImage(HttpServletResponse response, @RequestParam String imagePath) throws IOException {
         response.setContentType("image/jpeg");
+
         File file=new File("D:\\doctorfolder\\"+imagePath);
         InputStream inputStream=new BufferedInputStream(new FileInputStream(file));
         ServletOutputStream servletOutputStream=response.getOutputStream();
