@@ -7,6 +7,7 @@ import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.io.*;
 import java.util.List;
 
@@ -32,7 +34,11 @@ public class DoctorController {
     }
 
     @RequestMapping("doctorForm")
-    public String saveDoctorFrom(DoctorDTO dto , Model model) throws IOException {
+    public String saveDoctorFrom(@Valid  DoctorDTO dto , BindingResult bindingResult, Model model) throws IOException {
+        if(bindingResult.hasErrors()){
+            bindingResult.getAllErrors();
+            return "doctorRegisterForm";
+        }
         model.addAttribute("dto",dto);
         String value = doctorService.saveDoctor(dto);
         if(!value.equals("Doctor Details Saved")){
