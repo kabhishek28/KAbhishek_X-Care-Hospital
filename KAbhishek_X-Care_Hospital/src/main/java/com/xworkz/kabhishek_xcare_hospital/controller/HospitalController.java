@@ -27,7 +27,7 @@ public class HospitalController {
     @Autowired
     HospitalService hospitalService;
 
-    @RequestMapping("adminLogin")
+    @RequestMapping("/adminLogin")
     public String adminPage(){
         return "adminLogin";
     }
