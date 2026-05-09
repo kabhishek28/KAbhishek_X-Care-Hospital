@@ -19,6 +19,8 @@ public class AuditorAwareImpl implements AuditorAware<String> {
     public Optional<String> getCurrentAuditor() {
         String gmail = (String) httpSession.getAttribute("email");
         log.info(gmail);
+
+
         return Optional.ofNullable(gmail);
     }
 }
