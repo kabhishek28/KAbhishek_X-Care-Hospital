@@ -78,7 +78,7 @@ public class HospitalConfiguration implements WebMvcConfigurer {
         dataSource.setUsername("root");
         dataSource.setPassword("Abhi@2003");
         return dataSource;
-    }
+    }l
 
     @Bean("multipartResolver")
     public CommonsMultipartResolver commonsMultipartResolver(){

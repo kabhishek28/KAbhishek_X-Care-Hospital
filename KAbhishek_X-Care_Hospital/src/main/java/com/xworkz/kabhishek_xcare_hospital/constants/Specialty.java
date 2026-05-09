@@ -1,6 +1,6 @@
 package com.xworkz.kabhishek_xcare_hospital.constants;
 
-public enum Specialty {
+public enum  Specialty {
     CARDIOLOGY,
     DERMATOLOGY,
     NEUROLOGY,
