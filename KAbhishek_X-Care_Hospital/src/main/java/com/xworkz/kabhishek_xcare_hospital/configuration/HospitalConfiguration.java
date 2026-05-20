@@ -62,11 +62,11 @@ public class HospitalConfiguration implements WebMvcConfigurer {
         Properties properties = new Properties();
         properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL8Dialect");
         properties.setProperty("hibernate.hbm2ddl.auto", "update");
-//        properties.setProperty("hibernate.show_sql", "true");
-//        properties.setProperty("hibernate.format_sql", "true");
-//        properties.setProperty("hibernate.cache.use_second_level_cache", "false");
-//        properties.setProperty("hibernate.cache.use_query_cache", "false");
-//        properties.setProperty("hibernate.jdbc.batch_size", "50");
+        properties.setProperty("hibernate.show_sql", "true");
+        properties.setProperty("hibernate.format_sql", "true");
+        properties.setProperty("hibernate.cache.use_second_level_cache", "false");
+        properties.setProperty("hibernate.cache.use_query_cache", "false");
+        properties.setProperty("hibernate.jdbc.batch_size", "50");
         return properties;
     }
 
